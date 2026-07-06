@@ -93,7 +93,9 @@
         the core. The reserved <b>void</b> lets us grow older still.<br><br>
         Each <b>slice</b> is a place &amp; ecosystem, so <b style="color:var(--evo)">🧬 Evolution</b> draws
         <b>spokes</b> from an extinct animal out to its living relative on the rim.<br><br>
-        Click any species to read its story.</div>
+        Click any species to read its story.<br><br>
+        <span style="font-size:11px">Data: GBIF · IUCN Red List · Paleobiology Database · World Bank ·
+        Paine (1966). Full citations in <b>CREDITS.md</b>.</span></div>
     </div>
   </div>
 </div>
@@ -337,6 +339,32 @@ const NODES = [
    era:'Neogene', a:80, dr:-42, fact:`Grazers like Hipparion that spread across the new Miocene grasslands.`},
   {id:'baleenwhales', name:'Baleen Whales', kind:'marine', status:'living', place:'Neogene oceans',
    era:'Neogene', a:94, dr:-6, fact:`Filter-feeding whales — the megalodon's main prey, and still the ocean's giants.`},
+
+  // ============ A CLASSIC PUBLISHED FOOD WEB — Paine (1966) rocky intertidal ============
+  {id:'pisaster', name:'Ochre Sea Star', sci:'Pisaster ochraceus', kind:'marine', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:24, dr:44,
+   fact:`Robert Paine's original "keystone species" (1966). Remove it and mussels crowd out the whole community — the experiment that founded the concept.`},
+  {id:'mussels', name:'California Mussel', sci:'Mytilus californianus', kind:'marine', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:17, dr:-8,
+   fact:`The dominant competitor for space. Pisaster eating it is what keeps the shore diverse.`},
+  {id:'acornbarnacle', name:'Acorn Barnacle', sci:'Balanus glandula', kind:'marine', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:28, dr:-8,
+   fact:`Filter-feeds on plankton; prey of both Pisaster and the whelk.`},
+  {id:'goosebarnacle', name:'Gooseneck Barnacle', sci:'Pollicipes polymerus', kind:'marine', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:23, dr:-38,
+   fact:`Paine's "Mitella" — a filter feeder and Pisaster prey.`},
+  {id:'chitons', name:'Chitons', sci:'Katharina tunicata', kind:'marine', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:16, dr:-44,
+   fact:`Grazers that scrape algae off the rock — eaten by Pisaster.`},
+  {id:'limpets', name:'Limpets', sci:'Lottia', kind:'marine', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:30, dr:-46,
+   fact:`Grazing snails that scrape algae — eaten by Pisaster.`},
+  {id:'whelk', name:'Whelk', sci:'Nucella', kind:'marine', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:32, dr:34,
+   fact:`A predatory snail that drills into barnacles — itself prey of Pisaster.`},
+  {id:'intertidalalgae', name:'Algae & Plankton', kind:'plant', status:'living',
+   place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:20, dr:-66,
+   fact:`Benthic algae and plankton — the base grazed and filtered by the whole shore community.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -378,6 +406,11 @@ const ECOSYSTEMS = {
   'Late Cretaceous':         ['trex','triceratops','birds','cretplants','edmontosaurus'],
   'Paleogene (Age of Mammals)':['titanoboa','basilosaurus','paraceratherium','hyaenodon','paleoforest','crocodilians','paleofish'],
   'Neogene (Age of Mammals)': ['megalodon','terrorbird','argentavis','australopithecus','miocenegrass','grazers','baleenwhales'],
+  'Pacific rocky shore (Paine 1966)':['pisaster','mussels','acornbarnacle','goosebarnacle','chitons','limpets','whelk','intertidalalgae'],
+};
+// citations for ecosystems drawn from a published study
+const ECO_SOURCE = {
+  'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate.'
 };
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
@@ -542,6 +575,20 @@ const EDGES = [
   {from:'baleenwhales', to:'zooplankton', type:'eats', note:'filter-feeds on plankton'},
   // ---- evolution spoke from the present to our deep ancestor ----
   {from:'human', to:'australopithecus', type:'ancestor', note:'our Pliocene ancestor'},
+
+  // ---- Paine (1966) rocky-intertidal food web ----
+  {from:'pisaster', to:'mussels', type:'eats', note:'its main prey'},
+  {from:'pisaster', to:'acornbarnacle', type:'eats', note:'preys on barnacles'},
+  {from:'pisaster', to:'goosebarnacle', type:'eats', note:'preys on barnacles'},
+  {from:'pisaster', to:'chitons', type:'eats', note:'preys on grazers'},
+  {from:'pisaster', to:'limpets', type:'eats', note:'preys on grazers'},
+  {from:'pisaster', to:'whelk', type:'eats', note:'eats the whelk too'},
+  {from:'whelk', to:'acornbarnacle', type:'eats', note:'drills into barnacles'},
+  {from:'mussels', to:'intertidalalgae', type:'eats', note:'filter-feeds plankton'},
+  {from:'acornbarnacle', to:'intertidalalgae', type:'eats', note:'filter-feeds plankton'},
+  {from:'goosebarnacle', to:'intertidalalgae', type:'eats', note:'filter-feeds plankton'},
+  {from:'chitons', to:'intertidalalgae', type:'eats', note:'grazes algae'},
+  {from:'limpets', to:'intertidalalgae', type:'eats', note:'grazes algae'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
@@ -915,6 +962,7 @@ function focusEcosystem(name){
     <div class="fact">Zoomed to a single ecosystem — the scale where connectance is meaningful. This one sits
       in the <b>real range (0.1–0.25)</b>.</div>`;
   if(WB_REGION[name]!=null) html+=`<div class="row" style="font-size:12px;color:var(--dim);margin:-4px 0 8px">🌱 Today ~<b style="display:inline;color:var(--eco)">${WB_REGION[name]}%</b> of this region's land is protected (World Bank 2021)</div>`;
+  if(ECO_SOURCE[name]) html+=`<div class="fact" style="font-size:12px">📖 ${ECO_SOURCE[name]}</div>`;
   html+=`<div class="conns"><h3>Species &amp; food web</h3>`;
   members.forEach(n=>{ const nn=n.data('_n');
     const iu=IUCN[n.id()];
