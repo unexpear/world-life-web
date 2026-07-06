@@ -409,6 +409,39 @@ const NODES = [
    place:'N. American boreal forest', era:'Today', a:143, dr:32, fact:`Another hare predator whose numbers track the 10-year cycle.`},
   {id:'borealshrub', name:'Willows & Shrubs', kind:'plant', status:'living',
    place:'N. American boreal forest', era:'Today', a:149, dr:-58, fact:`Boreal browse — the winter food that limits the hare at the peak of its cycle.`},
+
+  // ================ THE BEAR FAMILY (Ursidae) — 8 living + 2 famous extinct ================
+  {id:'brownbear', name:'Brown Bear', sci:'Ursus arctos', kind:'mammal', status:'living', place:'Ursidae · Eurasia & N. America',
+   era:'Today', a:316, dr:44, fact:`The wide-ranging omnivore (grizzlies included). Eats salmon, berries, roots — and the odd elk.`},
+  {id:'polarbear', name:'Polar Bear', sci:'Ursus maritimus', kind:'mammal', status:'living', place:'Ursidae · Arctic',
+   era:'Today', a:311, dr:40, fact:`A hypercarnivore that evolved from brown bears in the Ice Age to hunt seals on the sea ice.`},
+  {id:'panda', name:'Giant Panda', sci:'Ailuropoda melanoleuca', kind:'mammal', status:'living', place:'Ursidae · China',
+   era:'Today', a:322, dr:40, fact:`The most basal bear (its line split ~19 Ma). About 99% of its diet is bamboo.`},
+  {id:'blackbear', name:'American Black Bear', sci:'Ursus americanus', kind:'mammal', status:'living', place:'Ursidae · N. America',
+   era:'Today', a:310, dr:6, fact:`North America's adaptable omnivore — berries, nuts, insects and salmon.`},
+  {id:'asianblackbear', name:'Asian Black Bear', sci:'Ursus thibetanus', kind:'mammal', status:'living', place:'Ursidae · Asia',
+   era:'Today', a:314, dr:-8, fact:`The "moon bear" of Asian forests; largely fruit and vegetation.`},
+  {id:'spectacledbear', name:'Spectacled Bear', sci:'Tremarctos ornatus', kind:'mammal', status:'living', place:'Ursidae · South America',
+   era:'Today', a:318, dr:8, fact:`South America's only bear, mostly vegetarian — and the last of the Tremarctinae.`},
+  {id:'slothbear', name:'Sloth Bear', sci:'Melursus ursinus', kind:'mammal', status:'living', place:'Ursidae · India',
+   era:'Today', a:321, dr:-8, fact:`An insect specialist that vacuums up termites and ants — plus fruit.`},
+  {id:'sunbear', name:'Sun Bear', sci:'Helarctos malayanus', kind:'mammal', status:'living', place:'Ursidae · SE Asia',
+   era:'Today', a:324, dr:6, fact:`The smallest bear — insects, honey and fruit in Southeast Asian forests.`},
+  {id:'cavebear', name:'Cave Bear', sci:'Ursus spelaeus', kind:'mammal', status:'extinct', place:'Ursidae · Ice-age Europe',
+   era:'Ice Age', a:314, dr:28, when:'~24,000 yrs ago', cause:`Ice-age climate change + human pressure`,
+   fact:`A large, mostly-herbivorous Ice-age bear of Europe — close kin to the brown bear.`},
+  {id:'shortfacedbear', name:'Short-faced Bear', sci:'Arctodus simus', kind:'mammal', status:'extinct', place:'Ursidae · Ice-age N. America',
+   era:'Ice Age', a:320, dr:28, when:'~11,000 yrs ago', cause:`End-ice-age megafauna collapse`,
+   fact:`The largest land carnivoran in North America — a giant omnivore that hunted and scavenged megafauna. Closest living relative: the spectacled bear.`},
+  // bear foods (showing the family's dietary range)
+  {id:'bamboo', name:'Bamboo', kind:'plant', status:'living', place:'Ursidae · China',
+   era:'Today', a:322, dr:-44, fact:`Nutrient-poor grass the giant panda eats almost exclusively.`},
+  {id:'arcticseal', name:'Arctic Seals', kind:'marine', status:'living', place:'Ursidae · Arctic',
+   era:'Today', a:315, dr:-66, fact:`Ringed and bearded seals — the polar bear's near-total diet.`},
+  {id:'salmon', name:'Salmon', kind:'marine', status:'living', place:'Ursidae · N. Pacific rivers',
+   era:'Today', a:312, dr:-42, fact:`Spawning runs — a seasonal protein feast for brown and black bears.`},
+  {id:'plantfood', name:'Fruit, Roots & Insects', kind:'plant', status:'living', place:'Ursidae · worldwide',
+   era:'Today', a:318, dr:-62, fact:`The omnivore staple most bears live on — berries, roots, nuts, honey and insects.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -454,14 +487,18 @@ const ECOSYSTEMS = {
   'Yellowstone (wolf cascade)':['wolf','elk','ysbison','beaver','yswillow','ysaspen','cottonwood','ysgrass'],
   'Southern Ocean (krill web)':['antkrill','antphyto','adelie','crabeater','leopard','minke','silverfish'],
   'Boreal forest (lynx–hare)':['canadalynx','snowshoehare','greathornedowl','borealshrub'],
+  'Bears (Ursidae)':['brownbear','polarbear','panda','blackbear','asianblackbear','spectacledbear','slothbear','sunbear','cavebear','shortfacedbear','bamboo','arcticseal','salmon','plantfood'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
   'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate.',
   'Yellowstone (wolf cascade)':'From Ripple, W.J. & Beschta, R.L. (2012) "Trophic cascades in Yellowstone," Biol. Conserv. 145:205–213. Wolves cut elk browsing → willow, aspen & cottonwood recover → beavers return. A top-down cascade.',
   'Southern Ocean (krill web)':'Antarctic krill (Euphausia superba) is the keystone linking phytoplankton to whales, seals and penguins across the Southern Ocean (synthesis after the Australian Antarctic Program; Trathan & Hill 2016).',
-  'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.'
+  'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.',
+  'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.'
 };
+// clusters that are taxonomic groups (a family), not co-occurring ecological communities
+const TAXON_GROUPS = new Set(['Bears (Ursidae)']);
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
 // ---- Present-day conservation data (verified: IUCN Red List + World Bank, 2021–24) ----
@@ -663,6 +700,27 @@ const EDGES = [
   {from:'snowshoehare', to:'borealshrub', type:'eats', note:'browses shrubs'},
   {from:'canadalynx', to:'snowshoehare', type:'eats', note:'its near-exclusive prey'},
   {from:'greathornedowl', to:'snowshoehare', type:'eats', note:'preys on hares'},
+
+  // ---- Bears (Ursidae): diet spans the whole ecological range ----
+  {from:'panda', to:'bamboo', type:'eats', note:'~99% of its diet'},
+  {from:'polarbear', to:'arcticseal', type:'eats', note:'hunts seals on the ice'},
+  {from:'brownbear', to:'salmon', type:'eats', note:'salmon runs'},
+  {from:'brownbear', to:'plantfood', type:'eats', note:'berries, roots & more'},
+  {from:'blackbear', to:'salmon', type:'eats', note:'catches salmon'},
+  {from:'blackbear', to:'plantfood', type:'eats', note:'berries, nuts & insects'},
+  {from:'asianblackbear', to:'plantfood', type:'eats', note:'fruit & vegetation'},
+  {from:'sunbear', to:'plantfood', type:'eats', note:'insects, honey & fruit'},
+  {from:'slothbear', to:'plantfood', type:'eats', note:'termites, ants & fruit'},
+  {from:'spectacledbear', to:'plantfood', type:'eats', note:'bromeliads & fruit'},
+  {from:'cavebear', to:'plantfood', type:'eats', note:'largely herbivorous'},
+  {from:'shortfacedbear', to:'bison', type:'eats', note:'hunted ice-age megafauna'},
+  {from:'shortfacedbear', to:'detritus_land', type:'eats', note:'scavenged carcasses'},
+  // ---- Ursidae family tree (evolution) ----
+  {from:'polarbear', to:'brownbear', type:'ancestor', note:'closest relative — they still hybridize'},
+  {from:'brownbear', to:'cavebear', type:'ancestor', note:'close Ursinae relative (extinct)'},
+  {from:'spectacledbear', to:'shortfacedbear', type:'ancestor', note:'closest living relative (Tremarctinae)'},
+  {from:'asianblackbear', to:'blackbear', type:'ancestor', note:'sister black-bear species'},
+  {from:'panda', to:'brownbear', type:'ancestor', note:'the most basal bear — split ~19 Ma'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
@@ -1031,10 +1089,12 @@ function focusEcosystem(name){
   cy.animate({fit:{eles:members, padding:70}, duration:450});
   const s=ECOSYSTEMS[name].length;
   const eatsIn=internal.filter(e=>e.data('etype')==='eats').length; const c=eatsIn/(s*s);
+  const isFam=TAXON_GROUPS.has(name);
   let html=`<div class="card"><h2>${name}</h2>
-    <div class="place">🌐 one community · connectance <b>${c.toFixed(2)}</b> (${s} species, ${eatsIn} links)</div>
-    <div class="fact">Zoomed to a single ecosystem — the scale where connectance is meaningful. This one sits
-      in the <b>real range (0.1–0.25)</b>.</div>`;
+    <div class="place">🌐 one ${isFam?'family':'community'} · connectance <b>${c.toFixed(2)}</b> (${s} species, ${eatsIn} links)</div>
+    <div class="fact">${isFam
+      ? 'Zoomed to a taxonomic <b>family</b> — not a single co-occurring community, so its connectance runs below that of a real food web. Turn on <b>🧬 Evolution</b> to see the family tree.'
+      : 'Zoomed to a single ecosystem — the scale where connectance is meaningful. This one sits in the <b>real range (0.1–0.25)</b>.'}</div>`;
   if(WB_REGION[name]!=null) html+=`<div class="row" style="font-size:12px;color:var(--dim);margin:-4px 0 8px">🌱 Today ~<b style="display:inline;color:var(--eco)">${WB_REGION[name]}%</b> of this region's land is protected (World Bank 2021)</div>`;
   if(ECO_SOURCE[name]) html+=`<div class="fact" style="font-size:12px">📖 ${ECO_SOURCE[name]}</div>`;
   html+=`<div class="conns"><h3>Species &amp; food web</h3>`;
