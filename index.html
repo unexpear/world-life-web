@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>World Life Web — Rings of Deep Time</title>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+<style>
+  :root{
+    --bg:#0b0e13; --panel:#141a22; --line:#252d38; --text:#e6edf3; --dim:#8b95a3;
+    --eats:#d55e00; --evo:#0072b2; --eco:#009e73; --amber:#e0a458;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  #app{display:flex;flex-direction:column;height:100%}
+  header{padding:11px 18px;border-bottom:1px solid var(--line);display:flex;
+    align-items:center;gap:16px;flex-wrap:wrap}
+  h1{font-size:16px;margin:0;letter-spacing:.3px}
+  h1 small{color:var(--dim);font-weight:400;font-size:12px;margin-left:8px}
+  .toggles{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+  .toggles button{background:var(--panel);color:var(--text);border:1px solid var(--line);
+    padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer;transition:.15s}
+  .toggles button:hover{border-color:#3d4757}
+  .toggles button[data-on="1"]{color:#fff;font-weight:600}
+  .toggles button.eats[data-on="1"]{background:var(--eats);border-color:var(--eats)}
+  .toggles button.evo[data-on="1"]{background:var(--evo);border-color:var(--evo)}
+  .toggles button.eco[data-on="1"]{background:var(--eco);border-color:var(--eco)}
+  .toggles button.cascade{border-color:#e0a458;color:#e0a458}
+  .toggles button.cascade[data-on="1"]{background:#e0a458;border-color:#e0a458;color:#1a1206}
+  .toggles button.metrics{border-color:#8a7fc9;color:#a99fe0}
+  .toggles button.metrics[data-on="1"]{background:#8a7fc9;border-color:#8a7fc9;color:#12101f}
+  #main{flex:1;display:flex;min-height:0}
+  #cy{flex:1;min-width:0;background:radial-gradient(circle at 50% 50%,#0d131b 0%,#0b0e13 55%,#080a0e 100%)}
+  #side{width:310px;border-left:1px solid var(--line);background:var(--panel);
+    padding:18px;overflow-y:auto}
+  #side .hint{color:var(--dim);font-size:13px;line-height:1.65}
+  #side .hint b{color:var(--text)}
+  .card h2{margin:0 0 2px;font-size:20px}
+  .card .sci{color:var(--dim);font-style:italic;font-size:13px;margin-bottom:10px}
+  .badge{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;
+    margin-bottom:6px;font-weight:600}
+  .badge.extinct{background:rgba(224,164,88,.15);color:var(--amber);
+    border:1px solid rgba(224,164,88,.4)}
+  .badge.living{background:rgba(87,171,90,.15);color:var(--eco);
+    border:1px solid rgba(87,171,90,.4)}
+  .place{font-size:12px;color:var(--dim);margin-bottom:12px}
+  .card .row{font-size:13px;margin:7px 0;line-height:1.5}
+  .card .row b{color:var(--dim);font-weight:600;display:block;font-size:11px;
+    text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px}
+  .card .fact{margin-top:12px;padding:12px;background:var(--bg);border-radius:8px;
+    font-size:13px;line-height:1.55;border:1px solid var(--line)}
+  .conns{margin-top:16px}
+  .conns h3{font-size:11px;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--dim);margin:0 0 6px}
+  .conn{font-size:13px;padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  .conn:hover{color:#fff}
+  .conn .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+  .legend{position:absolute;bottom:14px;right:14px;background:rgba(20,26,34,.92);
+    border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:11px;
+    line-height:1.9;color:var(--dim)}
+  .legend .k{display:inline-block;width:20px;height:0;border-top:3px solid;
+    vertical-align:middle;margin-right:6px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>🌍 World Life Web <small>rings of deep time — the rim is today, the core is the deep past</small></h1>
+    <div class="toggles">
+      <button class="eats" data-type="eats" data-on="1">🍖 Food web</button>
+      <button class="evo"  data-type="ancestor" data-on="1">🧬 Evolution</button>
+      <button class="eco"  data-type="ecology" data-on="1">🌱 Ecology</button>
+      <button class="cascade" id="cascadeBtn" data-on="0">💥 Cascade</button>
+      <button class="metrics" id="metricsBtn" data-on="0">📊 Metrics</button>
+    </div>
+  </header>
+  <div id="main">
+    <div id="cy">
+      <div class="legend">
+        <div><span class="k" style="border-color:var(--eats);border-top-style:solid"></span>eats / hunts</div>
+        <div><span class="k" style="border-color:var(--evo);border-top-style:dashed"></span>evolutionary relative</div>
+        <div><span class="k" style="border-color:var(--eco);border-top-style:dotted"></span>depends on / lives with</div>
+        <div style="margin-top:4px">† = extinct &nbsp;·&nbsp; inward = older</div>
+        <div>💥 Cascade = remove a species, watch it collapse</div>
+      </div>
+    </div>
+    <div id="side">
+      <div class="hint">A <b>cross-section of geologic time</b>, ringed like tree rings and labelled on the
+        real <b>Geologic Time Scale</b>. The <b>rim is the present</b>; travel <b>inward</b> through the
+        <b>Holocene → Pleistocene</b> (both the Quaternary Period), through the <b>Neogene &amp; Paleogene</b>
+        — the Age of Mammals (Titanoboa, Megalodon, terror birds) — to the <b>Cretaceous</b> dinosaurs near
+        the core. The reserved <b>void</b> lets us grow older still.<br><br>
+        Each <b>slice</b> is a place &amp; ecosystem, so <b style="color:var(--evo)">🧬 Evolution</b> draws
+        <b>spokes</b> from an extinct animal out to its living relative on the rim.<br><br>
+        Click any species to read its story.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================= DATA (fact-checked; see fact-check.md) =================
+// era + place drive polar position: radius = era ring, angle(a°) = ecosystem slice.
+// dr = small radius nudge to fan out nodes that share a slice.
+const NODES = [
+  // ---------- TODAY (living, outer rim) ----------
+  {id:'human', name:'Humans', sci:'Homo sapiens', kind:'human', status:'living',
+   place:'Worldwide', era:'Today', a:64, dr:48,
+   fact:`The common thread behind nearly every recent extinction here — through hunting and habitat loss.`},
+  {id:'nicobar', name:'Nicobar Pigeon', sci:'Caloenas nicobarica', kind:'bird', status:'living',
+   place:'SE Asian islands', era:'Today', a:84, dr:-5,
+   fact:`The dodo's closest living relative — an iridescent island pigeon that looks nothing like it.`},
+  {id:'rats', name:'Invasive Rats', sci:'Rattus', kind:'mammal', status:'living',
+   place:'Ship-borne, worldwide', era:'Today', a:99, dr:38,
+   fact:`Ship-borne rats that raided the ground nests of island birds like the dodo.`},
+  {id:'devil', name:'Tasmanian Devil', sci:'Sarcophilus harrisii', kind:'mammal', status:'living',
+   place:'Tasmania', era:'Today', a:122, dr:-5,
+   fact:`Long called the thylacine's closest living relative, and now the largest marsupial carnivore. Recent genome work suggests the numbat may be even closer.`},
+  {id:'numbat', name:'Numbat', sci:'Myrmecobius fasciatus', kind:'mammal', status:'living',
+   place:'SW Australia', era:'Today', a:137, dr:38,
+   fact:`A 2022 genome study points to the numbat as the thylacine's closest living relative — up to ~95% of their DNA is shared. It is itself now endangered (<1,000 left).`},
+  {id:'wallaby', name:'Wallabies', sci:'Macropodidae', kind:'mammal', status:'living',
+   place:'Tasmania', era:'Today', a:114, dr:-48,
+   fact:`Small kangaroo relatives — the thylacine's main prey. Still common in Tasmania.`},
+  {id:'razorbill', name:'Razorbill', sci:'Alca torda', kind:'bird', status:'living',
+   place:'North Atlantic', era:'Today', a:160, dr:-5,
+   fact:`The great auk's closest living relative — same family, but this one can fly.`},
+  {id:'puffin', name:'Atlantic Puffin', sci:'Fratercula arctica', kind:'bird', status:'living',
+   place:'North Atlantic', era:'Today', a:173, dr:38,
+   fact:`A living auk — cousin of the great auk, and a strong flier and diver.`},
+  {id:'fish', name:'Capelin & Herring', sci:'schooling fish', kind:'marine', status:'living',
+   place:'North Atlantic', era:'Today', a:166, dr:-50,
+   fact:`Small schooling fish — capelin were the great auk's dominant prey. They feed on zooplankton.`},
+  {id:'dugong', name:'Dugong', sci:'Dugong dugon', kind:'marine', status:'living',
+   place:'Indo-Pacific coasts', era:'Today', a:196, dr:-5,
+   fact:`The last member of the sea cow's family (Dugongidae) — and its closest living relative.`},
+  {id:'otter', name:'Sea Otter', sci:'Enhydra lutris', kind:'mammal', status:'living',
+   place:'North Pacific', era:'Today', a:210, dr:38,
+   fact:`Keystone of the kelp forest: by eating urchins it keeps the kelp from being mown down.`},
+  {id:'kelp', name:'Kelp Forest', sci:'Laminariales', kind:'plant', status:'living',
+   place:'North Pacific', era:'Today', a:203, dr:-50,
+   fact:`Undersea forests that fed the sea cow and shelter countless species.`},
+  {id:'bandtailed', name:'Band-tailed Pigeon', sci:'Patagioenas fasciata', kind:'bird', status:'living',
+   place:'Western N. America', era:'Today', a:238, dr:-5,
+   fact:`The passenger pigeon's closest living relative — DNA overturned the old idea that it was the mourning dove.`},
+  {id:'oak', name:'Oak & Beech', sci:'Quercus / Fagus', kind:'plant', status:'living',
+   place:'N. American forest', era:'Today', a:246, dr:-46,
+   fact:`Their acorns and nuts ("mast") fed the vast passenger-pigeon flocks.`},
+  {id:'zebra', name:'Plains Zebra', sci:'Equus quagga', kind:'mammal', status:'living',
+   place:'African plains', era:'Today', a:296, dr:-5,
+   fact:`The species the quagga belonged to — still roams the African plains.`},
+  {id:'lion', name:'Lion', sci:'Panthera leo', kind:'mammal', status:'living',
+   place:'African plains', era:'Today', a:307, dr:38,
+   fact:`A modern big cat — only distantly related to the sabre-tooth, as all living cats are.`},
+  {id:'grass', name:'Savanna Grass', sci:'Poaceae', kind:'plant', status:'living',
+   place:'African plains', era:'Today', a:301, dr:-50,
+   fact:`Grazed by zebra and, once, the quagga.`},
+  {id:'elephant', name:'Asian Elephant', sci:'Elephas maximus', kind:'mammal', status:'living',
+   place:'S & SE Asia', era:'Today', a:330, dr:-5,
+   fact:`The mammoth's closest living relative — closer to mammoths than it is to African elephants.`},
+  {id:'steppegrass', name:'Steppe Grasses', sci:'Poaceae', kind:'plant', status:'living',
+   place:'Eurasian steppe', era:'Today', a:339, dr:-50,
+   fact:`The "mammoth steppe" grassland that fed Ice-age giants.`},
+  {id:'birds', name:'Modern Birds', sci:'Aves', kind:'bird', status:'living',
+   place:'Worldwide', era:'Today', a:34, dr:-5,
+   fact:`The only dinosaurs to survive the asteroid. Every bird alive is a living dinosaur.`},
+  {id:'tambalacoque', name:'Tambalacoque Tree', sci:'Sideroxylon grandiflorum', kind:'plant', status:'living',
+   place:'Mauritius', era:'Today', a:75, dr:-46,
+   fact:`A rare Mauritius tree once claimed to need the dodo to germinate — a claim now largely doubted.`},
+
+  // ---------- RECENT · last ~500 years (Holocene) ----------
+  {id:'dodo', name:'Dodo', sci:'Raphus cucullatus', kind:'bird', status:'extinct',
+   place:'Mauritius', era:'Recent (Holocene)', a:88, when:'last seen 1662 (likely to ~1690)',
+   cause:`Hunted by sailors; pigs, monkeys & rats ate its eggs`,
+   fact:`A giant flightless pigeon found only on Mauritius. It evolved with no predators, so it never learned to fear the sailors who hunted it.`},
+  {id:'thylacine', name:'Thylacine', sci:'Thylacinus cynocephalus', kind:'mammal', status:'extinct',
+   place:'Tasmania', era:'Recent (Holocene)', a:128, when:'1936',
+   cause:`Shot for a government bounty in Tasmania`,
+   fact:`The "Tasmanian tiger" was a marsupial, not a cat. It could gape its jaws to about 80°, but they were weak — so it ambushed small prey rather than pulling down big game.`},
+  {id:'auk', name:'Great Auk', sci:'Pinguinus impennis', kind:'bird', status:'extinct',
+   place:'North Atlantic', era:'Recent (Holocene)', a:166, when:'1844',
+   cause:`Hunted out for its feathers, meat & eggs`,
+   fact:`The original "penguin" — the name was later reused for the unrelated southern birds it resembled. The last breeding pair was killed on Eldey island, Iceland, on 3 June 1844.`},
+  {id:'seacow', name:"Steller's Sea Cow", sci:'Hydrodamalis gigas', kind:'marine', status:'extinct',
+   place:'North Pacific (Bering Sea)', era:'Recent (Holocene)', a:203, when:'1768',
+   cause:`Hunted out within 27 years of being discovered`,
+   fact:`A 9-metre relative of the dugong that grazed North Pacific kelp forests. Wiped out within a human lifetime of its discovery.`},
+  {id:'pigeon', name:'Passenger Pigeon', sci:'Ectopistes migratorius', kind:'bird', status:'extinct',
+   place:'Eastern N. America', era:'Recent (Holocene)', a:242, when:'1914',
+   cause:`Industrial hunting + clearing of its forests`,
+   fact:`Once the most abundant bird on Earth — flocks of billions darkened the sky for days. The last one, Martha, died in a zoo in 1914.`},
+  {id:'quagga', name:'Quagga', sci:'Equus quagga quagga', kind:'mammal', status:'extinct',
+   place:'South Africa', era:'Recent (Holocene)', a:300, when:'1883',
+   cause:`Hunted out in South Africa`,
+   fact:`A half-striped zebra. In 1984 it became the first extinct animal ever to have its DNA read — which proved it was a subspecies of the plains zebra, not its own species. A project now breeds the stripes back.`},
+
+  // ---------- ICE AGE (Late Pleistocene) ----------
+  {id:'mammoth', name:'Woolly Mammoth', sci:'Mammuthus primigenius', kind:'mammal', status:'extinct',
+   place:'Eurasian mammoth steppe', era:'Ice Age', a:330, when:'~4,000 yrs ago',
+   cause:`Warming shrank its steppe + human hunting; the last island population died out suddenly`,
+   fact:`The last ones survived on Siberia's Wrangel Island until ~2000 BC — still alive after the Great Pyramid was built. A 2024 genome study rejected the old idea that inbreeding doomed them; their final end now looks like a sudden, still-unknown event.`},
+  {id:'smilodon', name:'Sabre-toothed Cat', sci:'Smilodon fatalis', kind:'mammal', status:'extinct',
+   place:'The Americas', era:'Ice Age', a:352, when:'~10,000 yrs ago',
+   cause:`Ice-age collapse of the big prey it hunted`,
+   fact:`Its canines reached ~28 cm (about 18 cm exposed) but were fragile, and its bite was weak — roughly a jaguar's, a third of a lion's. It pinned prey with massively muscled forelimbs, then made one precise killing bite.`},
+  {id:'sloth', name:'Giant Ground Sloth', sci:'Megatherium', kind:'mammal', status:'extinct',
+   place:'South America', era:'Ice Age', a:344, dr:-35, when:'~12,000 yrs ago',
+   cause:`End-ice-age climate change + human hunting`,
+   fact:`Megatherium weighed up to 4 tonnes and stood ~3.5 m (12 ft) on its hind legs — elephant-sized. A 12,600-year-old butchery site in Argentina shows humans hunted it.`},
+
+  // ---------- AGE OF DINOSAURS (Late Cretaceous, near the core) ----------
+  {id:'trex', name:'Tyrannosaurus rex', sci:'Tyrannosaurus rex', kind:'reptile', status:'extinct',
+   place:'Late Cretaceous N. America', era:'Cretaceous', a:34, dr:-10, when:'66 million yrs ago',
+   cause:`The asteroid impact that ended the dinosaurs`,
+   fact:`Birds are its living descendants — a sparrow is a closer cousin to T. rex than a crocodile is.`},
+  {id:'triceratops', name:'Triceratops', sci:'Triceratops horridus', kind:'reptile', status:'extinct',
+   place:'Late Cretaceous N. America', era:'Cretaceous', a:46, dr:20, when:'66 million yrs ago',
+   cause:`The asteroid impact`,
+   fact:`A three-horned, frilled herbivore — and prime prey for T. rex.`},
+
+  // ================= DENSIFIED FOOD WEB: producers, extra prey, decomposers =================
+  // ---- Marine base (feeds the seabird & sea-cow columns) ----
+  {id:'phytoplankton', name:'Phytoplankton', kind:'plant', status:'living', place:'Open ocean',
+   era:'Today', a:156, dr:-72, fact:`Microscopic algae — the base of the entire ocean food web.`},
+  {id:'zooplankton', name:'Zooplankton & Krill', kind:'marine', status:'living', place:'Open ocean',
+   era:'Today', a:150, dr:-34, fact:`Tiny drifting animals that graze phytoplankton and feed fish and seabirds.`},
+  {id:'seaurchins', name:'Sea Urchins', kind:'marine', status:'living', place:'North Pacific',
+   era:'Today', a:213, dr:-32, fact:`Kelp-grazers held in check by sea otters — the classic kelp-forest trophic cascade.`},
+  // ---- African plains ----
+  {id:'acacia', name:'Acacia & Shrubs', kind:'plant', status:'living', place:'African plains',
+   era:'Today', a:309, dr:-68, fact:`Thorny browse of the savanna.`},
+  {id:'wildebeest', name:'Wildebeest & Antelope', kind:'mammal', status:'living', place:'African plains',
+   era:'Today', a:289, dr:-38, fact:`Grazing and browsing herds — staple prey of lions.`},
+  // ---- Ice-age Americas (Smilodon's prey base) ----
+  {id:'iceagegrass', name:'Ice-age Grassland', kind:'plant', status:'living', place:'The Americas',
+   era:'Today', a:352, dr:-74, fact:`Grasses & shrubs that fed ice-age bison, horses and camels.`},
+  {id:'bison', name:'Ancient Bison', sci:'Bison antiquus', kind:'mammal', status:'extinct',
+   place:'The Americas', era:'Ice Age', a:347, dr:-2, when:'~10,000 yrs ago', cause:`End-ice-age extinctions`,
+   fact:`Bigger than today's bison — Smilodon's most common prey at the La Brea tar pits.`},
+  {id:'camelops', name:'Western Camel', sci:'Camelops', kind:'mammal', status:'extinct',
+   place:'The Americas', era:'Ice Age', a:340, dr:38, when:'~11,000 yrs ago', cause:`End-ice-age extinctions`,
+   fact:`A native North American camel — a favourite Smilodon prey (camels evolved in the Americas).`},
+  {id:'horses', name:'Wild Horses', sci:'Equus', kind:'mammal', status:'extinct',
+   place:'The Americas', era:'Ice Age', a:356, dr:38, when:'~11,000 yrs ago',
+   cause:`Died out in the Americas (reintroduced by Europeans)`,
+   fact:`Horses evolved in the Americas, then vanished here at the ice age's end — returning only on European ships.`},
+  // ---- Mammoth steppe (mammoth's real diet) ----
+  {id:'forbs', name:'Forbs & Herbs', kind:'plant', status:'living', place:'Eurasian steppe',
+   era:'Today', a:331, dr:-74, fact:`Flowering herbs — about 63% of the mammoth's diet, richer than grass.`},
+  {id:'sedges', name:'Sedges', kind:'plant', status:'living', place:'Eurasian steppe',
+   era:'Today', a:324, dr:-52, fact:`Tough wetland plants grazed by mammoths.`},
+  {id:'willow', name:'Dwarf Willow', kind:'plant', status:'living', place:'Eurasian steppe',
+   era:'Today', a:346, dr:-74, fact:`Shrubs & bark — winter browse for mammoths.`},
+  // ---- N. American forest (passenger pigeon's real diet) ----
+  {id:'chestnut', name:'Chestnut', kind:'plant', status:'living', place:'N. American forest',
+   era:'Today', a:244, dr:-70, fact:`Chestnut mast — another staple of passenger-pigeon flocks.`},
+  {id:'berries', name:'Berries & Fruit', kind:'plant', status:'living', place:'N. American forest',
+   era:'Today', a:236, dr:-60, fact:`Summer berries — blueberries, grapes, cherries the pigeons ate.`},
+  {id:'forestbugs', name:'Worms & Caterpillars', kind:'other', status:'living', place:'N. American forest',
+   era:'Today', a:251, dr:-38, fact:`Invertebrates the pigeons took while breeding — and forest-floor detritivores.`},
+  {id:'hawks', name:'Hawks & Foxes', kind:'other', status:'living', place:'N. American forest',
+   era:'Today', a:248, dr:8, fact:`Predators that preyed on the vast pigeon flocks.`},
+  // ---- Mauritius ----
+  {id:'islandfruit', name:'Island Fruits & Palms', kind:'plant', status:'living', place:'Mauritius',
+   era:'Today', a:95, dr:-64, fact:`Native fruits whose large seeds the dodo swallowed and dispersed.`},
+  // ---- Tasmania ----
+  {id:'eucalypt', name:'Eucalypt Forest & Grass', kind:'plant', status:'living', place:'Tasmania',
+   era:'Today', a:123, dr:-66, fact:`The plant base that fed wallabies, possums and bandicoots.`},
+  {id:'possums', name:'Possums & Bandicoots', kind:'mammal', status:'living', place:'Tasmania',
+   era:'Today', a:133, dr:-40, fact:`Small marsupials — ambush prey of the thylacine.`},
+  {id:'termites', name:'Termites', kind:'other', status:'living', place:'SW Australia',
+   era:'Today', a:141, dr:-40, fact:`The numbat's near-exclusive food — up to 20,000 a day.`},
+  // ---- Cretaceous ----
+  {id:'cretplants', name:'Ferns & Cycads', kind:'plant', status:'living', place:'Late Cretaceous N. America',
+   era:'Cretaceous', a:40, dr:-28, fact:`Ferns, cycads and the first flowering plants — food for the plant-eating dinosaurs.`},
+  {id:'edmontosaurus', name:'Edmontosaurus', sci:'Edmontosaurus', kind:'reptile', status:'extinct',
+   place:'Late Cretaceous N. America', era:'Cretaceous', a:27, dr:18, when:'66 million yrs ago',
+   cause:`The asteroid impact`, fact:`A duck-billed dinosaur — a major plant-eater and T. rex prey.`},
+  // ---- Decomposer / detritus tier (the "brown" food web) ----
+  {id:'detritus_land', name:'Detritus & Carrion', kind:'other', status:'living', place:'Worldwide',
+   era:'Today', a:262, dr:22, fact:`Dead plants and animal remains — the base of the "brown" food web that decomposers recycle.`},
+  {id:'fungi', name:'Fungi & Bacteria', kind:'other', status:'living', place:'Worldwide soils',
+   era:'Today', a:268, dr:-26, fact:`The main recyclers: fungi break down dead plants, bacteria dead animals — returning nutrients to the soil.`},
+  {id:'dungbeetles', name:'Dung Beetles & Flies', kind:'other', status:'living', place:'Worldwide',
+   era:'Today', a:256, dr:-6, fact:`Detritivores that bury dung and carrion, speeding decomposition.`},
+  {id:'vultures', name:'Vultures & Scavengers', kind:'bird', status:'living', place:'Worldwide',
+   era:'Today', a:275, dr:-52, fact:`Scavengers that strip carcasses before the decomposers finish the job.`},
+  {id:'marinedetritus', name:'Marine Detritus', kind:'other', status:'living', place:'Sea floor',
+   era:'Today', a:190, dr:-64, fact:`Sinking dead matter ("marine snow") that feeds the sea floor.`},
+  {id:'marinedecomp', name:'Marine Detritivores', kind:'other', status:'living', place:'Sea floor',
+   era:'Today', a:193, dr:-36, fact:`Bacteria, amphipods and crabs that recycle the ocean's dead.`},
+
+  // ================= AGE OF MAMMALS: Paleogene & Neogene stars =================
+  // ---- Paleogene (66–23 Ma) ----
+  {id:'titanoboa', name:'Titanoboa', sci:'Titanoboa cerrejonensis', kind:'reptile', status:'extinct',
+   place:'Paleocene Colombia', era:'Paleogene', a:198, dr:-6, when:'~58 Ma (Paleocene)',
+   cause:`Cooling after the Paleocene hothouse`,
+   fact:`The largest snake ever — ~13 m and over a tonne. A semi-aquatic apex predator that ate giant fish and crocodilians.`},
+  {id:'basilosaurus', name:'Basilosaurus', sci:'Basilosaurus isis', kind:'marine', status:'extinct',
+   place:'Late Eocene seas', era:'Paleogene', a:236, dr:24, when:'~37 Ma (Eocene)',
+   cause:`Eocene–Oligocene cooling & ocean change`,
+   fact:`An ~18 m early whale — a serpentine apex predator that crushed the skulls of smaller whales.`},
+  {id:'paraceratherium', name:'Paraceratherium', sci:'Paraceratherium', kind:'mammal', status:'extinct',
+   place:'Oligocene Eurasia', era:'Paleogene', a:212, dr:28, when:'~30 Ma (Oligocene)',
+   cause:`Habitat loss as woodlands shrank`,
+   fact:`The largest land mammal ever — a hornless rhino up to ~17 tonnes that browsed treetops like a giraffe.`},
+  {id:'hyaenodon', name:'Hyaenodon', sci:'Hyaenodon', kind:'mammal', status:'extinct',
+   place:'Eocene–Oligocene plains', era:'Paleogene', a:222, dr:-6, when:'~30 Ma',
+   cause:`Outcompeted by true carnivores`,
+   fact:`A powerful creodont predator — not a true cat or dog, but a separate, now-vanished branch of meat-eaters.`},
+  {id:'paleoforest', name:'Paleogene Forests', kind:'plant', status:'living', place:'Warm Paleogene world',
+   era:'Paleogene', a:206, dr:-46, fact:`Tropical and temperate forests that spread after the dinosaurs — the base of the new mammal world.`},
+  {id:'crocodilians', name:'Ancient Crocodilians', kind:'reptile', status:'living', place:'Paleogene swamps',
+   era:'Paleogene', a:192, dr:34, fact:`Crocs of the Paleogene rivers and swamps — prey of Titanoboa (and still with us).`},
+  {id:'paleofish', name:'Giant Fish', kind:'marine', status:'living', place:'Paleogene waters',
+   era:'Paleogene', a:186, dr:2, fact:`Large fish of Paleogene rivers and seas — food for Titanoboa and Basilosaurus.`},
+  // ---- Neogene (23–2.6 Ma) ----
+  {id:'megalodon', name:'Megalodon', sci:'Otodus megalodon', kind:'marine', status:'extinct',
+   place:'Miocene–Pliocene oceans', era:'Neogene', a:88, dr:30, when:'~3.6 Ma (end)',
+   cause:`Cooling seas + collapse of its whale prey`,
+   fact:`The largest shark ever, up to ~18 m. It hunted whales until ~3.6 Ma, when cooling seas and vanishing prey did it in.`},
+  {id:'terrorbird', name:'Terror Bird', sci:'Phorusrhacidae', kind:'bird', status:'extinct',
+   place:'Miocene South America', era:'Neogene', a:74, dr:6, when:'Miocene–Pliocene',
+   cause:`New predators arriving from North America`,
+   fact:`A flightless apex predator up to ~3 m tall that ran down mammals across South America.`},
+  {id:'argentavis', name:'Argentavis', sci:'Argentavis magnificens', kind:'bird', status:'extinct',
+   place:'Late Miocene Argentina', era:'Neogene', a:58, dr:6, when:'~6 Ma (Miocene)',
+   cause:`End-Miocene environmental change`,
+   fact:`The heaviest flying bird ever — a ~7 m wingspan glider that scavenged and hunted.`},
+  {id:'australopithecus', name:'Australopithecus', sci:'Australopithecus', kind:'human', status:'extinct',
+   place:'Pliocene Africa', era:'Neogene', a:64, dr:0, when:'~3.5 Ma (Pliocene)',
+   cause:`Gave rise to later hominins — including us`,
+   fact:`An upright human ancestor. Its diet broadened to grasses and sedges ~3.5 Ma — a step on the road to Homo.`},
+  {id:'miocenegrass', name:'Miocene Grasslands', kind:'plant', status:'living', place:'Worldwide',
+   era:'Neogene', a:72, dr:-48, fact:`Grasses spread worldwide in the Miocene, opening vast new grazing lands.`},
+  {id:'grazers', name:'Early Horses & Antelope', kind:'mammal', status:'living', place:'Miocene plains',
+   era:'Neogene', a:80, dr:-42, fact:`Grazers like Hipparion that spread across the new Miocene grasslands.`},
+  {id:'baleenwhales', name:'Baleen Whales', kind:'marine', status:'living', place:'Neogene oceans',
+   era:'Neogene', a:94, dr:-6, fact:`Filter-feeding whales — the megalodon's main prey, and still the ocean's giants.`},
+];
+
+// eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
+// and the whole wheel recomputes bigger — the void stays reserved at the centre.
+// Geologic Time Scale rings, from the core (oldest) outward to the present rim.
+// Paleogene & Neogene are the empty "Age of Mammals" periods that really sit between the
+// Cretaceous and the Quaternary — shown as empty rings so the timeline is honest about the gap.
+const ERAS_IN_TO_OUT = ['Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
+const VOID_R = 110, RING_T = 118;
+const ERA_MID = {}, ERA_OUTER = {};
+ERAS_IN_TO_OUT.forEach((e,i)=>{ ERA_MID[e]=VOID_R+i*RING_T+RING_T/2; ERA_OUTER[e]=VOID_R+(i+1)*RING_T; });
+
+const RING_COLOR = {'Today':'#14202e','Recent (Holocene)':'#241d16','Ice Age':'#1b232b',
+  'Neogene':'#20211a','Paleogene':'#1e2417','Cretaceous':'#241913'};
+const ERA_LABEL = {'Today':'PRESENT','Recent (Holocene)':'HOLOCENE · ~500 yrs','Ice Age':'PLEISTOCENE',
+  'Neogene':'NEOGENE · 23–2.6 Ma','Paleogene':'PALEOGENE · 66–23 Ma','Cretaceous':'CRETACEOUS · 66 Ma'};
+// full GTS description shown on each species card
+const ERA_GTS = {
+  'Today':'Holocene — present day · Quaternary',
+  'Recent (Holocene)':'Holocene — last ~500 yrs · Quaternary',
+  'Ice Age':'Pleistocene · Quaternary (2.6 Ma – 11.7 ka)',
+  'Neogene':'Neogene Period (23–2.6 Ma) · apes, grasslands, Megalodon',
+  'Paleogene':'Paleogene Period (66–23 Ma) · the dawn of mammals',
+  'Cretaceous':'Late Cretaceous (~68–66 Ma)',
+};
+
+// Ecosystem membership — for measuring connectance at the scale ecologists use (one community),
+// not across the whole time-and-place-mixed meta-web. Cross-cutting generalists (humans, the
+// decomposer/detritus pool) are deliberately excluded from per-ecosystem counts.
+const ECOSYSTEMS = {
+  'Mauritius (island)':      ['dodo','nicobar','rats','tambalacoque','islandfruit'],
+  'Tasmania (forest)':       ['thylacine','devil','numbat','wallaby','possums','eucalypt','termites'],
+  'North Atlantic (open sea)':['auk','razorbill','puffin','fish','zooplankton','phytoplankton'],
+  'North Pacific (kelp)':    ['seacow','dugong','otter','kelp','seaurchins'],
+  'N. American forest':      ['pigeon','bandtailed','oak','chestnut','berries','forestbugs','hawks'],
+  'African plains':          ['quagga','zebra','lion','grass','acacia','wildebeest'],
+  'Mammoth steppe':          ['mammoth','elephant','steppegrass','forbs','sedges','willow'],
+  'Ice-age Americas':        ['smilodon','sloth','bison','camelops','horses','iceagegrass'],
+  'Late Cretaceous':         ['trex','triceratops','birds','cretplants','edmontosaurus'],
+  'Paleogene (Age of Mammals)':['titanoboa','basilosaurus','paraceratherium','hyaenodon','paleoforest','crocodilians','paleofish'],
+  'Neogene (Age of Mammals)': ['megalodon','terrorbird','argentavis','australopithecus','miocenegrass','grazers','baleenwhales'],
+};
+const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
+
+// ---- Present-day conservation data (verified: IUCN Red List + World Bank, 2021–24) ----
+const IUCN = { // living relatives in this web, with their real IUCN status
+  nicobar:'NT', devil:'EN', numbat:'EN', razorbill:'NT', puffin:'VU', dugong:'VU',
+  otter:'EN', bandtailed:'LC', zebra:'NT', lion:'VU', elephant:'EN' };
+const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
+  EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
+const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
+const IUCN_THREATENED = new Set(['VU','EN','CR']);
+const IUCN_GLOBAL = {assessed:169420, threatened:47187, year:2024};
+const WB_WORLD = {protected:15.8, forest:31.2, year:2021};
+const WB_REGION = { // terrestrial protected areas, % of land (World Bank, 2021)
+  'African plains':16.4, 'Mauritius (island)':16.4, 'Tasmania (forest)':20.4,
+  'N. American forest':12.4, 'Ice-age Americas':12.4, 'Mammoth steppe':15.6 };
+
+function polar(a, r){ const t=a*Math.PI/180; return {x:r*Math.cos(t), y:-r*Math.sin(t)}; }
+
+const KIND_COLOR = {mammal:'#c9885a', bird:'#6cb6c9', reptile:'#8a7fc9',
+  marine:'#5aa9c9', plant:'#6aa86a', human:'#d06a95', other:'#888'};
+const EDGE_COLOR = {eats:'#d55e00', ancestor:'#0072b2', ecology:'#009e73'};
+const EDGE_STYLE = {eats:'solid', ancestor:'dashed', ecology:'dotted'};
+
+const elements = [];
+// concentric ring discs (outer first/behind, inner last/front), then void punch-out
+[...ERAS_IN_TO_OUT].reverse().forEach((e,idx)=>{
+  const R=ERA_OUTER[e];
+  elements.push({data:{id:'ring_'+e, ring:1, rz:idx+1, bg:RING_COLOR[e]},
+    position:{x:0,y:0}, selectable:false, grabbable:false,
+    style:{'width':2*R,'height':2*R}});
+});
+elements.push({data:{id:'ring_void', ring:1, rz:ERAS_IN_TO_OUT.length+1, bg:'#0a0d12'},
+  position:{x:0,y:0}, selectable:false, grabbable:false,
+  style:{'width':2*VOID_R,'height':2*VOID_R}});
+// era labels along the downward radius (270°), stacked by ring
+ERAS_IN_TO_OUT.forEach(e=>{
+  const p=polar(12, ERA_MID[e]);
+  elements.push({data:{id:'axis_'+e, axis:1, label:ERA_LABEL[e]},
+    position:p, selectable:false, grabbable:false});
+});
+// species (polar)
+NODES.forEach(n=>{
+  const r=(ERA_MID[n.era]||300)+(n.dr||0);
+  const p=polar(n.a, r);
+  elements.push({data:{id:n.id, label:(n.status==='extinct'?'† ':'')+n.name,
+    color:KIND_COLOR[n.kind]||KIND_COLOR.other, status:n.status, _n:n}, position:p});
+});
+// edges
+const EDGES = [
+  // ---- FOOD WEB ----
+  {from:'human', to:'dodo', type:'eats', note:'clubbed for meat by sailors'},
+  {from:'rats', to:'dodo', type:'eats', note:'raided its ground nests for eggs'},
+  {from:'dodo', to:'tambalacoque', type:'eats', note:'ate its fallen fruit'},
+  {from:'human', to:'mammoth', type:'eats', note:'ice-age big-game hunting'},
+  {from:'mammoth', to:'steppegrass', type:'eats', note:'grazed the steppe'},
+  {from:'smilodon', to:'mammoth', type:'eats', note:'ambushed young mammoths'},
+  {from:'smilodon', to:'sloth', type:'eats', note:'ambushed giant sloths'},
+  {from:'human', to:'sloth', type:'eats', note:'hunted for meat'},
+  {from:'human', to:'thylacine', type:'eats', note:'shot for a bounty'},
+  {from:'thylacine', to:'wallaby', type:'eats', note:'ambushed small prey'},
+  {from:'human', to:'auk', type:'eats', note:'hunted for feathers & food'},
+  {from:'auk', to:'fish', type:'eats', note:'caught fish by diving'},
+  {from:'puffin', to:'fish', type:'eats', note:'dives for fish'},
+  {from:'human', to:'seacow', type:'eats', note:'hunted by sailors & sealers'},
+  {from:'seacow', to:'kelp', type:'eats', note:'grazed kelp'},
+  {from:'human', to:'pigeon', type:'eats', note:'netted & shot en masse'},
+  {from:'pigeon', to:'oak', type:'eats', note:'fed on acorns & beechnuts'},
+  {from:'human', to:'quagga', type:'eats', note:'hunted for hides & meat'},
+  {from:'quagga', to:'grass', type:'eats', note:'grazed the plains'},
+  {from:'zebra', to:'grass', type:'eats', note:'grazes the plains'},
+  {from:'lion', to:'zebra', type:'eats', note:'hunts zebra'},
+  {from:'trex', to:'triceratops', type:'eats', note:'apex predator and its prey'},
+  // ---- EVOLUTION (relatives; radial spokes) ----
+  {from:'nicobar', to:'dodo', type:'ancestor', note:'closest living relative'},
+  {from:'birds', to:'trex', type:'ancestor', note:'birds are living dinosaurs'},
+  {from:'elephant', to:'mammoth', type:'ancestor', note:'closest living relative'},
+  {from:'numbat', to:'thylacine', type:'ancestor', note:'closest living relative (2022 genome); ~95% shared DNA'},
+  {from:'devil', to:'thylacine', type:'ancestor', note:'also among its closest kin (which is closest is debated)'},
+  {from:'razorbill', to:'auk', type:'ancestor', note:'closest living relative'},
+  {from:'dugong', to:'seacow', type:'ancestor', note:'closest living relative'},
+  {from:'bandtailed', to:'pigeon', type:'ancestor', note:'closest living relative'},
+  {from:'zebra', to:'quagga', type:'ancestor', note:'the quagga was a subspecies of it'},
+  {from:'lion', to:'smilodon', type:'ancestor', note:'distant relative (all living cats are)'},
+  // ---- ECOLOGY ----
+  {from:'dodo', to:'tambalacoque', type:'ecology', note:'may have dispersed its seeds (disputed)'},
+  {from:'otter', to:'kelp', type:'ecology', note:'guards the kelp by eating urchins'},
+  {from:'seacow', to:'otter', type:'ecology', note:'shared the kelp-forest ecosystem'},
+  {from:'mammoth', to:'steppegrass', type:'ecology', note:'grazing kept the steppe open'},
+  {from:'pigeon', to:'oak', type:'ecology', note:'mass feeding shaped whole forests'},
+
+  // ================= DENSIFIED FOOD WEB edges =================
+  // ---- Marine column ----
+  {from:'zooplankton', to:'phytoplankton', type:'eats', note:'grazes the algae'},
+  {from:'fish', to:'zooplankton', type:'eats', note:'schooling fish feed on plankton'},
+  {from:'auk', to:'zooplankton', type:'eats', note:'also took krill & crustaceans'},
+  {from:'razorbill', to:'fish', type:'eats', note:'dives for schooling fish'},
+  {from:'seaurchins', to:'kelp', type:'eats', note:'grazes kelp'},
+  {from:'otter', to:'seaurchins', type:'eats', note:'eats urchins — protecting the kelp'},
+  {from:'marinedecomp', to:'marinedetritus', type:'eats', note:'recycles marine dead matter'},
+  // ---- African plains (lion multi-prey) ----
+  {from:'wildebeest', to:'grass', type:'eats', note:'grazes the plains'},
+  {from:'wildebeest', to:'acacia', type:'eats', note:'browses shrubs'},
+  {from:'lion', to:'wildebeest', type:'eats', note:'hunts the herds'},
+  {from:'dungbeetles', to:'detritus_land', type:'eats', note:'buries dung & carrion'},
+  {from:'vultures', to:'detritus_land', type:'eats', note:'scavenges carcasses'},
+  // ---- Ice-age Americas (Smilodon multi-prey, La Brea isotopes) ----
+  {from:'bison', to:'iceagegrass', type:'eats', note:'grazes'},
+  {from:'camelops', to:'iceagegrass', type:'eats', note:'browses & grazes'},
+  {from:'horses', to:'iceagegrass', type:'eats', note:'grazes'},
+  {from:'sloth', to:'iceagegrass', type:'eats', note:'browses low plants'},
+  {from:'smilodon', to:'bison', type:'eats', note:'most common La Brea prey'},
+  {from:'smilodon', to:'camelops', type:'eats', note:'favoured prey (isotope evidence)'},
+  {from:'smilodon', to:'horses', type:'eats', note:'preyed on wild horses'},
+  // ---- Mammoth steppe (mammoth multi-prey) ----
+  {from:'mammoth', to:'forbs', type:'eats', note:'~63% of its diet'},
+  {from:'mammoth', to:'sedges', type:'eats', note:'grazed sedges'},
+  {from:'mammoth', to:'willow', type:'eats', note:'winter browse'},
+  // ---- N. American forest (pigeon multi-prey) ----
+  {from:'pigeon', to:'chestnut', type:'eats', note:'chestnut mast'},
+  {from:'pigeon', to:'berries', type:'eats', note:'summer berries'},
+  {from:'pigeon', to:'forestbugs', type:'eats', note:'invertebrates while breeding'},
+  {from:'bandtailed', to:'oak', type:'eats', note:'eats acorns, like its lost cousin'},
+  {from:'bandtailed', to:'berries', type:'eats', note:'eats berries'},
+  {from:'hawks', to:'pigeon', type:'eats', note:'preyed on the flocks'},
+  {from:'forestbugs', to:'detritus_land', type:'eats', note:'feed on leaf litter'},
+  // ---- Mauritius (dodo multi-prey) ----
+  {from:'dodo', to:'islandfruit', type:'eats', note:'fruits & large seeds'},
+  {from:'rats', to:'islandfruit', type:'eats', note:'also raided seeds & fruit'},
+  {from:'nicobar', to:'islandfruit', type:'eats', note:'island fruit-eater, like the dodo'},
+  // ---- Tasmania (thylacine multi-prey) ----
+  {from:'wallaby', to:'eucalypt', type:'eats', note:'grazes & browses'},
+  {from:'possums', to:'eucalypt', type:'eats', note:'eats leaves'},
+  {from:'thylacine', to:'possums', type:'eats', note:'ambushed small marsupials'},
+  {from:'devil', to:'detritus_land', type:'eats', note:'scavenges carrion'},
+  {from:'numbat', to:'termites', type:'eats', note:'termite specialist'},
+  // ---- Cretaceous (T. rex multi-prey) ----
+  {from:'triceratops', to:'cretplants', type:'eats', note:'browsed low plants'},
+  {from:'edmontosaurus', to:'cretplants', type:'eats', note:'cropped ferns & foliage'},
+  {from:'trex', to:'edmontosaurus', type:'eats', note:'hunted duckbills too'},
+  // ---- Decomposer loop ----
+  {from:'fungi', to:'detritus_land', type:'eats', note:'breaks down dead matter'},
+  {from:'fungi', to:'grass', type:'ecology', note:'returns nutrients to the soil'},
+  {from:'fungi', to:'oak', type:'ecology', note:'recycles leaf litter for the forest'},
+  {from:'marinedecomp', to:'phytoplankton', type:'ecology', note:'recycles nutrients to the plankton'},
+
+  // ================= AGE OF MAMMALS food webs =================
+  // ---- Paleogene ----
+  {from:'paraceratherium', to:'paleoforest', type:'eats', note:'browsed treetops'},
+  {from:'hyaenodon', to:'paraceratherium', type:'eats', note:'hunted the young & weak'},
+  {from:'titanoboa', to:'crocodilians', type:'eats', note:'ate crocodilians'},
+  {from:'titanoboa', to:'paleofish', type:'eats', note:'ate giant fish'},
+  {from:'basilosaurus', to:'paleofish', type:'eats', note:'ate large fish'},
+  {from:'crocodilians', to:'paleofish', type:'eats', note:'ambushed fish'},
+  // ---- Neogene ----
+  {from:'grazers', to:'miocenegrass', type:'eats', note:'grazed the new grasslands'},
+  {from:'terrorbird', to:'grazers', type:'eats', note:'ran down mammals'},
+  {from:'argentavis', to:'grazers', type:'eats', note:'hunted and scavenged'},
+  {from:'argentavis', to:'detritus_land', type:'eats', note:'scavenged carcasses'},
+  {from:'megalodon', to:'baleenwhales', type:'eats', note:'its main prey'},
+  {from:'australopithecus', to:'miocenegrass', type:'eats', note:'ate grasses & sedges ~3.5 Ma'},
+  {from:'baleenwhales', to:'zooplankton', type:'eats', note:'filter-feeds on plankton'},
+  // ---- evolution spoke from the present to our deep ancestor ----
+  {from:'human', to:'australopithecus', type:'ancestor', note:'our Pliocene ancestor'},
+];
+EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
+  etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
+  arrow:(e.type==='eats')?'triangle':'none'}}));
+
+const cy = cytoscape({
+  container: document.getElementById('cy'),
+  elements, wheelSensitivity:0.2,
+  style:[
+    {selector:'node[ring]', style:{
+      'shape':'ellipse','background-color':'data(bg)','background-opacity':0.92,
+      'border-width':1,'border-color':'rgba(255,255,255,0.05)','z-index':'data(rz)',
+      'events':'no','label':''}},
+    {selector:'node[axis]', style:{
+      'shape':'round-rectangle','background-color':'#141c28','background-opacity':0.6,
+      'border-width':1,'border-color':'#2a3442','label':'data(label)','color':'#9aa4b2',
+      'font-size':'12px','font-weight':'bold','text-valign':'center','text-halign':'center',
+      'width':'label','height':'label','padding':'5px','z-index':40}},
+    {selector:'node[axis].erafocus', style:{'border-color':'#e0a458','color':'#e6edf3'}},
+    {selector:'node[_n]', style:{
+      'background-color':'data(color)','label':'data(label)','color':'#e6edf3',
+      'font-size':'11px','text-valign':'bottom','text-margin-y':'4px',
+      'width':'26px','height':'26px','border-width':2,'border-color':'#0b0e13',
+      'z-index':60,'text-outline-color':'#0b0e13','text-outline-width':2}},
+    {selector:'node[status="extinct"]', style:{
+      'border-color':'#e0a458','border-style':'dashed','border-width':2.5}},
+    {selector:'edge', style:{
+      'width':2,'line-color':'data(color)','line-style':'data(lstyle)',
+      'target-arrow-color':'data(color)','target-arrow-shape':'data(arrow)',
+      'curve-style':'straight','opacity':.6,'arrow-scale':.9,'z-index':50}},
+    {selector:'.dim', style:{'opacity':.09}},
+    {selector:'.hl', style:{'opacity':1}},
+    {selector:'node.sel', style:{'border-color':'#fff','border-style':'solid',
+      'border-width':3,'width':'32px','height':'32px','z-index':70}},
+    {selector:'node.dead', style:{'background-color':'#3a3f47','border-color':'#e5534b',
+      'border-style':'solid','border-width':2,'opacity':.6,'z-index':65}},
+    {selector:'node.removed', style:{'background-color':'#0b0e13','border-color':'#e5534b',
+      'border-style':'solid','border-width':4,'width':'34px','height':'34px','opacity':1,'z-index':75}},
+    {selector:'edge.hl', style:{'width':3.5,'opacity':1}},
+  ],
+  layout:{name:'preset', fit:true, padding:24},
+});
+cy.maxZoom(2.4); cy.minZoom(0.15);
+
+// ---- TOGGLES ----
+const active = {eats:true, ancestor:true, ecology:true};
+function applyFilter(){
+  cy.edges().forEach(e=> e.style('display', active[e.data('etype')]?'element':'none'));
+}
+document.querySelectorAll('.toggles button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const t=btn.dataset.type; active[t]=!active[t];
+    btn.dataset.on=active[t]?'1':'0'; applyFilter();
+  });
+});
+
+// ---- SELECTION / PANEL ----
+const side = document.getElementById('side');
+const defaultHint = side.innerHTML;
+const strata = cy.nodes('[ring], [axis]');
+function showNode(node){
+  cy.elements().removeClass('dim hl sel');
+  cy.elements().addClass('dim'); strata.removeClass('dim');
+  node.closedNeighborhood().removeClass('dim').addClass('hl');
+  node.connectedEdges().addClass('hl');
+  node.addClass('sel');
+
+  const n=node.data('_n');
+  const badge = n.status==='extinct'
+    ? `<span class="badge extinct">† Extinct · ${n.when||''}</span>`
+    : `<span class="badge living">Living today</span>`;
+  const iu=IUCN[node.id()];
+  const iucnBadge = iu ? ` <span class="badge" style="background:${IUCN_COLOR[iu]}22;color:${IUCN_COLOR[iu]};border:1px solid ${IUCN_COLOR[iu]}66">IUCN: ${IUCN_LABEL[iu]}</span>` : '';
+  let html=`<div class="card"><h2>${n.name}</h2><div class="sci">${n.sci}</div>${badge}${iucnBadge}
+    <div class="place">📍 ${n.place} &nbsp;·&nbsp; ${ERA_GTS[n.era]||n.era}</div>`;
+  if(ECO_OF[node.id()]) html+=`<div style="margin:-4px 0 10px"><span class="focuseco" data-eco="${ECO_OF[node.id()]}" style="cursor:pointer;color:var(--evo);font-size:12px">🔍 Focus the ${ECO_OF[node.id()]} ecosystem →</span></div>`;
+  if(n.cause) html+=`<div class="row"><b>Why it vanished</b>${n.cause}</div>`;
+  if(n.fact) html+=`<div class="fact">${n.fact}</div>`;
+
+  const groups={eats:[],ancestor:[],ecology:[]};
+  node.connectedEdges().forEach(e=>{
+    if(!active[e.data('etype')]) return;
+    const src=e.source().id()===node.id();
+    const other=src?e.target():e.source();
+    if(!other.data('_n')) return;
+    let verb='';
+    if(e.data('etype')==='eats') verb=src?'eats':'eaten / hunted by';
+    if(e.data('etype')==='ancestor') verb='relative:';
+    if(e.data('etype')==='ecology') verb='linked to:';
+    groups[e.data('etype')].push({id:other.id(), name:other.data('_n').name,
+      verb, note:e.data('_e').note});
+  });
+  const labels={eats:'🍖 Food web',ancestor:'🧬 Evolution',ecology:'🌱 Ecology'};
+  Object.keys(groups).forEach(k=>{
+    if(!groups[k].length) return;
+    html+=`<div class="conns"><h3>${labels[k]}</h3>`;
+    groups[k].forEach(c=>{
+      html+=`<div class="conn" data-goto="${c.id}">
+        <span class="dot" style="background:${EDGE_COLOR[k]}"></span>
+        <span style="color:var(--dim)">${c.verb}</span> ${c.name}
+        <div style="font-size:11px;color:var(--dim);margin-left:15px">${c.note||''}</div></div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`</div>`;
+  side.innerHTML=html;
+  side.querySelectorAll('.conn').forEach(el=>el.addEventListener('click',()=>{
+    const t=cy.getElementById(el.dataset.goto);
+    showNode(t); cy.animate({center:{eles:t}, zoom:1.2, duration:350});
+  }));
+  side.querySelectorAll('.focuseco').forEach(el=>el.addEventListener('click',()=>focusEcosystem(el.dataset.eco)));
+}
+// ---- CASCADE MODE (secondary-extinction / topological robustness test) ----
+let cascadeMode=false, prevToggle=null;
+const cascadeBtn=document.getElementById('cascadeBtn');
+function setLayers(e,a,c){
+  active.eats=e; active.ancestor=a; active.ecology=c;
+  document.querySelectorAll('.toggles button[data-type]').forEach(b=>{
+    b.dataset.on=active[b.dataset.type]?'1':'0';});
+  applyFilter();
+}
+function clearCascade(){
+  cy.nodes('[_n]').forEach(n=>{ n.removeClass('dead removed');
+    const nn=n.data('_n'); n.data('label',(nn.status==='extinct'?'† ':'')+nn.name); });
+}
+const CASCADE_HINT=`<div class="hint"><b>💥 Cascade mode.</b> Click any species to remove it and watch
+  the food web collapse — anything that loses <b>all</b> its food dies next, round by round. This is the
+  ecological <b>secondary-extinction</b> test used to measure how fragile a web is.<br><br>
+  Click 💥 Cascade again to exit.</div>`;
+cascadeBtn.addEventListener('click',()=>{
+  cascadeMode=!cascadeMode; cascadeBtn.dataset.on=cascadeMode?'1':'0';
+  cy.elements().removeClass('dim hl sel'); clearCascade();
+  if(cascadeMode){ prevToggle={...active}; setLayers(true,false,false); side.innerHTML=CASCADE_HINT; }
+  else { if(prevToggle) setLayers(prevToggle.eats,prevToggle.ancestor,prevToggle.ecology);
+    side.innerHTML=defaultHint; }
+});
+function preyMap(){ const m={};
+  cy.edges('[etype="eats"]').forEach(e=>{ (m[e.source().id()]=m[e.source().id()]||[]).push(e.target().id()); });
+  return m; }
+// shared secondary-extinction engine: returns [[removed],[round1…],[round2…],…]
+function cascadeGens(removed){
+  const prey=preyMap(); const ids=cy.nodes('[_n]').map(n=>n.id());
+  const dead=new Set([removed]); const gens=[[removed]]; let changed=true;
+  while(changed){ changed=false; const nd=[];
+    ids.forEach(id=>{ if(dead.has(id)) return; const p=prey[id];
+      if(p && p.length && p.every(x=>dead.has(x))) nd.push(id); });
+    if(nd.length){ nd.forEach(id=>dead.add(id)); gens.push(nd); changed=true; } }
+  return gens;
+}
+// motif-weighted centrality: participation in 3-species food-web motifs, weighted by type.
+// chain A→B→C; apparent competition (one predator, two prey); shared-prey competition
+// (two predators, one prey); omnivory / intraguild predation (closed triad).
+function motifScores(){
+  const ids=cy.nodes('[_n]').map(n=>n.id());
+  const OUT={}, NB={};
+  ids.forEach(id=>{ OUT[id]=new Set(); NB[id]=new Set(); });
+  cy.edges('[etype="eats"]').forEach(e=>{ const a=e.source().id(), b=e.target().id();
+    OUT[a].add(b); NB[a].add(b); NB[b].add(a); });
+  const dir=(x,y)=> OUT[x].has(y)?'>':(OUT[y].has(x)?'<':'');
+  const W={chain:1, appcomp:2, dircomp:2, omniv:3};
+  const score={}, counts={};
+  ids.forEach(id=>{ score[id]=0; counts[id]={chain:0,appcomp:0,dircomp:0,omniv:0}; });
+  const seen=new Set();
+  ids.forEach(b=>{ const nb=[...NB[b]];
+    for(let i=0;i<nb.length;i++) for(let j=i+1;j<nb.length;j++){
+      const u=nb[i], w=nb[j], key=[u,b,w].sort().join('|');
+      if(seen.has(key)) continue; seen.add(key);
+      const trio=[u,b,w]; let edges=0; const od={}, id2={};
+      trio.forEach(n=>{ od[n]=0; id2[n]=0; });
+      [[u,b],[u,w],[b,w]].forEach(p=>{ const d=dir(p[0],p[1]);
+        if(d==='>'){ od[p[0]]++; id2[p[1]]++; edges++; }
+        else if(d==='<'){ od[p[1]]++; id2[p[0]]++; edges++; } });
+      let type;
+      if(edges>=3) type='omniv';
+      else if(Math.max(od[u],od[b],od[w])===2) type='appcomp';
+      else if(Math.max(id2[u],id2[b],id2[w])===2) type='dircomp';
+      else type='chain';
+      trio.forEach(n=>{ score[n]+=W[type]; counts[n][type]++; });
+    }
+  });
+  return {score, counts};
+}
+function runCascade(node){
+  clearCascade();
+  const removed=node.id(); const gens=cascadeGens(removed);
+  gens.forEach((g,gi)=>setTimeout(()=>{ g.forEach(id=>{ const n=cy.getElementById(id);
+    n.data('label','💀 '+n.data('_n').name); n.addClass(gi===0?'removed':'dead');
+    n.animate({style:{'width':gi===0?34:20,'height':gi===0?34:20}},{duration:220}); }); }, gi*550));
+  const secondary=gens.slice(1).flat(); const total=ids.length; const killed=1+secondary.length;
+  let html=`<div class="card"><h2>💥 ${node.data('_n').name} removed</h2>
+    <div class="place">${secondary.length} secondary extinction${secondary.length===1?'':'s'}
+    · ${killed}/${total} species lost (${Math.round(killed/total*100)}% of the web)</div>`;
+  if(!secondary.length){
+    html+=`<div class="fact">Nothing in this food web fed on it, so its removal starts no starvation
+      cascade. Removing a top predator instead reshapes the web from the top down — an effect this
+      bottom-up test doesn't model.</div>`;
+  } else {
+    html+=`<div class="fact">Each of these lost <b>every</b> food source once the removals above it
+      happened — the collapse rippling outward round by round:</div>`;
+    gens.slice(1).forEach((g,i)=>{ html+=`<div class="conns"><h3>Round ${i+1}</h3>`;
+      g.forEach(id=>{ const nn=cy.getElementById(id).data('_n');
+        html+=`<div class="conn" style="cursor:default"><span class="dot" style="background:#e5534b"></span>${nn.name}
+          <div style="font-size:11px;color:var(--dim);margin-left:15px">lost all its food → starves</div></div>`; });
+      html+=`</div>`; }); }
+  html+=`<div style="margin-top:16px"><span id="cascadeReset" style="cursor:pointer;color:var(--evo);font-size:13px">↺ Reset &amp; try another</span></div></div>`;
+  side.innerHTML=html;
+  const rb=document.getElementById('cascadeReset');
+  if(rb) rb.addEventListener('click',()=>{ clearCascade(); side.innerHTML=CASCADE_HINT; });
+}
+// ---- METRICS READOUT (centrality / keystones / connectance) ----
+let metricsOpen=false;
+const metricsBtn=document.getElementById('metricsBtn');
+function enterCascadeFor(id){
+  metricsOpen=false; metricsBtn.dataset.on='0';
+  cascadeMode=true; cascadeBtn.dataset.on='1';
+  if(!prevToggle) prevToggle={...active};
+  setLayers(true,false,false);
+  const n=cy.getElementById(id); runCascade(n);
+  cy.animate({center:{eles:n}, zoom:1.0, duration:350});
+}
+function showMetrics(){
+  const sp=cy.nodes('[_n]'); const S=sp.length;
+  const eats=cy.edges('[etype="eats"]'); const L=eats.length; const C=L/(S*S);
+  // per-ecosystem connectance (the fair, community-scale measure)
+  const ecoC=Object.keys(ECOSYSTEMS).map(name=>{
+    const set=new Set(ECOSYSTEMS[name]); const s=ECOSYSTEMS[name].length; let l=0;
+    eats.forEach(e=>{ if(set.has(e.source().id())&&set.has(e.target().id())) l++; });
+    return {name, s, l, c:l/(s*s)};
+  }).sort((a,b)=>b.c-a.c);
+  const cvals=ecoC.map(x=>x.c);
+  const avgC=cvals.reduce((a,b)=>a+b,0)/cvals.length;
+  const minC=Math.min.apply(null,cvals), maxC=Math.max.apply(null,cvals);
+  const prey=preyMap(); const pred={};
+  eats.forEach(e=>{ (pred[e.target().id()]=pred[e.target().id()]||[]).push(e.source().id()); });
+  let basal=0, inter=0, top=0;
+  sp.forEach(n=>{ const hp=(prey[n.id()]||[]).length>0, hd=(pred[n.id()]||[]).length>0;
+    if(!hp) basal++; else if(!hd) top++; else inter++; });
+  const rank=sp.map(n=>({id:n.id(), name:n.data('_n').name,
+    sec:cascadeGens(n.id()).slice(1).flat().length,
+    deg:n.connectedEdges('[etype="eats"]').length}));
+  const byImpact=[...rank].sort((a,b)=>b.sec-a.sec||b.deg-a.deg).filter(r=>r.sec>0).slice(0,7);
+  const byDegree=[...rank].sort((a,b)=>b.deg-a.deg).slice(0,3);
+  const mScores=motifScores();
+  const byMotif=sp.map(n=>({id:n.id(), name:n.data('_n').name, score:mScores.score[n.id()],
+    c:mScores.counts[n.id()], deg:n.connectedEdges('[etype="eats"]').length}))
+    .sort((a,b)=>b.score-a.score).slice(0,7);
+  let html=`<div class="card"><h2>📊 Web metrics</h2>
+    <div class="fact"><b>${S}</b> species · <b>${L}</b> trophic links
+      <div style="margin-top:9px">Per-ecosystem connectance <b>${avgC.toFixed(2)}</b> avg
+        (${minC.toFixed(2)}–${maxC.toFixed(2)})
+        <div style="font-size:11px;color:var(--dim);margin-top:3px">Measured the way ecologists do — inside
+        one community — it lands right in the <b>real range (0.1–0.25)</b>. No invented links.</div></div>
+      <div style="margin-top:9px">Whole-graph connectance <b>${C.toFixed(3)}</b>
+        <div style="font-size:11px;color:var(--dim);margin-top:3px">Looks low, but it's misleading: this graph
+        is <b>9 ecosystems across 66M years</b>, and species in different ones can't interact — so counting
+        them in one S² deflates it.</div></div>
+      <div style="margin-top:9px">Living relatives IUCN-assessed <b>${sp.filter(n=>IUCN[n.id()]).length}</b> ·
+        already threatened <b style="color:var(--amber)">${sp.filter(n=>IUCN_THREATENED.has(IUCN[n.id()])).length}</b>
+        <div style="font-size:11px;color:var(--dim);margin-top:3px">Globally ${IUCN_GLOBAL.threatened.toLocaleString()}
+        of ${IUCN_GLOBAL.assessed.toLocaleString()} assessed species are threatened (IUCN ${IUCN_GLOBAL.year}) —
+        the relatives of the extinct are often next.</div></div></div>
+    <div class="conns"><h3>Trophic structure</h3>
+      <div class="row">🌱 <b style="display:inline">${basal}</b> basal — producers &amp; detritus</div>
+      <div class="row">🔗 <b style="display:inline">${inter}</b> intermediate consumers</div>
+      <div class="row">👑 <b style="display:inline">${top}</b> top / terminal — nothing eats them</div></div>
+    <div class="conns"><h3>🗝️ Keystones — biggest collapse if removed</h3>`;
+  byImpact.forEach(r=>{ html+=`<div class="conn" data-cascade="${r.id}">
+    <span class="dot" style="background:#e5534b"></span>${r.name}
+    <div style="font-size:11px;color:var(--dim);margin-left:15px">removing it → ${r.sec} secondary
+      extinction${r.sec===1?'':'s'} · ${r.deg} links</div></div>`; });
+  html+=`</div><div class="conns"><h3>Most connected (degree centrality)</h3>`;
+  byDegree.forEach(r=>{ html+=`<div class="conn" data-cascade="${r.id}">
+    <span class="dot" style="background:var(--evo)"></span>${r.name}
+    <div style="font-size:11px;color:var(--dim);margin-left:15px">${r.deg} trophic links · ${r.sec}
+      secondary if removed</div></div>`; });
+  html+=`<div class="fact" style="margin-top:6px">Note the gap: the most-connected species
+    (<b>${byDegree[0].name}</b>) triggers only <b>${byDegree[0].sec}</b> starvation cascades — because it's
+    a top predator, not a base. In a bottom-up web the <b>keystones are the producers</b>, not the busiest
+    hunter.<br><br><span style="color:var(--dim)">Click any species above to run its cascade.</span></div>`;
+  html+=`<div class="conns"><h3>🕸️ Motif-weighted centrality</h3>`;
+  byMotif.forEach(r=>{ const tot=r.c.chain+r.c.appcomp+r.c.dircomp+r.c.omniv;
+    const dom=['omniv','appcomp','dircomp','chain'].sort((a,b)=>r.c[b]-r.c[a])[0];
+    const domName={chain:'food chains',appcomp:'apparent competition',dircomp:'shared-prey competition',omniv:'omnivory'}[dom];
+    html+=`<div class="conn" data-cascade="${r.id}"><span class="dot" style="background:#8a7fc9"></span>${r.name}
+      <div style="font-size:11px;color:var(--dim);margin-left:15px">score <b style="display:inline">${r.score}</b> · ${tot} motifs (mostly ${domName}) · ${r.deg} links</div></div>`; });
+  html+=`<div class="fact" style="margin-top:6px">Counts the 3-species patterns each species sits in — food
+    chains, shared-predator/prey competition, omnivory — weighting indirect-effect motifs higher. More
+    rigorous than raw link-count: same links, different score depending on how the neighbours interconnect.</div></div>`;
+  html+=`<div class="conns"><h3>Connectance by ecosystem <span style="font-weight:400;color:var(--dim)">· click to zoom in</span></h3>`;
+  ecoC.forEach(x=>{ html+=`<div class="conn" data-eco="${x.name}" style="font-size:12px">${x.name} —
+    <b style="display:inline">${x.c.toFixed(2)}</b>
+    <span style="color:var(--dim)">(${x.s} species, ${x.l} links)</span></div>`; });
+  html+=`</div></div>`;
+  side.innerHTML=html;
+  side.querySelectorAll('.conn[data-cascade]').forEach(el=>
+    el.addEventListener('click',()=>enterCascadeFor(el.dataset.cascade)));
+  side.querySelectorAll('.conn[data-eco]').forEach(el=>
+    el.addEventListener('click',()=>focusEcosystem(el.dataset.eco)));
+}
+metricsBtn.addEventListener('click',()=>{
+  metricsOpen=!metricsOpen; metricsBtn.dataset.on=metricsOpen?'1':'0';
+  if(metricsOpen){ cy.elements().removeClass('dim hl sel'); showMetrics(); }
+  else side.innerHTML=defaultHint;
+});
+// ---- DRILL-DOWN: focus an era (click a ring label) or an ecosystem (community) ----
+let focusMode=null;
+function resetFocus(){
+  focusMode=null;
+  cy.nodes('[axis]').removeClass('erafocus');
+  cy.elements().removeClass('dim hl sel');
+  cy.animate({fit:{padding:24}, duration:400});
+  metricsOpen=false; metricsBtn.dataset.on='0';
+  side.innerHTML=defaultHint;
+}
+function focusPanelWire(){
+  side.querySelectorAll('.conn[data-goto]').forEach(el=>el.addEventListener('click',()=>{
+    const t=cy.getElementById(el.dataset.goto); showNode(t);
+    cy.animate({center:{eles:t}, zoom:1.1, duration:300}); }));
+  const b=document.getElementById('overviewBack'); if(b) b.addEventListener('click',resetFocus);
+}
+function focusEra(era){
+  if(focusMode==='era:'+era){ resetFocus(); return; }
+  focusMode='era:'+era;
+  const members=cy.nodes('[_n]').filter(n=>n.data('_n').era===era);
+  cy.elements().removeClass('hl sel'); cy.elements().addClass('dim'); strata.removeClass('dim');
+  cy.nodes('[axis]').removeClass('erafocus'); cy.getElementById('axis_'+era).addClass('erafocus');
+  members.removeClass('dim').addClass('hl');
+  members.connectedEdges().forEach(e=>{ if(members.contains(e.source())&&members.contains(e.target()))
+    e.removeClass('dim').addClass('hl'); });
+  const ringNode=cy.getElementById('ring_'+era);
+  cy.animate({fit:{eles: members.nonempty()? members.union(ringNode): ringNode, padding:40}, duration:450});
+  const gts=ERA_GTS[era]||era, short=(ERA_LABEL[era]||era).replace(/ ·.*/,'');
+  let html=`<div class="card"><h2>${short}</h2><div class="place">🕒 ${gts}</div>`;
+  if(members.nonempty()){
+    html+=`<div class="fact">${members.length} species in this web lived in the ${gts.split(' ·')[0].split(' (')[0]}.</div>`;
+    if(era==='Today'){
+      let threat=0; members.forEach(n=>{ if(IUCN_THREATENED.has(IUCN[n.id()])) threat++; });
+      html+=`<div class="fact" style="border-color:#e5534b66"><b>🔴 The 6th extinction — happening now.</b><br>
+        ${IUCN_GLOBAL.threatened.toLocaleString()} of ${IUCN_GLOBAL.assessed.toLocaleString()} assessed species
+        are threatened with extinction (IUCN ${IUCN_GLOBAL.year}). Forests cover ${WB_WORLD.forest}% of land,
+        and only ${WB_WORLD.protected}% is protected (World Bank ${WB_WORLD.year}).<br>
+        <span style="color:var(--amber)">${threat} of the living relatives on this rim are already IUCN-threatened.</span></div>`;
+    }
+    html+=`<div class="conns"><h3>Species</h3>`;
+    members.forEach(n=>{ const nn=n.data('_n');
+      html+=`<div class="conn" data-goto="${n.id()}"><span class="dot" style="background:${n.data('color')}"></span>${nn.name}
+        <div style="font-size:11px;color:var(--dim);margin-left:15px">${nn.place}</div></div>`; });
+    html+=`</div>`;
+  } else {
+    html+=`<div class="fact">No species in this web yet — part of the <b>Age of Mammals</b>, the ~63-Myr gap
+      between the dinosaurs and the ice age. Room to grow: Titanoboa, terror birds, Megalodon, Andrewsarchus…</div>`;
+  }
+  html+=`<div style="margin-top:14px"><span id="overviewBack" style="cursor:pointer;color:var(--evo);font-size:13px">← Back to full timeline</span></div></div>`;
+  side.innerHTML=html; focusPanelWire();
+}
+function focusEcosystem(name){
+  if(focusMode==='eco:'+name){ resetFocus(); return; }
+  focusMode='eco:'+name;
+  const ids=new Set(ECOSYSTEMS[name]);
+  const members=cy.nodes('[_n]').filter(n=>ids.has(n.id()));
+  cy.elements().removeClass('hl sel'); cy.elements().addClass('dim'); strata.removeClass('dim');
+  cy.nodes('[axis]').removeClass('erafocus');
+  members.removeClass('dim').addClass('hl');
+  const internal=cy.edges().filter(e=>ids.has(e.source().id())&&ids.has(e.target().id()));
+  internal.removeClass('dim').addClass('hl');
+  cy.animate({fit:{eles:members, padding:70}, duration:450});
+  const s=ECOSYSTEMS[name].length;
+  const eatsIn=internal.filter(e=>e.data('etype')==='eats').length; const c=eatsIn/(s*s);
+  let html=`<div class="card"><h2>${name}</h2>
+    <div class="place">🌐 one community · connectance <b>${c.toFixed(2)}</b> (${s} species, ${eatsIn} links)</div>
+    <div class="fact">Zoomed to a single ecosystem — the scale where connectance is meaningful. This one sits
+      in the <b>real range (0.1–0.25)</b>.</div>`;
+  if(WB_REGION[name]!=null) html+=`<div class="row" style="font-size:12px;color:var(--dim);margin:-4px 0 8px">🌱 Today ~<b style="display:inline;color:var(--eco)">${WB_REGION[name]}%</b> of this region's land is protected (World Bank 2021)</div>`;
+  html+=`<div class="conns"><h3>Species &amp; food web</h3>`;
+  members.forEach(n=>{ const nn=n.data('_n');
+    const iu=IUCN[n.id()];
+    const iuTag=iu?` · <span style="color:${IUCN_COLOR[iu]}">IUCN ${iu}</span>`:'';
+    html+=`<div class="conn" data-goto="${n.id()}"><span class="dot" style="background:${n.data('color')}"></span>${nn.name}
+      <div style="font-size:11px;color:var(--dim);margin-left:15px">${(ERA_GTS[nn.era]||nn.era).split(' ·')[0].split(' (')[0]}${nn.status==='extinct'?' · † extinct':''}${iuTag}</div></div>`; });
+  html+=`</div><div style="margin-top:14px"><span id="overviewBack" style="cursor:pointer;color:var(--evo);font-size:13px">← Back to full timeline</span></div></div>`;
+  side.innerHTML=html; focusPanelWire();
+}
+cy.on('tap','node[axis]', e=>{ focusEra(e.target.id().slice(5)); });
+cy.on('tap','node[_n]', e=>{ if(cascadeMode) runCascade(e.target); else showNode(e.target); });
+cy.on('tap', e=>{ if(e.target===cy){ if(focusMode) resetFocus();
+  else if(!cascadeMode) cy.elements().removeClass('dim hl sel'); } });
+</script>
+</body>
+</html>
