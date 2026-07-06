@@ -9,12 +9,21 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
   *Cytoscape.js: a graph theory library for visualisation and analysis.* Bioinformatics 32(2):309–311.
   https://js.cytoscape.org/
 
-## Featured published food web
+## Featured published food webs
 - **Paine, R. T. (1966).** *Food Web Complexity and Species Diversity.* The American Naturalist,
   100(910), 65–75. https://doi.org/10.1086/282400
   — The Pacific rocky-intertidal (Mukkaw Bay) web; the study that coined **"keystone species."**
-- Revisited by **Wootton, J. T., et al. (2016).** *Revisiting Paine's 1966 Sea Star Removal Experiment,
-  the Most-Cited Empirical Article in the American Naturalist.* Am. Nat. 188(4). https://doi.org/10.1086/688045
+  Revisited by **Wootton, J. T., et al. (2016).** Am. Nat. 188(4). https://doi.org/10.1086/688045
+- **Ripple, W. J. & Beschta, R. L. (2012).** *Trophic cascades in Yellowstone: the first 15 years after
+  wolf reintroduction.* Biological Conservation, 145(1), 205–213. https://doi.org/10.1016/j.biocon.2011.11.005
+  — wolves → elk → willow/aspen/cottonwood → beaver.
+- **Elton, C. S. & Nicholson, M. (1942).** *The ten-year cycle in numbers of the lynx in Canada.*
+  Journal of Animal Ecology, 11(2), 215–244. https://doi.org/10.2307/1358 — the classic snowshoe hare /
+  Canada lynx cycle, from Hudson's Bay Company fur records.
+- **Southern Ocean krill web** — Antarctic krill (*Euphausia superba*) as keystone linking phytoplankton to
+  whales, seals and penguins. Synthesis after the Australian Antarctic Program and **Trathan, P. N. & Hill,
+  S. L. (2016)**, *The importance of krill predation in the Southern Ocean* (in *Biology and Ecology of
+  Antarctic Krill*, Springer). https://doi.org/10.1007/978-3-319-29279-3_9
 
 ## Taxonomy
 - **GBIF** — GBIF Secretariat: GBIF Backbone Taxonomy. https://www.gbif.org

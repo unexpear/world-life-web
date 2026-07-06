@@ -365,6 +365,50 @@ const NODES = [
   {id:'intertidalalgae', name:'Algae & Plankton', kind:'plant', status:'living',
    place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:20, dr:-66,
    fact:`Benthic algae and plankton — the base grazed and filtered by the whole shore community.`},
+
+  // ============ Yellowstone wolf-reintroduction cascade — Ripple & Beschta (2012) ============
+  {id:'wolf', name:'Gray Wolf', sci:'Canis lupus', kind:'mammal', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:225, dr:44, fact:`Its 1995 return to Yellowstone cut elk browsing and let willows, aspen — and beavers — recover. The famous trophic cascade.`},
+  {id:'elk', name:'Elk', sci:'Cervus canadensis', kind:'mammal', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:224, dr:-8, fact:`A heavy browser whose numbers wolves reduced, releasing the young trees along the streams.`},
+  {id:'ysbison', name:'Bison', sci:'Bison bison', kind:'mammal', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:230, dr:6, fact:`Rebounded after wolves eased elk competition for forage.`},
+  {id:'beaver', name:'Beaver', sci:'Castor canadensis', kind:'mammal', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:217, dr:8, fact:`Colonies rose from 1 to 12 on the northern range as willow recovered — ecosystem engineers.`},
+  {id:'yswillow', name:'Willow', sci:'Salix', kind:'plant', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:216, dr:-38, fact:`Recovered strongly once wolves reduced elk browsing.`},
+  {id:'ysaspen', name:'Aspen', sci:'Populus tremuloides', kind:'plant', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:234, dr:-40, fact:`New shoots finally survived to grow tall after the wolves returned.`},
+  {id:'cottonwood', name:'Cottonwood', sci:'Populus', kind:'plant', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:220, dr:-60, fact:`Riverside trees released from heavy elk browsing.`},
+  {id:'ysgrass', name:'Northern-range Grass', kind:'plant', status:'living', place:'Yellowstone N.P.',
+   era:'Today', a:228, dr:-64, fact:`Grassland forage of Yellowstone's northern range.`},
+
+  // ============ Southern Ocean krill web — Euphausia superba as keystone ============
+  {id:'antkrill', name:'Antarctic Krill', sci:'Euphausia superba', kind:'marine', status:'living',
+   place:'Southern Ocean', era:'Today', a:46, dr:-20, fact:`The keystone of the Southern Ocean — its vast biomass links phytoplankton to almost every large predator.`},
+  {id:'antphyto', name:'Antarctic Phytoplankton', kind:'plant', status:'living', place:'Southern Ocean',
+   era:'Today', a:46, dr:-64, fact:`Blooms under the summer sun and sea-ice algae — the base the krill graze.`},
+  {id:'adelie', name:'Adélie Penguin', sci:'Pygoscelis adeliae', kind:'bird', status:'living', place:'Southern Ocean',
+   era:'Today', a:52, dr:6, fact:`Feeds on krill and small fish; itself hunted by leopard seals.`},
+  {id:'crabeater', name:'Crabeater Seal', sci:'Lobodon carcinophaga', kind:'mammal', status:'living', place:'Southern Ocean',
+   era:'Today', a:41, dr:42, fact:`Despite the name it eats mostly krill — likely the most numerous large carnivore on Earth.`},
+  {id:'leopard', name:'Leopard Seal', sci:'Hydrurga leptonyx', kind:'mammal', status:'living', place:'Southern Ocean',
+   era:'Today', a:51, dr:42, fact:`Apex predator that hunts penguins and other seals — but still eats plenty of krill.`},
+  {id:'minke', name:'Minke Whale', sci:'Balaenoptera', kind:'marine', status:'living', place:'Southern Ocean',
+   era:'Today', a:46, dr:44, fact:`A baleen whale that filters vast tonnages of krill each summer.`},
+  {id:'silverfish', name:'Antarctic Silverfish', sci:'Pleuragramma', kind:'marine', status:'living', place:'Southern Ocean',
+   era:'Today', a:40, dr:8, fact:`A krill-eating fish, and in turn food for penguins and seals.`},
+
+  // ============ Boreal lynx–hare cycle — Elton & Nicholson (1942) ============
+  {id:'canadalynx', name:'Canada Lynx', sci:'Lynx canadensis', kind:'mammal', status:'living',
+   place:'N. American boreal forest', era:'Today', a:152, dr:34, fact:`A specialist hare hunter whose numbers rise and fall about two years behind the hare's.`},
+  {id:'snowshoehare', name:'Snowshoe Hare', sci:'Lepus americanus', kind:'mammal', status:'living',
+   place:'N. American boreal forest', era:'Today', a:146, dr:-8, fact:`Its ~10-year boom-and-bust cycle drives the whole boreal predator community.`},
+  {id:'greathornedowl', name:'Great Horned Owl', sci:'Bubo virginianus', kind:'bird', status:'living',
+   place:'N. American boreal forest', era:'Today', a:143, dr:32, fact:`Another hare predator whose numbers track the 10-year cycle.`},
+  {id:'borealshrub', name:'Willows & Shrubs', kind:'plant', status:'living',
+   place:'N. American boreal forest', era:'Today', a:149, dr:-58, fact:`Boreal browse — the winter food that limits the hare at the peak of its cycle.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -407,10 +451,16 @@ const ECOSYSTEMS = {
   'Paleogene (Age of Mammals)':['titanoboa','basilosaurus','paraceratherium','hyaenodon','paleoforest','crocodilians','paleofish'],
   'Neogene (Age of Mammals)': ['megalodon','terrorbird','argentavis','australopithecus','miocenegrass','grazers','baleenwhales'],
   'Pacific rocky shore (Paine 1966)':['pisaster','mussels','acornbarnacle','goosebarnacle','chitons','limpets','whelk','intertidalalgae'],
+  'Yellowstone (wolf cascade)':['wolf','elk','ysbison','beaver','yswillow','ysaspen','cottonwood','ysgrass'],
+  'Southern Ocean (krill web)':['antkrill','antphyto','adelie','crabeater','leopard','minke','silverfish'],
+  'Boreal forest (lynx–hare)':['canadalynx','snowshoehare','greathornedowl','borealshrub'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
-  'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate.'
+  'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate.',
+  'Yellowstone (wolf cascade)':'From Ripple, W.J. & Beschta, R.L. (2012) "Trophic cascades in Yellowstone," Biol. Conserv. 145:205–213. Wolves cut elk browsing → willow, aspen & cottonwood recover → beavers return. A top-down cascade.',
+  'Southern Ocean (krill web)':'Antarctic krill (Euphausia superba) is the keystone linking phytoplankton to whales, seals and penguins across the Southern Ocean (synthesis after the Australian Antarctic Program; Trathan & Hill 2016).',
+  'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.'
 };
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
@@ -589,6 +639,30 @@ const EDGES = [
   {from:'goosebarnacle', to:'intertidalalgae', type:'eats', note:'filter-feeds plankton'},
   {from:'chitons', to:'intertidalalgae', type:'eats', note:'grazes algae'},
   {from:'limpets', to:'intertidalalgae', type:'eats', note:'grazes algae'},
+
+  // ---- Yellowstone (Ripple & Beschta 2012) ----
+  {from:'elk', to:'ysgrass', type:'eats', note:'grazes'},
+  {from:'elk', to:'yswillow', type:'eats', note:'browses (heavily, before wolves)'},
+  {from:'elk', to:'ysaspen', type:'eats', note:'browses young shoots'},
+  {from:'elk', to:'cottonwood', type:'eats', note:'browses riverside saplings'},
+  {from:'ysbison', to:'ysgrass', type:'eats', note:'grazes'},
+  {from:'beaver', to:'yswillow', type:'eats', note:'needs recovered willow'},
+  {from:'beaver', to:'ysaspen', type:'eats', note:'cuts aspen'},
+  {from:'wolf', to:'elk', type:'eats', note:'primary prey'},
+  {from:'wolf', to:'ysbison', type:'eats', note:'occasional prey'},
+  // ---- Southern Ocean krill web ----
+  {from:'antkrill', to:'antphyto', type:'eats', note:'grazes phytoplankton'},
+  {from:'minke', to:'antkrill', type:'eats', note:'filter-feeds krill'},
+  {from:'crabeater', to:'antkrill', type:'eats', note:'krill specialist'},
+  {from:'adelie', to:'antkrill', type:'eats', note:'eats krill'},
+  {from:'silverfish', to:'antkrill', type:'eats', note:'eats krill'},
+  {from:'adelie', to:'silverfish', type:'eats', note:'eats small fish'},
+  {from:'leopard', to:'adelie', type:'eats', note:'hunts penguins'},
+  {from:'leopard', to:'antkrill', type:'eats', note:'also eats krill'},
+  // ---- Boreal lynx–hare cycle (Elton & Nicholson 1942) ----
+  {from:'snowshoehare', to:'borealshrub', type:'eats', note:'browses shrubs'},
+  {from:'canadalynx', to:'snowshoehare', type:'eats', note:'its near-exclusive prey'},
+  {from:'greathornedowl', to:'snowshoehare', type:'eats', note:'preys on hares'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
