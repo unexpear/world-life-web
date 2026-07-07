@@ -31,7 +31,7 @@
   .toggles button.metrics{border-color:#8a7fc9;color:#a99fe0}
   .toggles button.metrics[data-on="1"]{background:#8a7fc9;border-color:#8a7fc9;color:#12101f}
   #main{flex:1;display:flex;min-height:0}
-  #cy{flex:1;min-width:0;background:radial-gradient(circle at 50% 50%,#0d131b 0%,#0b0e13 55%,#080a0e 100%)}
+  #cy{flex:1;min-width:0;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 50%,#0d131b 0%,#0b0e13 55%,#080a0e 100%)}
   #side{width:310px;border-left:1px solid var(--line);background:var(--panel);
     padding:18px;overflow-y:auto}
   #side .hint{color:var(--dim);font-size:13px;line-height:1.65}
@@ -523,17 +523,8 @@ const EDGE_COLOR = {eats:'#d55e00', ancestor:'#0072b2', ecology:'#009e73'};
 const EDGE_STYLE = {eats:'solid', ancestor:'dashed', ecology:'dotted'};
 
 const elements = [];
-// concentric ring discs (outer first/behind, inner last/front), then void punch-out
-[...ERAS_IN_TO_OUT].reverse().forEach((e,idx)=>{
-  const R=ERA_OUTER[e];
-  elements.push({data:{id:'ring_'+e, ring:1, rz:idx+1, bg:RING_COLOR[e]},
-    position:{x:0,y:0}, selectable:false, grabbable:false,
-    style:{'width':2*R,'height':2*R}});
-});
-elements.push({data:{id:'ring_void', ring:1, rz:ERAS_IN_TO_OUT.length+1, bg:'#0a0d12'},
-  position:{x:0,y:0}, selectable:false, grabbable:false,
-  style:{'width':2*VOID_R,'height':2*VOID_R}});
-// era labels along the downward radius (270°), stacked by ring
+// era ring bands + ecosystem sector wedges are drawn as an SVG layer (see buildBackground below)
+// era labels along the downward radius (12°), stacked by ring
 ERAS_IN_TO_OUT.forEach(e=>{
   const p=polar(12, ERA_MID[e]);
   elements.push({data:{id:'axis_'+e, axis:1, label:ERA_LABEL[e]},
@@ -765,6 +756,48 @@ const cy = cytoscape({
 });
 cy.maxZoom(2.4); cy.minZoom(0.15);
 
+// ===== SVG background: era ring bands + tinted ecosystem sector-wedges + dividers =====
+(function buildBackground(){
+  const NS='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(NS,'svg');
+  svg.style.cssText='position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible';
+  const g=document.createElementNS(NS,'g'); svg.appendChild(g);
+  const cyDiv=document.getElementById('cy');
+  cyDiv.insertBefore(svg, cyDiv.firstChild); // first child → paints below the node/edge canvases
+  const pt=(a,r)=>({x:r*Math.cos(a*Math.PI/180), y:-r*Math.sin(a*Math.PI/180)});
+  const outerR=ERA_OUTER[ERAS_IN_TO_OUT[ERAS_IN_TO_OUT.length-1]];
+  const mk=(t,attrs)=>{const el=document.createElementNS(NS,t);for(const k in attrs)el.setAttribute(k,attrs[k]);g.appendChild(el);return el;};
+
+  // 1) era ring bands (largest first so inner bands sit on top), then the void core
+  [...ERAS_IN_TO_OUT].reverse().forEach(e=>mk('circle',{cx:0,cy:0,r:ERA_OUTER[e],fill:RING_COLOR[e],'fill-opacity':0.9}));
+  mk('circle',{cx:0,cy:0,r:VOID_R,fill:'#0a0d12'});
+
+  // 2) ecosystem sector wedges + divider lines
+  const names=Object.keys(ECOSYSTEMS), N=names.length;
+  names.forEach((name,idx)=>{
+    const angs=[], rads=[];
+    ECOSYSTEMS[name].forEach(id=>{const n=cy.getElementById(id); if(n.empty())return;
+      const p=n.position(); rads.push(Math.hypot(p.x,p.y));
+      let a=Math.atan2(-p.y,p.x)*180/Math.PI; if(a<0)a+=360; angs.push(a);});
+    if(!angs.length) return;
+    let A=angs.slice(); if(Math.max.apply(null,A)-Math.min.apply(null,A)>180) A=A.map(a=>a<180?a+360:a);
+    const aMin=Math.min.apply(null,A)-2.6, aMax=Math.max.apply(null,A)+2.6;
+    const rMin=Math.max(VOID_R+2, Math.min.apply(null,rads)-20), rMax=Math.min(outerR-1, Math.max.apply(null,rads)+30);
+    const hue=Math.round(idx/N*360);
+    const p=[]; for(let a=aMin;a<=aMax;a+=1.5)p.push(pt(a,rMin)); p.push(pt(aMax,rMin));
+    for(let a=aMax;a>=aMin;a-=1.5)p.push(pt(a,rMax)); p.push(pt(aMin,rMax));
+    mk('path',{d:'M'+p.map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join('L')+'Z',
+      fill:'hsl('+hue+',48%,58%)','fill-opacity':0.12});
+    [aMin,aMax].forEach(a=>{const p1=pt(a,rMin),p2=pt(a,rMax);
+      mk('line',{x1:p1.x.toFixed(1),y1:p1.y.toFixed(1),x2:p2.x.toFixed(1),y2:p2.y.toFixed(1),
+        stroke:'hsl('+hue+',55%,68%)','stroke-opacity':0.4,'stroke-width':1,'vector-effect':'non-scaling-stroke'});});
+  });
+
+  // 3) keep the SVG locked to Cytoscape's pan/zoom
+  const sync=()=>{const pn=cy.pan(),z=cy.zoom(); g.setAttribute('transform','translate('+pn.x+','+pn.y+') scale('+z+')');};
+  cy.on('render', sync); sync();
+})();
+
 // ---- TOGGLES ----
 const active = {eats:true, ancestor:true, ecology:true};
 function applyFilter(){
@@ -780,7 +813,7 @@ document.querySelectorAll('.toggles button').forEach(btn=>{
 // ---- SELECTION / PANEL ----
 const side = document.getElementById('side');
 const defaultHint = side.innerHTML;
-const strata = cy.nodes('[ring], [axis]');
+const strata = cy.nodes('[axis]');
 function showNode(node){
   cy.elements().removeClass('dim hl sel');
   cy.elements().addClass('dim'); strata.removeClass('dim');
