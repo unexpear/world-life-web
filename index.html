@@ -795,10 +795,10 @@ cy.maxZoom(2.4); cy.minZoom(0.15);
     for(let t=span;t>=0;t-=1.5) p.push(pt(start+t, rOut));
     p.push(pt(start, rOut));
     mk('path',{d:'M'+p.map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join('L')+'Z',
-      fill:'hsl('+hue+',52%,60%)','fill-opacity':0.11});
+      fill:'hsl('+hue+',60%,52%)','fill-opacity':0.34});
     const p1=pt(start,rIn), p2=pt(start,rOut);
     mk('line',{x1:p1.x.toFixed(1),y1:p1.y.toFixed(1),x2:p2.x.toFixed(1),y2:p2.y.toFixed(1),
-      stroke:'rgba(255,255,255,0.32)','stroke-width':1.1,'vector-effect':'non-scaling-stroke'});
+      stroke:'rgba(255,255,255,0.45)','stroke-width':1.2,'vector-effect':'non-scaling-stroke'});
   });
 
   // 3) keep the SVG locked to Cytoscape's pan/zoom
