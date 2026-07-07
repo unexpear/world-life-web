@@ -772,25 +772,33 @@ cy.maxZoom(2.4); cy.minZoom(0.15);
   [...ERAS_IN_TO_OUT].reverse().forEach(e=>mk('circle',{cx:0,cy:0,r:ERA_OUTER[e],fill:RING_COLOR[e],'fill-opacity':0.9}));
   mk('circle',{cx:0,cy:0,r:VOID_R,fill:'#0a0d12'});
 
-  // 2) ecosystem sector wedges + divider lines
-  const names=Object.keys(ECOSYSTEMS), N=names.length;
-  names.forEach((name,idx)=>{
-    const angs=[], rads=[];
+  // 2) ecosystem sections — full-radius pie wedges that partition the WHOLE wheel by angular
+  //    midpoints, drawn ON TOP of the rings, each a faint distinct hue, split by white divider lines.
+  const rIn=VOID_R+2, rOut=outerR-1;
+  const fwd=(a,b)=>{let d=b-a; if(d<0)d+=360; return d;};
+  const mid=(a,b)=>(a+fwd(a,b)/2)%360;
+  const list=Object.keys(ECOSYSTEMS).map(name=>{
+    let sx=0,sy=0,c=0;
     ECOSYSTEMS[name].forEach(id=>{const n=cy.getElementById(id); if(n.empty())return;
-      const p=n.position(); rads.push(Math.hypot(p.x,p.y));
-      let a=Math.atan2(-p.y,p.x)*180/Math.PI; if(a<0)a+=360; angs.push(a);});
-    if(!angs.length) return;
-    let A=angs.slice(); if(Math.max.apply(null,A)-Math.min.apply(null,A)>180) A=A.map(a=>a<180?a+360:a);
-    const aMin=Math.min.apply(null,A)-2.6, aMax=Math.max.apply(null,A)+2.6;
-    const rMin=Math.max(VOID_R+2, Math.min.apply(null,rads)-20), rMax=Math.min(outerR-1, Math.max.apply(null,rads)+30);
-    const hue=Math.round(idx/N*360);
-    const p=[]; for(let a=aMin;a<=aMax;a+=1.5)p.push(pt(a,rMin)); p.push(pt(aMax,rMin));
-    for(let a=aMax;a>=aMin;a-=1.5)p.push(pt(a,rMax)); p.push(pt(aMin,rMax));
+      const p=n.position(); const a=Math.atan2(-p.y,p.x); sx+=Math.cos(a); sy+=Math.sin(a); c++;});
+    if(!c) return null;
+    let m=Math.atan2(sy,sx)*180/Math.PI; if(m<0)m+=360;
+    return {name, mean:m};
+  }).filter(Boolean).sort((a,b)=>a.mean-b.mean);
+  const M=list.length, bound=[];
+  for(let i=0;i<M;i++) bound.push(mid(list[i].mean, list[(i+1)%M].mean));
+  list.forEach((eco,i)=>{
+    const start=bound[(i-1+M)%M], span=fwd(start, bound[i]);
+    const hue=Math.round(i/M*360), p=[];
+    for(let t=0;t<=span;t+=1.5) p.push(pt(start+t, rIn));
+    p.push(pt(start+span, rIn));
+    for(let t=span;t>=0;t-=1.5) p.push(pt(start+t, rOut));
+    p.push(pt(start, rOut));
     mk('path',{d:'M'+p.map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join('L')+'Z',
-      fill:'hsl('+hue+',48%,58%)','fill-opacity':0.12});
-    [aMin,aMax].forEach(a=>{const p1=pt(a,rMin),p2=pt(a,rMax);
-      mk('line',{x1:p1.x.toFixed(1),y1:p1.y.toFixed(1),x2:p2.x.toFixed(1),y2:p2.y.toFixed(1),
-        stroke:'hsl('+hue+',55%,68%)','stroke-opacity':0.4,'stroke-width':1,'vector-effect':'non-scaling-stroke'});});
+      fill:'hsl('+hue+',52%,60%)','fill-opacity':0.11});
+    const p1=pt(start,rIn), p2=pt(start,rOut);
+    mk('line',{x1:p1.x.toFixed(1),y1:p1.y.toFixed(1),x2:p2.x.toFixed(1),y2:p2.y.toFixed(1),
+      stroke:'rgba(255,255,255,0.32)','stroke-width':1.1,'vector-effect':'non-scaling-stroke'});
   });
 
   // 3) keep the SVG locked to Cytoscape's pan/zoom
