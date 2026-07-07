@@ -450,7 +450,7 @@ const NODES = [
 // Paleogene & Neogene are the empty "Age of Mammals" periods that really sit between the
 // Cretaceous and the Quaternary — shown as empty rings so the timeline is honest about the gap.
 const ERAS_IN_TO_OUT = ['Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
-const VOID_R = 110, RING_T = 118;
+const VOID_R = 120, RING_T = 165;
 const ERA_MID = {}, ERA_OUTER = {};
 ERAS_IN_TO_OUT.forEach((e,i)=>{ ERA_MID[e]=VOID_R+i*RING_T+RING_T/2; ERA_OUTER[e]=VOID_R+(i+1)*RING_T; });
 
@@ -529,7 +529,13 @@ const LAYOUT = (function(){
     SECTIONS[name].forEach(id=>{const nn=nodeById[id]; if(!nn)return; (byEra[nn.era]=byEra[nn.era]||[]).push(id);});
     Object.keys(byEra).forEach(era=>{
       const arr=byEra[era], k=arr.length;
-      arr.forEach((id,j)=>{ out[id]={ a:(k===1?(lo+hi)/2:lo+(hi-lo)*j/(k-1)), dr:(k>1?((j%2)?20:-20):0) }; });
+      const H=RING_T-30, rows=Math.max(1, Math.min(k, Math.floor(H/38))), cols=Math.ceil(k/rows);
+      arr.forEach((id,j)=>{
+        const col=j%cols, row=Math.floor(j/cols);
+        const a = cols===1 ? (lo+hi)/2 : lo+(hi-lo)*col/(cols-1);
+        const dr = rows===1 ? 0 : -H/2 + row*(H/(rows-1));
+        out[id]={a, dr};
+      });
     });
     cur=e+GAP;
   });
