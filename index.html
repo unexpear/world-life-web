@@ -772,33 +772,35 @@ cy.maxZoom(2.4); cy.minZoom(0.15);
   [...ERAS_IN_TO_OUT].reverse().forEach(e=>mk('circle',{cx:0,cy:0,r:ERA_OUTER[e],fill:RING_COLOR[e],'fill-opacity':0.9}));
   mk('circle',{cx:0,cy:0,r:VOID_R,fill:'#0a0d12'});
 
-  // 2) ecosystem sections — full-radius pie wedges that partition the WHOLE wheel by angular
-  //    midpoints, drawn ON TOP of the rings, each a faint distinct hue, split by white divider lines.
-  const rIn=VOID_R+2, rOut=outerR-1;
-  const fwd=(a,b)=>{let d=b-a; if(d<0)d+=360; return d;};
-  const mid=(a,b)=>(a+fwd(a,b)/2)%360;
-  const list=Object.keys(ECOSYSTEMS).map(name=>{
-    let sx=0,sy=0,c=0;
+  // 2) ecosystem sections — annular-sector wedges snapped to the RING BANDS each ecosystem
+  //    actually occupies (so you can see which ages it spans; a gap = it skips that age),
+  //    drawn above the rings, in solid vivid colors, each wedge outlined so the edges read clearly.
+  const idxOf={}; ERAS_IN_TO_OUT.forEach((e,i)=>{idxOf[e]=i;});
+  const names=Object.keys(ECOSYSTEMS), N=names.length;
+  names.forEach((name,ei)=>{
+    const angs=[], eraSet={};
     ECOSYSTEMS[name].forEach(id=>{const n=cy.getElementById(id); if(n.empty())return;
-      const p=n.position(); const a=Math.atan2(-p.y,p.x); sx+=Math.cos(a); sy+=Math.sin(a); c++;});
-    if(!c) return null;
-    let m=Math.atan2(sy,sx)*180/Math.PI; if(m<0)m+=360;
-    return {name, mean:m};
-  }).filter(Boolean).sort((a,b)=>a.mean-b.mean);
-  const M=list.length, bound=[];
-  for(let i=0;i<M;i++) bound.push(mid(list[i].mean, list[(i+1)%M].mean));
-  list.forEach((eco,i)=>{
-    const start=bound[(i-1+M)%M], span=fwd(start, bound[i]);
-    const hue=Math.round(i/M*360), p=[];
-    for(let t=0;t<=span;t+=1.5) p.push(pt(start+t, rIn));
-    p.push(pt(start+span, rIn));
-    for(let t=span;t>=0;t-=1.5) p.push(pt(start+t, rOut));
-    p.push(pt(start, rOut));
-    mk('path',{d:'M'+p.map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join('L')+'Z',
-      fill:'hsl('+hue+',60%,52%)','fill-opacity':0.34});
-    const p1=pt(start,rIn), p2=pt(start,rOut);
-    mk('line',{x1:p1.x.toFixed(1),y1:p1.y.toFixed(1),x2:p2.x.toFixed(1),y2:p2.y.toFixed(1),
-      stroke:'rgba(255,255,255,0.45)','stroke-width':1.2,'vector-effect':'non-scaling-stroke'});
+      const p=n.position(); let a=Math.atan2(-p.y,p.x)*180/Math.PI; if(a<0)a+=360; angs.push(a);
+      eraSet[n.data('_n').era]=true;});
+    if(!angs.length) return;
+    let A=angs.slice(); if(Math.max.apply(null,A)-Math.min.apply(null,A)>180) A=A.map(a=>a<180?a+360:a);
+    const aMin=Math.min.apply(null,A)-2, aMax=Math.max.apply(null,A)+2, span=aMax-aMin;
+    const hue=Math.round(ei/N*360);
+    // occupied ring indices → contiguous runs, so an age the ecosystem skips shows as a gap
+    const idxs=Object.keys(eraSet).map(e=>idxOf[e]).sort((x,y)=>x-y);
+    const runs=[]; let s=idxs[0], pv=idxs[0];
+    for(let k=1;k<idxs.length;k++){ if(idxs[k]===pv+1) pv=idxs[k]; else {runs.push([s,pv]); s=pv=idxs[k];} }
+    runs.push([s,pv]);
+    runs.forEach(run=>{
+      const rIn=VOID_R+run[0]*RING_T+1, rOut=VOID_R+(run[1]+1)*RING_T-1, q=[];
+      for(let t=0;t<=span;t+=1.5) q.push(pt(aMin+t, rIn));
+      q.push(pt(aMax, rIn));
+      for(let t=span;t>=0;t-=1.5) q.push(pt(aMin+t, rOut));
+      q.push(pt(aMin, rOut));
+      mk('path',{d:'M'+q.map(z=>z.x.toFixed(1)+','+z.y.toFixed(1)).join('L')+'Z',
+        fill:'hsl('+hue+',70%,47%)','fill-opacity':0.58,
+        stroke:'rgba(255,255,255,0.55)','stroke-width':1.1,'vector-effect':'non-scaling-stroke'});
+    });
   });
 
   // 3) keep the SVG locked to Cytoscape's pan/zoom
