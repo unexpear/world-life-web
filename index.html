@@ -501,6 +501,41 @@ const ECO_SOURCE = {
 const TAXON_GROUPS = new Set(['Bears (Ursidae)']);
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
+// SECTIONS = the visual slices. Same as ECOSYSTEMS plus the cross-cutting groups, so EVERY
+// animal lands in exactly one section (ECOSYSTEMS itself stays lean for the connectance maths).
+const SECTIONS = Object.assign({}, ECOSYSTEMS, {
+  'Decomposers':['detritus_land','fungi','dungbeetles','vultures','marinedetritus','marinedecomp'],
+  'Humans':['human']
+});
+// Computed layout: give each section its own non-overlapping angular slice (width ∝ member count),
+// and place its members inside it — spread by angle within each era-ring, staggered in radius so
+// labels don't collide. This is what guarantees the wedges don't overlap and each holds only its own.
+const LAYOUT = (function(){
+  const nodeById={}; NODES.forEach(n=>{nodeById[n.id]=n;});
+  const names=Object.keys(SECTIONS);
+  const meanA={};
+  names.forEach(name=>{ let sx=0,sy=0;
+    SECTIONS[name].forEach(id=>{const nn=nodeById[id]; if(!nn)return; const a=nn.a*Math.PI/180; sx+=Math.cos(a); sy+=Math.sin(a);});
+    meanA[name]=Math.atan2(sy,sx); });
+  names.sort((x,y)=>meanA[x]-meanA[y]); // keep the rough clockwise order they already had
+  const weights=names.map(n=>SECTIONS[n].length+2);
+  const totW=weights.reduce((a,b)=>a+b,0);
+  const GAP=2.2, avail=360-GAP*names.length;
+  const out={}; let cur=0;
+  names.forEach((name,i)=>{
+    const w=weights[i]/totW*avail, s=cur, e=cur+w;
+    const pad=Math.min(3,(e-s)*0.1), lo=s+pad, hi=e-pad;
+    const byEra={};
+    SECTIONS[name].forEach(id=>{const nn=nodeById[id]; if(!nn)return; (byEra[nn.era]=byEra[nn.era]||[]).push(id);});
+    Object.keys(byEra).forEach(era=>{
+      const arr=byEra[era], k=arr.length;
+      arr.forEach((id,j)=>{ out[id]={ a:(k===1?(lo+hi)/2:lo+(hi-lo)*j/(k-1)), dr:(k>1?((j%2)?20:-20):0) }; });
+    });
+    cur=e+GAP;
+  });
+  return out;
+})();
+
 // ---- Present-day conservation data (verified: IUCN Red List + World Bank, 2021–24) ----
 const IUCN = { // living relatives in this web, with their real IUCN status
   nicobar:'NT', devil:'EN', numbat:'EN', razorbill:'NT', puffin:'VU', dugong:'VU',
@@ -532,8 +567,9 @@ ERAS_IN_TO_OUT.forEach(e=>{
 });
 // species (polar)
 NODES.forEach(n=>{
-  const r=(ERA_MID[n.era]||300)+(n.dr||0);
-  const p=polar(n.a, r);
+  const L=LAYOUT[n.id]||{a:n.a, dr:n.dr};
+  const r=(ERA_MID[n.era]||300)+(L.dr||0);
+  const p=polar(L.a, r);
   elements.push({data:{id:n.id, label:(n.status==='extinct'?'† ':'')+n.name,
     color:KIND_COLOR[n.kind]||KIND_COLOR.other, status:n.status, _n:n}, position:p});
 });
@@ -776,10 +812,10 @@ cy.maxZoom(2.4); cy.minZoom(0.15);
   //    actually occupies (so you can see which ages it spans; a gap = it skips that age),
   //    drawn above the rings, in solid vivid colors, each wedge outlined so the edges read clearly.
   const idxOf={}; ERAS_IN_TO_OUT.forEach((e,i)=>{idxOf[e]=i;});
-  const names=Object.keys(ECOSYSTEMS), N=names.length;
+  const names=Object.keys(SECTIONS), N=names.length;
   names.forEach((name,ei)=>{
     const angs=[], eraSet={};
-    ECOSYSTEMS[name].forEach(id=>{const n=cy.getElementById(id); if(n.empty())return;
+    SECTIONS[name].forEach(id=>{const n=cy.getElementById(id); if(n.empty())return;
       const p=n.position(); let a=Math.atan2(-p.y,p.x)*180/Math.PI; if(a<0)a+=360; angs.push(a);
       eraSet[n.data('_n').era]=true;});
     if(!angs.length) return;
