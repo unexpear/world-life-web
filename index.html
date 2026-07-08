@@ -450,7 +450,7 @@ const NODES = [
 // Paleogene & Neogene are the empty "Age of Mammals" periods that really sit between the
 // Cretaceous and the Quaternary — shown as empty rings so the timeline is honest about the gap.
 const ERAS_IN_TO_OUT = ['Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
-const VOID_R = 120, RING_T = 165;
+const VOID_R = 230, RING_T = 165;
 const ERA_MID = {}, ERA_OUTER = {};
 ERAS_IN_TO_OUT.forEach((e,i)=>{ ERA_MID[e]=VOID_R+i*RING_T+RING_T/2; ERA_OUTER[e]=VOID_R+(i+1)*RING_T; });
 
@@ -796,7 +796,7 @@ const cy = cytoscape({
   ],
   layout:{name:'preset', fit:true, padding:24},
 });
-cy.maxZoom(2.4); cy.minZoom(0.15);
+cy.maxZoom(4); cy.minZoom(0.02);
 
 // ===== SVG background: era ring bands + tinted ecosystem sector-wedges + dividers =====
 (function buildBackground(){
