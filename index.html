@@ -445,6 +445,36 @@ const NODES = [
    era:'Today', a:312, dr:-42, fact:`Spawning runs — a seasonal protein feast for brown and black bears.`},
   {id:'plantfood', name:'Fruit, Roots & Insects', kind:'plant', status:'living', place:'Ursidae · worldwide',
    era:'Today', a:318, dr:-62, fact:`The omnivore staple most bears live on — berries, roots, nuts, honey and insects.`},
+
+  // ================ EAGLES — large raptors across the family Accipitridae ================
+  {id:'baldeagle', name:'Bald Eagle', sci:'Haliaeetus leucocephalus', kind:'bird', status:'living',
+   place:'Eagles · N. America', era:'Today', a:100, dr:0,
+   fact:`The USA's national bird — a fish-and-carrion sea eagle that recovered from near-extinction after DDT was banned.`},
+  {id:'stellereagle', name:"Steller's Sea Eagle", sci:'Haliaeetus pelagicus', kind:'bird', status:'living',
+   place:'Eagles · NE Asia', era:'Today', a:98, dr:0,
+   fact:`The heaviest eagle alive (up to ~9 kg), snatching salmon and waterbirds along the coasts of NE Asia.`},
+  {id:'goldeneagle', name:'Golden Eagle', sci:'Aquila chrysaetos', kind:'bird', status:'living',
+   place:'Eagles · N. Hemisphere', era:'Today', a:102, dr:0,
+   fact:`A powerful mammal-hunter of open country across the Northern Hemisphere — rabbits, hares and marmots.`},
+  {id:'harpyeagle', name:'Harpy Eagle', sci:'Harpia harpyja', kind:'bird', status:'living',
+   place:'Eagles · S. American rainforest', era:'Today', a:104, dr:0,
+   fact:`The rainforest apex of the Americas — talons like a bear's claws, plucking sloths and monkeys from the canopy.`},
+  {id:'philippineeagle', name:'Philippine Eagle', sci:'Pithecophaga jefferyi', kind:'bird', status:'living',
+   place:'Eagles · Philippines', era:'Today', a:106, dr:0,
+   fact:`One of the largest eagles and critically endangered — a few hundred pairs left, hunting monkeys and flying lemurs.`},
+  // eagle prey (specific)
+  {id:'sockeye', name:'Sockeye Salmon', sci:'Oncorhynchus nerka', kind:'marine', status:'living',
+   place:'Eagles · N. Pacific rivers', era:'Today', a:99, dr:-42,
+   fact:`Spawning runs that feed bald and Steller's sea eagles.`},
+  {id:'eaglerabbit', name:'European Rabbit', sci:'Oryctolagus cuniculus', kind:'mammal', status:'living',
+   place:'Eagles · open country', era:'Today', a:102, dr:-42,
+   fact:`A staple prey of the golden eagle.`},
+  {id:'treesloth', name:'Brown-throated Sloth', sci:'Bradypus variegatus', kind:'mammal', status:'living',
+   place:'Eagles · S. American canopy', era:'Today', a:104, dr:-42,
+   fact:`A slow tree-dweller — the harpy eagle's main prey.`},
+  {id:'colugo', name:'Philippine Flying Lemur', sci:'Cynocephalus volans', kind:'mammal', status:'living',
+   place:'Eagles · Philippine forest', era:'Today', a:106, dr:-42,
+   fact:`A gliding mammal (a colugo, not a true lemur) — key prey of the Philippine eagle.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -491,6 +521,7 @@ const ECOSYSTEMS = {
   'Southern Ocean (krill web)':['antkrill','antphyto','adelie','crabeater','leopard','minke','silverfish'],
   'Boreal forest (lynx–hare)':['canadalynx','snowshoehare','greathornedowl','borealshrub'],
   'Bears (Ursidae)':['brownbear','polarbear','panda','blackbear','asianblackbear','spectacledbear','slothbear','sunbear','cavebear','shortfacedbear','bamboo','arcticseal','salmon','plantfood'],
+  'Eagles':['baldeagle','stellereagle','goldeneagle','harpyeagle','philippineeagle','sockeye','eaglerabbit','treesloth','colugo'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
@@ -498,10 +529,11 @@ const ECO_SOURCE = {
   'Yellowstone (wolf cascade)':'From Ripple, W.J. & Beschta, R.L. (2012) "Trophic cascades in Yellowstone," Biol. Conserv. 145:205–213. Wolves cut elk browsing → willow, aspen & cottonwood recover → beavers return. A top-down cascade.',
   'Southern Ocean (krill web)':'Antarctic krill (Euphausia superba) is the keystone linking phytoplankton to whales, seals and penguins across the Southern Ocean (synthesis after the Australian Antarctic Program; Trathan & Hill 2016).',
   'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.',
-  'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.'
+  'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.',
+  'Eagles':'"Eagles" aren\'t one clade — they\'re large raptors scattered across the family Accipitridae: sea eagles (Haliaeetus — bald & Steller\'s), booted eagles (Aquila — golden), and the giant forest eagles (harpy, Philippine). Shown together as a recognisable group.'
 };
 // clusters that are taxonomic groups (a family), not co-occurring ecological communities
-const TAXON_GROUPS = new Set(['Bears (Ursidae)']);
+const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Eagles']);
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
 // SECTIONS = the visual slices. Same as ECOSYSTEMS plus the cross-cutting groups, so EVERY
@@ -548,7 +580,8 @@ const LAYOUT = (function(){
 // ---- Present-day conservation data (verified: IUCN Red List + World Bank, 2021–24) ----
 const IUCN = { // living relatives in this web, with their real IUCN status
   nicobar:'NT', devil:'EN', numbat:'EN', razorbill:'NT', puffin:'VU', dugong:'VU',
-  otter:'EN', bandtailed:'LC', zebra:'NT', lion:'VU', elephant:'EN' };
+  otter:'EN', bandtailed:'LC', zebra:'NT', lion:'VU', elephant:'EN',
+  baldeagle:'LC', stellereagle:'VU', goldeneagle:'LC', harpyeagle:'VU', philippineeagle:'CR' };
 const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
   EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
 const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
@@ -758,6 +791,15 @@ const EDGES = [
   {from:'spectacledbear', to:'shortfacedbear', type:'ancestor', note:'closest living relative (Tremarctinae)'},
   {from:'asianblackbear', to:'blackbear', type:'ancestor', note:'sister black-bear species'},
   {from:'panda', to:'brownbear', type:'ancestor', note:'the most basal bear — split ~19 Ma'},
+
+  // ---- Eagles: diet spans fish, mammals and canopy prey ----
+  {from:'baldeagle', to:'sockeye', type:'eats', note:'snatches spawning salmon'},
+  {from:'baldeagle', to:'detritus_land', type:'eats', note:'also scavenges carrion'},
+  {from:'stellereagle', to:'sockeye', type:'eats', note:'salmon specialist'},
+  {from:'goldeneagle', to:'eaglerabbit', type:'eats', note:'hunts rabbits & hares'},
+  {from:'harpyeagle', to:'treesloth', type:'eats', note:'plucks sloths from the canopy'},
+  {from:'philippineeagle', to:'colugo', type:'eats', note:'takes flying lemurs & monkeys'},
+  {from:'baldeagle', to:'stellereagle', type:'ancestor', note:'sister sea eagles (Haliaeetus)'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
