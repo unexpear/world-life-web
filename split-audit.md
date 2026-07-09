@@ -35,10 +35,10 @@ Work through one section (or one 🔴) at a time. `[ ]` = to do.
 - [x] ✅ `hawks` → **Red-tailed Hawk** (Buteo jamaicensis), **Cooper's Hawk** (Accipiter cooperii), **Red Fox** (Vulpes vulpes)
 - [x] ✅ `oak` → **White Oak** (Quercus alba) + **American Beech** (Fagus grandifolia) · [x] ✅ `berries` → **American Pokeweed** (Phytolacca americana) + **Riverbank Grape** (Vitis riparia) · [x] ✅ `chestnut` → **American Chestnut** (Castanea dentata, CR — chestnut blight)
 
-## 6. African plains
+## 6. African plains — ✅ DONE
 - ✅ quagga · ✅ zebra · ✅ lion
-- [ ] 🔴 `wildebeest` "Wildebeest & Antelope" → Blue Wildebeest, Impala, Thomson's Gazelle
-- [ ] 🔴 `grass` "Savanna Grass" (plant) · [ ] 🔴 `acacia` "Acacia & Shrubs" (plant)
+- [x] ✅ `wildebeest` → **Blue Wildebeest** (Connochaetes taurinus), **Impala** (Aepyceros melampus), **Thomson's Gazelle** (Eudorcas thomsonii)
+- [x] ✅ `grass` → **Red Oat Grass** (Themeda triandra, id kept — shared by quagga/zebra/fungi/vlei-rat) + **Rhodes Grass** (Chloris gayana) · [x] ✅ `acacia` → **Umbrella Thorn** (Vachellia tortilis, id kept) + **Whistling Thorn** (Vachellia drepanolobium, ant symbiosis)
 
 ## 7. Mammoth steppe
 - ✅ mammoth · ✅ elephant (Asian Elephant)
