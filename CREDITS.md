@@ -45,6 +45,9 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
   Cell. https://doi.org/10.1016/j.cell.2024.05.033 — rejects the "inbreeding doomed them" hypothesis.
 - **Higuchi, R., et al. (1984).** *DNA sequences from the quagga, an extinct member of the horse family.*
   Nature 312:282–284 — the first extinct animal to have its DNA sequenced.
+- **Organ, C. L., Schweitzer, M. H., et al. (2008).** *Molecular phylogenetics of Mastodon and Tyrannosaurus
+  rex.* Science 320:499. https://doi.org/10.1126/science.1154743 — recovered T. rex collagen grouped it with
+  birds, matching **chicken** most closely, then **ostrich**.
 - **Fulton, T. L., et al. (2012).** Passenger-pigeon phylogeny (*Patagioenas* is the closest relative).
 - **Numbat genome (2022)** — identifies the numbat as the thylacine's closest living relative.
 - Natural History Museum (London), Britannica, and cross-referenced Wikipedia/BirdLife DataZone articles
