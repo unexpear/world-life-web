@@ -559,8 +559,8 @@ const NODES = [
    place:'Snake eagle · Sub-Saharan Africa', era:'Today', a:165, dr:0, fact:`A sit-and-wait ambusher that often decapitates a snake before swallowing it.`},
   {id:'crestedserpent', name:'Crested Serpent Eagle', sci:'Spilornis cheela', kind:'bird', status:'living',
    place:'Serpent eagle · S/SE Asia', era:'Today', a:166, dr:0, fact:`The widespread Asian serpent eagle, a perch-hunter partial to tree snakes.`},
-  {id:'nicobarserpent', name:'Nicobar Serpent Eagle', sci:'Spilornis klossi', kind:'bird', status:'living',
-   place:'Serpent eagle · Nicobar Is.', era:'Today', a:167, dr:0, fact:`The smallest serpent eagle and one of the smallest eagles alive — uplisted to Endangered in 2023.`},
+  {id:'nicobarserpent', name:'Great Nicobar Serpent Eagle', sci:'Spilornis klossi', kind:'bird', status:'living',
+   place:'Serpent eagle · Great Nicobar', era:'Today', a:167, dr:0, fact:`The smallest serpent eagle and one of the smallest eagles alive — uplisted to Endangered in 2023.`},
   {id:'mountainserpent', name:'Mountain Serpent Eagle', sci:'Spilornis kinabaluensis', kind:'bird', status:'living',
    place:'Serpent eagle · Borneo mts', era:'Today', a:168, dr:0, fact:`Restricted to high stunted montane forest on Borneo (the Kinabalu serpent eagle).`},
   {id:'sulawesiserpent', name:'Sulawesi Serpent Eagle', sci:'Spilornis rufipectus', kind:'bird', status:'living',
@@ -671,6 +671,12 @@ const NODES = [
   {id:'aquilafossilis', name:'Aquila fossilis', sci:'?Aquila fossilis', kind:'bird', status:'extinct',
    place:'Fossil eagle · Sardinia', era:'Ice Age', a:132, dr:0, when:'Pleistocene', cause:`Known only from fossils`,
    fact:`A dubious, poorly-known Pleistocene eagle from Monte Reale, Sardinia.`},
+
+  // ---- reconciliation: the two eagles missing from the list of 68 ----
+  {id:'centralnicobarse', name:'Central Nicobar Serpent Eagle', sci:'Spilornis (cheela) minimus', kind:'bird', status:'living',
+   place:'Serpent eagle · Central Nicobar', era:'Today', a:168, dr:0, fact:`A serpent eagle of the central Nicobar Islands — often treated as a subspecies of the crested serpent eagle.`},
+  {id:'pinskerse', name:"Pinsker's Eagle", sci:'Nisaetus pinskeri', kind:'bird', status:'living',
+   place:'Forest eagle · S. Philippines', era:'Today', a:200, dr:0, fact:`The South Philippine hawk-eagle, split from the Philippine hawk-eagle; Endangered, with ~1,300–3,600 left.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -718,9 +724,9 @@ const ECOSYSTEMS = {
   'Boreal forest (lynx–hare)':['canadalynx','snowshoehare','greathornedowl','borealshrub'],
   'Bears (Ursidae)':['brownbear','polarbear','panda','blackbear','asianblackbear','spectacledbear','slothbear','sunbear','cavebear','shortfacedbear','bamboo','arcticseal','salmon','plantfood'],
   'Sea & Fish Eagles':['baldeagle','stellereagle','whitebelliedse','sanfordse','africanfish','madagascarfish','pallasfish','whitetailedse','lesserfish','greyheadedfish','sockeye','riverfish'],
-  'Snake & Serpent Eagles':['brownsnakee','blackchestedse','shorttoedse','beaudouinse','southernbandedse','westernbandedse','crestedserpent','nicobarserpent','mountainserpent','sulawesiserpent','philippineserpent','andamanserpent','congoserpent','madagascarserpent','bateleur','snakes','lizards'],
+  'Snake & Serpent Eagles':['brownsnakee','blackchestedse','shorttoedse','beaudouinse','southernbandedse','westernbandedse','crestedserpent','nicobarserpent','centralnicobarse','mountainserpent','sulawesiserpent','philippineserpent','andamanserpent','congoserpent','madagascarserpent','bateleur','snakes','lizards'],
   'True Eagles (Aquila)':['goldeneagle','steppeeagle','tawnyeagle','spanishimperial','easternimperial','wedgetailed','tasmanianwte','verreauxseagle','bonelliseagle','africanhawkeagle','gurneyseagle','cassinshawkeagle','bullockensis','delphinensis','pennatoides','bivia','aquilafossilis','eaglerabbit','suslik','hyrax','guineafowl','cuscus','treesquirrel'],
-  'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','bootedeagle','wahlbergeagle','greaterspotted','lesserspotted','indianspotted','rufousbellied','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo','vleirat'],
+  'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','bootedeagle','wahlbergeagle','greaterspotted','lesserspotted','indianspotted','rufousbellied','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','pinskerse','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo','vleirat'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
@@ -800,7 +806,7 @@ const IUCN = { // living relatives in this web, with their real IUCN status
   wallacehawke:'VU', leggeshawke:'LC', longcrested:'LC', crestedeagle:'NT', papuaneagle:'VU', blacksolitary:'NT',
   chacoeagle:'EN', buzzardeagle:'LC',
   bootedeagle:'LC', wahlbergeagle:'LC', greaterspotted:'VU', lesserspotted:'LC', indianspotted:'VU',
-  rufousbellied:'NT', tasmanianwte:'EN' };
+  rufousbellied:'NT', tasmanianwte:'EN', pinskerse:'EN' };
 const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
   EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
 const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
@@ -1147,6 +1153,12 @@ const EDGES = [
   {from:'goldeneagle', to:'delphinensis', type:'ancestor', note:'an early (dubious) Miocene Aquila'},
   {from:'goldeneagle', to:'pennatoides', type:'ancestor', note:'an early (dubious) Miocene Aquila'},
   {from:'goldeneagle', to:'aquilafossilis', type:'ancestor', note:'a dubious Pleistocene Aquila'},
+  // reconciliation edges
+  {from:'centralnicobarse', to:'snakes', type:'eats', note:'snakes & reptiles'},
+  {from:'centralnicobarse', to:'crestedserpent', type:'ancestor', note:'a form of the crested serpent eagle'},
+  {from:'pinskerse', to:'forestbirds', type:'eats', note:'birds & small vertebrates'},
+  {from:'pinskerse', to:'philippinehawke', type:'ancestor', note:'split from the (North) Philippine hawk-eagle'},
+  {from:'pinskerse', to:'changeablehawke', type:'ancestor', note:'Nisaetus kin'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
