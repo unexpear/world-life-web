@@ -677,6 +677,38 @@ const NODES = [
    place:'Serpent eagle · Central Nicobar', era:'Today', a:168, dr:0, fact:`A serpent eagle of the central Nicobar Islands — often treated as a subspecies of the crested serpent eagle.`},
   {id:'pinskerse', name:"Pinsker's Eagle", sci:'Nisaetus pinskeri', kind:'bird', status:'living',
    place:'Forest eagle · S. Philippines', era:'Today', a:200, dr:0, fact:`The South Philippine hawk-eagle, split from the Philippine hawk-eagle; Endangered, with ~1,300–3,600 left.`},
+
+  // ================ RODENTS — family Muridae (rats, mice, gerbils, spiny mice) ================
+  {id:'housemouse', name:'House Mouse', sci:'Mus musculus', kind:'mammal', status:'living',
+   place:'Muridae · worldwide', era:'Today', a:240, dr:0, fact:`Its lab strains are the most widely used mammalian model organism in all of biomedical research.`},
+  {id:'brownrat', name:'Brown Rat', sci:'Rattus norvegicus', kind:'mammal', status:'living',
+   place:'Muridae · worldwide', era:'Today', a:241, dr:0, fact:`From China/Mongolia it spread to every continent but Antarctica — and became the lab rat.`},
+  {id:'blackrat', name:'Black Rat', sci:'Rattus rattus', kind:'mammal', status:'living',
+   place:'Muridae · worldwide', era:'Today', a:242, dr:0, fact:`The ship rat — its fleas are the historic vector of the Black Death, and it wrecks island ecosystems.`},
+  {id:'woodmouse', name:'Wood Mouse', sci:'Apodemus sylvaticus', kind:'mammal', status:'living',
+   place:'Muridae · Eurasia', era:'Today', a:243, dr:0, fact:`It repositions leaves and twigs as its own visual landmarks while foraging — rare tool-like behaviour in a rodent.`},
+  {id:'harvestmouse', name:'Eurasian Harvest Mouse', sci:'Micromys minutus', kind:'mammal', status:'living',
+   place:'Muridae · Eurasia', era:'Today', a:244, dr:0, fact:`One of the smallest rodents (~4–6 g), it weaves tennis-ball-sized nests among tall grass stems.`},
+  {id:'multimammate', name:'Natal Multimammate Mouse', sci:'Mastomys natalensis', kind:'mammal', status:'living',
+   place:'Muridae · Africa', era:'Today', a:245, dr:0, fact:`The natural reservoir of Lassa virus, spread to people through its urine and droppings.`},
+  {id:'bandicootrat', name:'Greater Bandicoot Rat', sci:'Bandicota indica', kind:'mammal', status:'living',
+   place:'Muridae · S/SE Asia', era:'Today', a:246, dr:0, fact:`One of the largest murines — a serious crop and poultry pest, and itself eaten in some regions.`},
+  {id:'hoppingmouse', name:'Spinifex Hopping Mouse', sci:'Notomys alexis', kind:'mammal', status:'living',
+   place:'Muridae · Australian desert', era:'Today', a:247, dr:0, fact:`It needs no drinking water at all, producing some of the most concentrated urine of any mammal.`},
+  {id:'rakali', name:'Rakali (Water Rat)', sci:'Hydromys chrysogaster', kind:'mammal', status:'living',
+   place:'Muridae · Australia', era:'Today', a:248, dr:0, fact:`An amphibious hunter that safely eats invasive cane toads — flipping them to take only the non-toxic heart and liver.`},
+  {id:'mongoliangerbil', name:'Mongolian Gerbil', sci:'Meriones unguiculatus', kind:'mammal', status:'living',
+   place:'Muridae · Central Asia', era:'Today', a:249, dr:0, fact:`A popular pet and lab animal that scent-marks with a bare orange gland on its belly.`},
+  {id:'greatgerbil', name:'Great Gerbil', sci:'Rhombomys opimus', kind:'mammal', status:'living',
+   place:'Muridae · Central Asia', era:'Today', a:250, dr:0, fact:`A major plague (Yersinia pestis) reservoir whose colony density tracks human plague outbreaks.`},
+  {id:'spinymouse', name:'Cairo Spiny Mouse', sci:'Acomys cahirinus', kind:'mammal', status:'living',
+   place:'Muridae · N. Africa/Mideast', era:'Today', a:251, dr:0, fact:`One of the few mammals with true scar-free regeneration — regrowing skin, hair, cartilage and even muscle.`},
+  {id:'maclearsrat', name:"Maclear's Rat", sci:'Rattus macleari', kind:'mammal', status:'extinct',
+   place:'Muridae · Christmas Island', era:'Recent (Holocene)', a:242, dr:0, when:'~1904',
+   cause:`A trypanosome disease carried by introduced black rats' fleas`,
+   fact:`Once it "swarmed" across Christmas Island — then vanished in a few years to disease brought by ship-borne black rats.`},
+  {id:'seedsgrains', name:'Seeds & Grains', kind:'plant', status:'living', place:'Muridae · food',
+   era:'Today', a:245, dr:-42, fact:`Seeds, grains and shoots — the staple of most rats, mice and gerbils.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -726,7 +758,8 @@ const ECOSYSTEMS = {
   'Sea & Fish Eagles':['baldeagle','stellereagle','whitebelliedse','sanfordse','africanfish','madagascarfish','pallasfish','whitetailedse','lesserfish','greyheadedfish','sockeye','riverfish'],
   'Snake & Serpent Eagles':['brownsnakee','blackchestedse','shorttoedse','beaudouinse','southernbandedse','westernbandedse','crestedserpent','nicobarserpent','centralnicobarse','mountainserpent','sulawesiserpent','philippineserpent','andamanserpent','congoserpent','madagascarserpent','bateleur','snakes','lizards'],
   'True Eagles (Aquila)':['goldeneagle','steppeeagle','tawnyeagle','spanishimperial','easternimperial','wedgetailed','tasmanianwte','verreauxseagle','bonelliseagle','africanhawkeagle','gurneyseagle','cassinshawkeagle','bullockensis','delphinensis','pennatoides','bivia','aquilafossilis','eaglerabbit','suslik','hyrax','guineafowl','cuscus','treesquirrel'],
-  'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','bootedeagle','wahlbergeagle','greaterspotted','lesserspotted','indianspotted','rufousbellied','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','pinskerse','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo','vleirat'],
+  'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','bootedeagle','wahlbergeagle','greaterspotted','lesserspotted','indianspotted','rufousbellied','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','pinskerse','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo'],
+  'Rodents (Muridae)':['housemouse','brownrat','blackrat','woodmouse','harvestmouse','multimammate','bandicootrat','hoppingmouse','rakali','mongoliangerbil','greatgerbil','spinymouse','vleirat','maclearsrat','seedsgrains'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
@@ -738,10 +771,11 @@ const ECO_SOURCE = {
   'Sea & Fish Eagles':'The sea and fish eagles — genera Haliaeetus (8 species) and Icthyophaga (2). Fish-and-waterbird hunters of coasts, lakes and rivers worldwide; the Madagascar fish eagle is among the rarest raptors alive.',
   'Snake & Serpent Eagles':'The snake and serpent eagles (subfamily Circaetinae — Circaetus, Spilornis, plus the Bateleur and the Madagascar & Congo serpent eagles). Reptile specialists with thickly-scaled legs that swallow snakes whole.',
   'Hawk & Forest Eagles':'The "booted" hawk and forest eagles — a broad assemblage (Spizaetus, Nisaetus, Hieraaetus, the harpy-group giants Harpia/Morphnus/Harpyopsis/Pithecophaga, and the Buteogallus solitary eagles). Mostly canopy hunters of birds and arboreal mammals.',
-  'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); statuses from the IUCN Red List.'
+  'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); statuses from the IUCN Red List.',
+  'Rodents (Muridae)':'The largest mammal family (~700 species) — Old World rats & mice (Murinae), gerbils (Gerbillinae), spiny mice (Deomyinae) and vlei rats (Otomyinae). A representative sample, from the house mouse and lab rat to the extinct Maclear\'s rat. Statuses: IUCN Red List.'
 };
 // clusters that are taxonomic groups (a family), not co-occurring ecological communities
-const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Sea & Fish Eagles', 'Snake & Serpent Eagles', 'True Eagles (Aquila)', 'Hawk & Forest Eagles']);
+const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Sea & Fish Eagles', 'Snake & Serpent Eagles', 'True Eagles (Aquila)', 'Hawk & Forest Eagles', 'Rodents (Muridae)']);
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
 // SECTIONS = the visual slices. Same as ECOSYSTEMS plus the cross-cutting groups, so EVERY
@@ -806,7 +840,10 @@ const IUCN = { // living relatives in this web, with their real IUCN status
   wallacehawke:'VU', leggeshawke:'LC', longcrested:'LC', crestedeagle:'NT', papuaneagle:'VU', blacksolitary:'NT',
   chacoeagle:'EN', buzzardeagle:'LC',
   bootedeagle:'LC', wahlbergeagle:'LC', greaterspotted:'VU', lesserspotted:'LC', indianspotted:'VU',
-  rufousbellied:'NT', tasmanianwte:'EN', pinskerse:'EN' };
+  rufousbellied:'NT', tasmanianwte:'EN', pinskerse:'EN',
+  // rodents (Muridae) — all Least Concern
+  housemouse:'LC', brownrat:'LC', blackrat:'LC', woodmouse:'LC', harvestmouse:'LC', multimammate:'LC',
+  bandicootrat:'LC', hoppingmouse:'LC', rakali:'LC', mongoliangerbil:'LC', greatgerbil:'LC', spinymouse:'LC' };
 const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
   EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
 const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
@@ -1159,6 +1196,34 @@ const EDGES = [
   {from:'pinskerse', to:'forestbirds', type:'eats', note:'birds & small vertebrates'},
   {from:'pinskerse', to:'philippinehawke', type:'ancestor', note:'split from the (North) Philippine hawk-eagle'},
   {from:'pinskerse', to:'changeablehawke', type:'ancestor', note:'Nisaetus kin'},
+
+  // ---- Rodents (Muridae): food + subfamily relationships ----
+  {from:'housemouse', to:'seedsgrains', type:'eats', note:'seeds & grains'},
+  {from:'brownrat', to:'seedsgrains', type:'eats', note:'omnivore — grain to carrion'},
+  {from:'blackrat', to:'seedsgrains', type:'eats', note:'fruit, grain & invertebrates'},
+  {from:'woodmouse', to:'seedsgrains', type:'eats', note:'seeds, nuts & insects'},
+  {from:'harvestmouse', to:'seedsgrains', type:'eats', note:'grass seeds & insects'},
+  {from:'multimammate', to:'seedsgrains', type:'eats', note:'seeds & green matter'},
+  {from:'bandicootrat', to:'seedsgrains', type:'eats', note:'grain, roots & refuse'},
+  {from:'hoppingmouse', to:'seedsgrains', type:'eats', note:'seeds & invertebrates'},
+  {from:'mongoliangerbil', to:'seedsgrains', type:'eats', note:'caches seeds in its burrow'},
+  {from:'greatgerbil', to:'seedsgrains', type:'eats', note:'desert shrubs & seeds'},
+  {from:'spinymouse', to:'seedsgrains', type:'eats', note:'seeds, fruit & insects'},
+  {from:'maclearsrat', to:'seedsgrains', type:'eats', note:'fruits & young shoots'},
+  {from:'rakali', to:'riverfish', type:'eats', note:'fish, yabbies & even cane toads'},
+  {from:'vleirat', to:'grass', type:'eats', note:'grazes grasses & sedges'},
+  {from:'brownrat', to:'blackrat', type:'ancestor', note:'sister Rattus rats'},
+  {from:'maclearsrat', to:'blackrat', type:'ancestor', note:'a Rattus killed off by the black rat\'s disease'},
+  {from:'multimammate', to:'brownrat', type:'ancestor', note:'Murinae rats'},
+  {from:'bandicootrat', to:'brownrat', type:'ancestor', note:'Murinae rats'},
+  {from:'rakali', to:'brownrat', type:'ancestor', note:'Murinae (an aquatic offshoot)'},
+  {from:'woodmouse', to:'housemouse', type:'ancestor', note:'Murinae mice'},
+  {from:'harvestmouse', to:'housemouse', type:'ancestor', note:'Murinae mice'},
+  {from:'hoppingmouse', to:'housemouse', type:'ancestor', note:'Australian Murinae'},
+  {from:'mongoliangerbil', to:'greatgerbil', type:'ancestor', note:'gerbils (Gerbillinae)'},
+  {from:'greatgerbil', to:'housemouse', type:'ancestor', note:'Gerbillinae, within Muridae'},
+  {from:'spinymouse', to:'housemouse', type:'ancestor', note:'spiny mice (Deomyinae)'},
+  {from:'vleirat', to:'housemouse', type:'ancestor', note:'vlei rats (Otomyinae), within Muridae'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
