@@ -112,9 +112,6 @@ const NODES = [
   {id:'nicobar', name:'Nicobar Pigeon', sci:'Caloenas nicobarica', kind:'bird', status:'living',
    place:'SE Asian islands', era:'Today', a:84, dr:-5,
    fact:`The dodo's closest living relative — an iridescent island pigeon that looks nothing like it.`},
-  {id:'rats', name:'Invasive Rats', sci:'Rattus', kind:'mammal', status:'living',
-   place:'Ship-borne, worldwide', era:'Today', a:99, dr:38,
-   fact:`Ship-borne rats that raided the ground nests of island birds like the dodo.`},
   {id:'devil', name:'Tasmanian Devil', sci:'Sarcophilus harrisii', kind:'mammal', status:'living',
    place:'Tasmania', era:'Today', a:122, dr:-5,
    fact:`Long called the thylacine's closest living relative, and now the largest marsupial carnivore. Recent genome work suggests the numbat may be even closer.`},
@@ -739,7 +736,7 @@ const ERA_GTS = {
 // not across the whole time-and-place-mixed meta-web. Cross-cutting generalists (humans, the
 // decomposer/detritus pool) are deliberately excluded from per-ecosystem counts.
 const ECOSYSTEMS = {
-  'Mauritius (island)':      ['dodo','nicobar','rats','tambalacoque','islandfruit'],
+  'Mauritius (island)':      ['dodo','nicobar','tambalacoque','islandfruit'],
   'Tasmania (forest)':       ['thylacine','devil','numbat','wallaby','possums','eucalypt','termites'],
   'North Atlantic (open sea)':['auk','razorbill','puffin','fish','zooplankton','phytoplankton'],
   'North Pacific (kelp)':    ['seacow','dugong','otter','kelp','seaurchins'],
@@ -881,7 +878,7 @@ NODES.forEach(n=>{
 const EDGES = [
   // ---- FOOD WEB ----
   {from:'human', to:'dodo', type:'eats', note:'clubbed for meat by sailors'},
-  {from:'rats', to:'dodo', type:'eats', note:'raided its ground nests for eggs'},
+  {from:'blackrat', to:'dodo', type:'eats', note:'ship-borne black rats raided its ground nests for eggs'},
   {from:'dodo', to:'tambalacoque', type:'eats', note:'ate its fallen fruit'},
   {from:'human', to:'mammoth', type:'eats', note:'ice-age big-game hunting'},
   {from:'mammoth', to:'steppegrass', type:'eats', note:'grazed the steppe'},
@@ -958,7 +955,7 @@ const EDGES = [
   {from:'forestbugs', to:'detritus_land', type:'eats', note:'feed on leaf litter'},
   // ---- Mauritius (dodo multi-prey) ----
   {from:'dodo', to:'islandfruit', type:'eats', note:'fruits & large seeds'},
-  {from:'rats', to:'islandfruit', type:'eats', note:'also raided seeds & fruit'},
+  {from:'blackrat', to:'islandfruit', type:'eats', note:'also raided seeds & fruit'},
   {from:'nicobar', to:'islandfruit', type:'eats', note:'island fruit-eater, like the dodo'},
   // ---- Tasmania (thylacine multi-prey) ----
   {from:'wallaby', to:'eucalypt', type:'eats', note:'grazes & browses'},

@@ -8,7 +8,7 @@ Work through one section (or one 🔴) at a time. `[ ]` = to do.
 
 ## 1. Mauritius (island)
 - ✅ dodo · ✅ nicobar (Nicobar Pigeon) · ✅ tambalacoque (tree)
-- [ ] 🔴 `rats` "Invasive Rats" → Black/Ship Rat, Brown Rat
+- [x] ✅ `rats` "Invasive Rats" → **split into Black Rat & Brown Rat** (in the new Muridae section); the dodo's egg predation is now wired to the specific **Black Rat** (Rattus rattus)
 - [ ] 🔴 `islandfruit` "Island Fruits & Palms" (plant)
 
 ## 2. Tasmania (forest)
