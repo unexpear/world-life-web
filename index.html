@@ -640,6 +640,37 @@ const NODES = [
    place:'Chaco · prey', era:'Today', a:208, dr:-42, fact:`A small armored mammal — the Chaco eagle's main prey.`},
   {id:'vleirat', name:'Vlei Rat', sci:'Otomys', kind:'mammal', status:'living', place:'Africa · prey',
    era:'Today', a:204, dr:-42, fact:`Grassland rodents — up to 98% of the long-crested eagle's diet.`},
+
+  // ---- Booted & spotted eagles (extended-Aquila batch), + Tasmanian subspecies, + fossil Aquila ----
+  {id:'bootedeagle', name:'Booted Eagle', sci:'Hieraaetus pennatus', kind:'bird', status:'living',
+   place:'Booted eagle · S. Palearctic', era:'Today', a:210, dr:0, fact:`One of the smallest booted eagles, in pale and dark morphs; a bird-hunter that also takes rabbits.`},
+  {id:'wahlbergeagle', name:"Wahlberg's Eagle", sci:'Hieraaetus wahlbergi', kind:'bird', status:'living',
+   place:'Booted eagle · Africa', era:'Today', a:211, dr:0, fact:`A small, plumage-variable intra-African migrant — squirrels, birds, reptiles and insects.`},
+  {id:'greaterspotted', name:'Greater Spotted Eagle', sci:'Clanga clanga', kind:'bird', status:'living',
+   place:'Spotted eagle · Eurasia', era:'Today', a:212, dr:0, fact:`A vole-hunter of wetlands (formerly Aquila); Vulnerable, and hybridising with the lesser spotted eagle.`},
+  {id:'lesserspotted', name:'Lesser Spotted Eagle', sci:'Clanga pomarina', kind:'bird', status:'living',
+   place:'Spotted eagle · E. Europe', era:'Today', a:213, dr:0, fact:`A long-distance migrant that usually raises one chick by obligate siblicide.`},
+  {id:'indianspotted', name:'Indian Spotted Eagle', sci:'Clanga hastata', kind:'bird', status:'living',
+   place:'Spotted eagle · S. Asia', era:'Today', a:214, dr:0, fact:`Split from the lesser spotted eagle in 2005; a declining South Asian raptor.`},
+  {id:'rufousbellied', name:'Rufous-bellied Eagle', sci:'Lophotriorchis kienerii', kind:'bird', status:'living',
+   place:'Forest eagle · Tropical Asia', era:'Today', a:215, dr:0, fact:`A dashing bird-hunter of Asian forests, given its own genus after DNA showed it wasn't a true Hieraaetus.`},
+  {id:'tasmanianwte', name:'Tasmanian Wedge-tailed Eagle', sci:'Aquila audax fleayi', kind:'bird', status:'living',
+   place:'True eagle · Tasmania', era:'Today', a:130, dr:0, fact:`The endangered Tasmanian subspecies of the wedge-tailed eagle — fewer than ~1,000 birds (~350–450 breeding).`},
+  {id:'bullockensis', name:'Aquila bullockensis', sci:'Aquila bullockensis', kind:'bird', status:'extinct',
+   place:'Fossil true eagle · Australia', era:'Neogene', a:131, dr:0, when:'~12 Ma (Mid Miocene)', cause:`Known only from fossils`,
+   fact:`The oldest confirmed Aquila (from one Miocene wing bone), possibly ancestral to the living wedge-tailed eagle.`},
+  {id:'delphinensis', name:'Aquila delphinensis', sci:'?Aquila delphinensis', kind:'bird', status:'extinct',
+   place:'Fossil eagle · France', era:'Neogene', a:132, dr:0, when:'~12 Ma (Miocene)', cause:`Known only from fossils`,
+   fact:`A poorly-known, likely dubious Miocene eagle from La Grive-Saint-Alban, France.`},
+  {id:'pennatoides', name:'Aquila pennatoides', sci:'?Aquila pennatoides', kind:'bird', status:'extinct',
+   place:'Fossil eagle · France', era:'Neogene', a:133, dr:0, when:'~12 Ma (Miocene)', cause:`Known only from fossils`,
+   fact:`Another scanty, likely dubious Miocene eagle from La Grive-Saint-Alban.`},
+  {id:'bivia', name:'Aquila bivia', sci:'Aquila bivia', kind:'bird', status:'extinct',
+   place:'Fossil true eagle · S. USA', era:'Ice Age', a:131, dr:0, when:'~1.7 Ma (Early Pleistocene)', cause:`Known only from fossils`,
+   fact:`A validly-named eagle 10–15% larger than the golden eagle, from Ice-age Florida and Arizona.`},
+  {id:'aquilafossilis', name:'Aquila fossilis', sci:'?Aquila fossilis', kind:'bird', status:'extinct',
+   place:'Fossil eagle · Sardinia', era:'Ice Age', a:132, dr:0, when:'Pleistocene', cause:`Known only from fossils`,
+   fact:`A dubious, poorly-known Pleistocene eagle from Monte Reale, Sardinia.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -688,8 +719,8 @@ const ECOSYSTEMS = {
   'Bears (Ursidae)':['brownbear','polarbear','panda','blackbear','asianblackbear','spectacledbear','slothbear','sunbear','cavebear','shortfacedbear','bamboo','arcticseal','salmon','plantfood'],
   'Sea & Fish Eagles':['baldeagle','stellereagle','whitebelliedse','sanfordse','africanfish','madagascarfish','pallasfish','whitetailedse','lesserfish','greyheadedfish','sockeye','riverfish'],
   'Snake & Serpent Eagles':['brownsnakee','blackchestedse','shorttoedse','beaudouinse','southernbandedse','westernbandedse','crestedserpent','nicobarserpent','mountainserpent','sulawesiserpent','philippineserpent','andamanserpent','congoserpent','madagascarserpent','bateleur','snakes','lizards'],
-  'True Eagles (Aquila)':['goldeneagle','steppeeagle','tawnyeagle','spanishimperial','easternimperial','wedgetailed','verreauxseagle','bonelliseagle','africanhawkeagle','gurneyseagle','cassinshawkeagle','eaglerabbit','suslik','hyrax','guineafowl','cuscus','treesquirrel'],
-  'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo','vleirat'],
+  'True Eagles (Aquila)':['goldeneagle','steppeeagle','tawnyeagle','spanishimperial','easternimperial','wedgetailed','tasmanianwte','verreauxseagle','bonelliseagle','africanhawkeagle','gurneyseagle','cassinshawkeagle','bullockensis','delphinensis','pennatoides','bivia','aquilafossilis','eaglerabbit','suslik','hyrax','guineafowl','cuscus','treesquirrel'],
+  'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','bootedeagle','wahlbergeagle','greaterspotted','lesserspotted','indianspotted','rufousbellied','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo','vleirat'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
@@ -767,7 +798,9 @@ const IUCN = { // living relatives in this web, with their real IUCN status
   blackeagle:'LC', ayreshawke:'LC', littleeagle:'LC', pygmyeagle:'LC', changeablehawke:'LC', floreshawke:'CR',
   javanhawke:'EN', sulawesihawke:'LC', philippinehawke:'EN', mountainhawke:'NT', blythshawke:'LC',
   wallacehawke:'VU', leggeshawke:'LC', longcrested:'LC', crestedeagle:'NT', papuaneagle:'VU', blacksolitary:'NT',
-  chacoeagle:'EN', buzzardeagle:'LC' };
+  chacoeagle:'EN', buzzardeagle:'LC',
+  bootedeagle:'LC', wahlbergeagle:'LC', greaterspotted:'VU', lesserspotted:'LC', indianspotted:'VU',
+  rufousbellied:'NT', tasmanianwte:'EN' };
 const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
   EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
 const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
@@ -1092,6 +1125,28 @@ const EDGES = [
   {from:'crestedeagle', to:'harpyeagle', type:'ancestor', note:"the harpy's rainforest cousin"},
   {from:'papuaneagle', to:'harpyeagle', type:'ancestor', note:'New Guinea harpy analogue'},
   {from:'blacksolitary', to:'chacoeagle', type:'ancestor', note:'both Buteogallus "solitary eagles"'},
+
+  // ---- Booted/spotted eagles + Tasmanian subspecies + fossil Aquila ----
+  {from:'bootedeagle', to:'forestbirds', type:'eats', note:'larks, pipits & doves'},
+  {from:'bootedeagle', to:'eaglerabbit', type:'eats', note:'also takes rabbits'},
+  {from:'wahlbergeagle', to:'forestbirds', type:'eats', note:'a generalist bird-hunter'},
+  {from:'greaterspotted', to:'suslik', type:'eats', note:'voles & small mammals'},
+  {from:'lesserspotted', to:'suslik', type:'eats', note:'voles a mainstay'},
+  {from:'indianspotted', to:'suslik', type:'eats', note:'small mammals & frogs'},
+  {from:'rufousbellied', to:'forestbirds', type:'eats', note:'pigeons & pheasants in aerial stoops'},
+  {from:'tasmanianwte', to:'eaglerabbit', type:'eats', note:'rabbits & hares'},
+  {from:'tasmanianwte', to:'possums', type:'eats', note:'wallabies & possums'},
+  {from:'greaterspotted', to:'lesserspotted', type:'ancestor', note:'sister spotted eagles that hybridise'},
+  {from:'indianspotted', to:'lesserspotted', type:'ancestor', note:'split from the lesser spotted eagle (2005)'},
+  {from:'wahlbergeagle', to:'bootedeagle', type:'ancestor', note:'Hieraaetus booted eagles'},
+  {from:'bootedeagle', to:'littleeagle', type:'ancestor', note:'Hieraaetus kin'},
+  {from:'rufousbellied', to:'bootedeagle', type:'ancestor', note:'long placed with the booted eagles'},
+  {from:'tasmanianwte', to:'wedgetailed', type:'ancestor', note:'the Tasmanian subspecies of A. audax'},
+  {from:'wedgetailed', to:'bullockensis', type:'ancestor', note:'possibly its ~12 Ma Australian ancestor'},
+  {from:'goldeneagle', to:'bivia', type:'ancestor', note:'a close Pleistocene relative'},
+  {from:'goldeneagle', to:'delphinensis', type:'ancestor', note:'an early (dubious) Miocene Aquila'},
+  {from:'goldeneagle', to:'pennatoides', type:'ancestor', note:'an early (dubious) Miocene Aquila'},
+  {from:'goldeneagle', to:'aquilafossilis', type:'ancestor', note:'a dubious Pleistocene Aquila'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
