@@ -454,8 +454,8 @@ const NODES = [
    place:'Eagles · NE Asia', era:'Today', a:98, dr:0,
    fact:`The heaviest eagle alive (up to ~9 kg), snatching salmon and waterbirds along the coasts of NE Asia.`},
   {id:'goldeneagle', name:'Golden Eagle', sci:'Aquila chrysaetos', kind:'bird', status:'living',
-   place:'Eagles · N. Hemisphere', era:'Today', a:102, dr:0,
-   fact:`A powerful mammal-hunter of open country across the Northern Hemisphere — rabbits, hares and marmots.`},
+   place:'True eagle · N. Hemisphere', era:'Today', a:102, dr:0,
+   fact:`The type of the true eagles — a mammal-hunter whose hunting stoop can reach ~240 mph (320 km/h).`},
   {id:'harpyeagle', name:'Harpy Eagle', sci:'Harpia harpyja', kind:'bird', status:'living',
    place:'Eagles · S. American rainforest', era:'Today', a:104, dr:0,
    fact:`The rainforest apex of the Americas — talons like a bear's claws, plucking sloths and monkeys from the canopy.`},
@@ -475,6 +475,54 @@ const NODES = [
   {id:'colugo', name:'Philippine Flying Lemur', sci:'Cynocephalus volans', kind:'mammal', status:'living',
    place:'Eagles · Philippine forest', era:'Today', a:106, dr:-42,
    fact:`A gliding mammal (a colugo, not a true lemur) — key prey of the Philippine eagle.`},
+
+  // ================ TRUE EAGLES — the complete genus Aquila (Golden joins these) ================
+  {id:'steppeeagle', name:'Steppe Eagle', sci:'Aquila nipalensis', kind:'bird', status:'living',
+   place:'True eagle · Eurasian steppe', era:'Today', a:120, dr:0,
+   fact:`Uplisted straight to Endangered in 2015 after a ~50% crash — power-line electrocution a leading cause.`},
+  {id:'tawnyeagle', name:'Tawny Eagle', sci:'Aquila rapax', kind:'bird', status:'living',
+   place:'True eagle · Africa & S. Asia', era:'Today', a:121, dr:0,
+   fact:`The great opportunist — scavenges carrion and pirates kills from other raptors; uplisted to Vulnerable in 2018.`},
+  {id:'spanishimperial', name:'Spanish Imperial Eagle', sci:'Aquila adalberti', kind:'bird', status:'living',
+   place:'True eagle · Iberia', era:'Today', a:122, dr:0,
+   fact:`An Iberian endemic and rabbit specialist that rebounded from ~38 pairs in the 1970s to several hundred today.`},
+  {id:'easternimperial', name:'Eastern Imperial Eagle', sci:'Aquila heliaca', kind:'bird', status:'living',
+   place:'True eagle · SE Europe–C. Asia', era:'Today', a:123, dr:0,
+   fact:`Favours lowland steppe and farmland, nesting in tall isolated trees — which puts it in harm's way.`},
+  {id:'wedgetailed', name:'Wedge-tailed Eagle', sci:'Aquila audax', kind:'bird', status:'living',
+   place:'True eagle · Australia', era:'Today', a:124, dr:0,
+   fact:`Australia's largest bird of prey, with a wingspan over 2.3 m — it took to hunting introduced rabbits.`},
+  {id:'verreauxseagle', name:"Verreaux's Eagle", sci:'Aquila verreauxii', kind:'bird', status:'living',
+   place:'True eagle · African mountains', era:'Today', a:125, dr:0,
+   fact:`One of the most specialised eagles — rock hyraxes are often over 90% of its diet.`},
+  {id:'bonelliseagle', name:"Bonelli's Eagle", sci:'Aquila fasciata', kind:'bird', status:'living',
+   place:'True eagle · S. Europe–SE Asia', era:'Today', a:126, dr:0,
+   fact:`Least Concern globally but one of Europe's most threatened raptors, hit hard by power-line electrocution.`},
+  {id:'africanhawkeagle', name:'African Hawk-Eagle', sci:'Aquila spilogaster', kind:'bird', status:'living',
+   place:'True eagle · Sub-Saharan Africa', era:'Today', a:127, dr:0,
+   fact:`Pairs hunt cooperatively — one flushes gamebirds for the other to seize.`},
+  {id:'gurneyseagle', name:"Gurney's Eagle", sci:'Aquila gurneyi', kind:'bird', status:'living',
+   place:'True eagle · New Guinea & Moluccas', era:'Today', a:128, dr:0,
+   fact:`A little-studied eagle of New Guinea and the Moluccas that hunts arboreal cuscuses.`},
+  {id:'cassinshawkeagle', name:"Cassin's Hawk-Eagle", sci:'Aquila africana', kind:'bird', status:'living',
+   place:'True eagle · African rainforest', era:'Today', a:129, dr:0,
+   fact:`A rainforest-canopy eagle so like the black sparrowhawk that many sightings are considered unreliable.`},
+  // prey for the true eagles (specific)
+  {id:'suslik', name:'Souslik', sci:'Spermophilus', kind:'mammal', status:'living',
+   place:'True eagles · steppe', era:'Today', a:120, dr:-42,
+   fact:`A ground squirrel of the steppe — staple prey of the steppe and imperial eagles.`},
+  {id:'hyrax', name:'Rock Hyrax', sci:'Procavia capensis', kind:'mammal', status:'living',
+   place:'True eagles · African rocks', era:'Today', a:125, dr:-42,
+   fact:`A guinea-pig-sized relative of elephants — over 90% of Verreaux's eagle's diet.`},
+  {id:'guineafowl', name:'Helmeted Guineafowl', sci:'Numida meleagris', kind:'bird', status:'living',
+   place:'True eagles · Africa', era:'Today', a:127, dr:-42,
+   fact:`A ground gamebird — prey of the African hawk-eagle and tawny eagle.`},
+  {id:'cuscus', name:'Common Cuscus', sci:'Phalanger', kind:'mammal', status:'living',
+   place:'True eagles · New Guinea', era:'Today', a:128, dr:-42,
+   fact:`A slow arboreal marsupial — Gurney's eagle's prey.`},
+  {id:'treesquirrel', name:'African Tree Squirrel', sci:'Funisciurus', kind:'mammal', status:'living',
+   place:'True eagles · rainforest', era:'Today', a:129, dr:-42,
+   fact:`Canopy squirrels hunted by Cassin's hawk-eagle.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -521,7 +569,8 @@ const ECOSYSTEMS = {
   'Southern Ocean (krill web)':['antkrill','antphyto','adelie','crabeater','leopard','minke','silverfish'],
   'Boreal forest (lynx–hare)':['canadalynx','snowshoehare','greathornedowl','borealshrub'],
   'Bears (Ursidae)':['brownbear','polarbear','panda','blackbear','asianblackbear','spectacledbear','slothbear','sunbear','cavebear','shortfacedbear','bamboo','arcticseal','salmon','plantfood'],
-  'Eagles':['baldeagle','stellereagle','goldeneagle','harpyeagle','philippineeagle','sockeye','eaglerabbit','treesloth','colugo'],
+  'Sea & Forest Eagles':['baldeagle','stellereagle','harpyeagle','philippineeagle','sockeye','treesloth','colugo'],
+  'True Eagles (Aquila)':['goldeneagle','steppeeagle','tawnyeagle','spanishimperial','easternimperial','wedgetailed','verreauxseagle','bonelliseagle','africanhawkeagle','gurneyseagle','cassinshawkeagle','eaglerabbit','suslik','hyrax','guineafowl','cuscus','treesquirrel'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
@@ -530,10 +579,11 @@ const ECO_SOURCE = {
   'Southern Ocean (krill web)':'Antarctic krill (Euphausia superba) is the keystone linking phytoplankton to whales, seals and penguins across the Southern Ocean (synthesis after the Australian Antarctic Program; Trathan & Hill 2016).',
   'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.',
   'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.',
-  'Eagles':'"Eagles" aren\'t one clade — they\'re large raptors scattered across the family Accipitridae: sea eagles (Haliaeetus — bald & Steller\'s), booted eagles (Aquila — golden), and the giant forest eagles (harpy, Philippine). Shown together as a recognisable group.'
+  'Sea & Forest Eagles':'"Eagles" aren\'t one clade. These are the non-Aquila giants: the sea eagles (Haliaeetus — bald & Steller\'s) and the giant forest eagles (harpy & Philippine), each its own lineage in the family Accipitridae.',
+  'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); statuses from the IUCN Red List.'
 };
 // clusters that are taxonomic groups (a family), not co-occurring ecological communities
-const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Eagles']);
+const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Sea & Forest Eagles', 'True Eagles (Aquila)']);
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
 // SECTIONS = the visual slices. Same as ECOSYSTEMS plus the cross-cutting groups, so EVERY
@@ -581,7 +631,9 @@ const LAYOUT = (function(){
 const IUCN = { // living relatives in this web, with their real IUCN status
   nicobar:'NT', devil:'EN', numbat:'EN', razorbill:'NT', puffin:'VU', dugong:'VU',
   otter:'EN', bandtailed:'LC', zebra:'NT', lion:'VU', elephant:'EN',
-  baldeagle:'LC', stellereagle:'VU', goldeneagle:'LC', harpyeagle:'VU', philippineeagle:'CR' };
+  baldeagle:'LC', stellereagle:'VU', goldeneagle:'LC', harpyeagle:'VU', philippineeagle:'CR',
+  steppeeagle:'EN', tawnyeagle:'VU', spanishimperial:'VU', easternimperial:'VU', wedgetailed:'LC',
+  verreauxseagle:'LC', bonelliseagle:'LC', africanhawkeagle:'LC', gurneyseagle:'NT', cassinshawkeagle:'LC' };
 const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
   EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
 const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
@@ -800,6 +852,26 @@ const EDGES = [
   {from:'harpyeagle', to:'treesloth', type:'eats', note:'plucks sloths from the canopy'},
   {from:'philippineeagle', to:'colugo', type:'eats', note:'takes flying lemurs & monkeys'},
   {from:'baldeagle', to:'stellereagle', type:'ancestor', note:'sister sea eagles (Haliaeetus)'},
+
+  // ---- True eagles (Aquila): mammals, ground squirrels, gamebirds, carrion ----
+  {from:'goldeneagle', to:'suslik', type:'eats', note:'also takes ground squirrels'},
+  {from:'steppeeagle', to:'suslik', type:'eats', note:'souslik specialist in the breeding season'},
+  {from:'steppeeagle', to:'detritus_land', type:'eats', note:'scavenges carrion'},
+  {from:'tawnyeagle', to:'detritus_land', type:'eats', note:'carrion + piracy'},
+  {from:'tawnyeagle', to:'guineafowl', type:'eats', note:'takes gamebirds'},
+  {from:'spanishimperial', to:'eaglerabbit', type:'eats', note:'rabbit specialist'},
+  {from:'easternimperial', to:'suslik', type:'eats', note:'ground squirrels & small mammals'},
+  {from:'wedgetailed', to:'eaglerabbit', type:'eats', note:'hunts introduced rabbits'},
+  {from:'verreauxseagle', to:'hyrax', type:'eats', note:'>90% of its diet'},
+  {from:'bonelliseagle', to:'eaglerabbit', type:'eats', note:'rabbits & gamebirds'},
+  {from:'africanhawkeagle', to:'guineafowl', type:'eats', note:'cooperative pairs take gamebirds'},
+  {from:'gurneyseagle', to:'cuscus', type:'eats', note:'arboreal marsupials'},
+  {from:'cassinshawkeagle', to:'treesquirrel', type:'eats', note:'canopy squirrels'},
+  // Aquila relationships
+  {from:'spanishimperial', to:'easternimperial', type:'ancestor', note:'sister imperial eagles (recently split)'},
+  {from:'africanhawkeagle', to:'bonelliseagle', type:'ancestor', note:'close kin — both moved into Aquila from Hieraaetus'},
+  {from:'steppeeagle', to:'tawnyeagle', type:'ancestor', note:'close relatives, once lumped as one species'},
+  {from:'verreauxseagle', to:'goldeneagle', type:'ancestor', note:'both large "true" Aquila eagles'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
