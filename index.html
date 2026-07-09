@@ -706,6 +706,34 @@ const NODES = [
    fact:`Once it "swarmed" across Christmas Island — then vanished in a few years to disease brought by ship-borne black rats.`},
   {id:'seedsgrains', name:'Seeds & Grains', kind:'plant', status:'living', place:'Muridae · food',
    era:'Today', a:245, dr:-42, fact:`Seeds, grains and shoots — the staple of most rats, mice and gerbils.`},
+
+  // ---- deeper into Murinae: giant, grass, island and tree rats & mice ----
+  {id:'bosavirat', name:'Bosavi Woolly Rat', sci:'Mallomys sp.', kind:'mammal', status:'living',
+   place:'Murinae · New Guinea', era:'Today', a:252, dr:0, fact:`One of the largest rats known (~82 cm, 1.5 kg), found alive in a New Guinea volcano crater on camera in 2009 — so tame it just kept nibbling a leaf.`},
+  {id:'luzoncloudrat', name:'N. Luzon Giant Cloud Rat', sci:'Phloeomys pallidus', kind:'mammal', status:'living',
+   place:'Murinae · Luzon', era:'Today', a:253, dr:0, fact:`A ~2.5 kg tree-dwelling leaf-eater — one of the largest members of the whole mouse-and-rat family.`},
+  {id:'bushytailedcloud', name:'Bushy-tailed Cloud Rat', sci:'Crateromys schadenbergi', kind:'mammal', status:'living',
+   place:'Murinae · Luzon mts', era:'Today', a:254, dr:0, fact:`A big, soft-furred, bushy-tailed cloud rat of high Luzon pine forest that browses pine buds and bark.`},
+  {id:'nilerat', name:'Nile Grass Rat', sci:'Arvicanthis niloticus', kind:'mammal', status:'living',
+   place:'Murinae · Africa', era:'Today', a:255, dr:0, fact:`A rare day-active rodent that spontaneously develops type-2 diabetes — now a valued model for the disease.`},
+  {id:'stripedgrass', name:'Striped Grass Mouse', sci:'Lemniscomys striatus', kind:'mammal', status:'living',
+   place:'Murinae · Africa', era:'Today', a:256, dr:0, fact:`A boldly striped, largely diurnal grass mouse that forages through dense cover by day.`},
+  {id:'pygmymouse', name:'African Pygmy Mouse', sci:'Mus minutoides', kind:'mammal', status:'living',
+   place:'Murinae · Sub-Saharan Africa', era:'Today', a:257, dr:0, fact:`One of the smallest rodents on Earth — adults weigh just ~3–12 grams.`},
+  {id:'sticknestrat', name:'Greater Stick-nest Rat', sci:'Leporillus conditor', kind:'mammal', status:'living',
+   place:'Murinae · arid Australia', era:'Today', a:258, dr:0, fact:`It builds metre-high communal nests of interwoven sticks, cemented with urine and reused for generations.`},
+  {id:'pacificrat', name:'Pacific Rat', sci:'Rattus exulans', kind:'mammal', status:'living',
+   place:'Murinae · SE Asia & Pacific', era:'Today', a:259, dr:0, fact:`The third most widespread rat — a stowaway on Polynesian canoes blamed for many island bird and plant extinctions.`},
+  {id:'longtailedgiant', name:'Long-tailed Giant Rat', sci:'Leopoldamys sabanus', kind:'mammal', status:'living',
+   place:'Murinae · SE Asia', era:'Today', a:260, dr:0, fact:`Its tail is longer than its head and body, and it's often the commonest rodent in Malaysian montane forest.`},
+  {id:'penciltail', name:'Pencil-tailed Tree Mouse', sci:'Chiropodomys gliroides', kind:'mammal', status:'living',
+   place:'Murinae · S/SE Asia', era:'Today', a:261, dr:0, fact:`A tiny arboreal mouse that nests inside hollow living-bamboo stems, gnawing its own doorway.`},
+  {id:'whitetailedrat', name:'Giant White-tailed Rat', sci:'Uromys caudimaculatus', kind:'mammal', status:'living',
+   place:'Murinae · Australia/New Guinea', era:'Today', a:262, dr:0, fact:`One of Australia's largest native rodents (~1 kg), strong enough to gnaw open very hard rainforest nuts.`},
+  {id:'bulldograt', name:'Bulldog Rat', sci:'Rattus nativitatis', kind:'mammal', status:'extinct',
+   place:'Murinae · Christmas Island', era:'Recent (Holocene)', a:243, dr:0, when:'~1903',
+   cause:`The same black-rat trypanosome disease that killed Maclear's rat`,
+   fact:`A fat, thick-set burrowing rat that never climbed — gone within a decade, alongside Maclear's rat, to disease from ship-borne black rats.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -756,7 +784,7 @@ const ECOSYSTEMS = {
   'Snake & Serpent Eagles':['brownsnakee','blackchestedse','shorttoedse','beaudouinse','southernbandedse','westernbandedse','crestedserpent','nicobarserpent','centralnicobarse','mountainserpent','sulawesiserpent','philippineserpent','andamanserpent','congoserpent','madagascarserpent','bateleur','snakes','lizards'],
   'True Eagles (Aquila)':['goldeneagle','steppeeagle','tawnyeagle','spanishimperial','easternimperial','wedgetailed','tasmanianwte','verreauxseagle','bonelliseagle','africanhawkeagle','gurneyseagle','cassinshawkeagle','bullockensis','delphinensis','pennatoides','bivia','aquilafossilis','eaglerabbit','suslik','hyrax','guineafowl','cuscus','treesquirrel'],
   'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','bootedeagle','wahlbergeagle','greaterspotted','lesserspotted','indianspotted','rufousbellied','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','pinskerse','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo'],
-  'Rodents (Muridae)':['housemouse','brownrat','blackrat','woodmouse','harvestmouse','multimammate','bandicootrat','hoppingmouse','rakali','mongoliangerbil','greatgerbil','spinymouse','vleirat','maclearsrat','seedsgrains'],
+  'Rodents (Muridae)':['housemouse','brownrat','blackrat','woodmouse','harvestmouse','multimammate','bandicootrat','hoppingmouse','rakali','mongoliangerbil','greatgerbil','spinymouse','vleirat','maclearsrat','bosavirat','luzoncloudrat','bushytailedcloud','nilerat','stripedgrass','pygmymouse','sticknestrat','pacificrat','longtailedgiant','penciltail','whitetailedrat','bulldograt','seedsgrains'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
@@ -769,7 +797,7 @@ const ECO_SOURCE = {
   'Snake & Serpent Eagles':'The snake and serpent eagles (subfamily Circaetinae — Circaetus, Spilornis, plus the Bateleur and the Madagascar & Congo serpent eagles). Reptile specialists with thickly-scaled legs that swallow snakes whole.',
   'Hawk & Forest Eagles':'The "booted" hawk and forest eagles — a broad assemblage (Spizaetus, Nisaetus, Hieraaetus, the harpy-group giants Harpia/Morphnus/Harpyopsis/Pithecophaga, and the Buteogallus solitary eagles). Mostly canopy hunters of birds and arboreal mammals.',
   'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); statuses from the IUCN Red List.',
-  'Rodents (Muridae)':'The largest mammal family (~700 species) — Old World rats & mice (Murinae), gerbils (Gerbillinae), spiny mice (Deomyinae) and vlei rats (Otomyinae). A representative sample, from the house mouse and lab rat to the extinct Maclear\'s rat. Statuses: IUCN Red List.'
+  'Rodents (Muridae)':'The largest mammal family (~700 species) — Old World rats & mice (Murinae), gerbils (Gerbillinae), spiny mice (Deomyinae) and vlei rats (Otomyinae). A deeper Murinae sample spans giant folivores (Bosavi woolly rat, Luzon cloud rats), African grass rats & mice, the nest-building stick-nest rat, Australo-Papuan giants, and two Christmas Island extinctions — Maclear\'s and the Bulldog rat — lost together to black-rat disease. Statuses: IUCN Red List.'
 };
 // clusters that are taxonomic groups (a family), not co-occurring ecological communities
 const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Sea & Fish Eagles', 'Snake & Serpent Eagles', 'True Eagles (Aquila)', 'Hawk & Forest Eagles', 'Rodents (Muridae)']);
@@ -840,7 +868,9 @@ const IUCN = { // living relatives in this web, with their real IUCN status
   rufousbellied:'NT', tasmanianwte:'EN', pinskerse:'EN',
   // rodents (Muridae) — all Least Concern
   housemouse:'LC', brownrat:'LC', blackrat:'LC', woodmouse:'LC', harvestmouse:'LC', multimammate:'LC',
-  bandicootrat:'LC', hoppingmouse:'LC', rakali:'LC', mongoliangerbil:'LC', greatgerbil:'LC', spinymouse:'LC' };
+  bandicootrat:'LC', hoppingmouse:'LC', rakali:'LC', mongoliangerbil:'LC', greatgerbil:'LC', spinymouse:'LC',
+  bosavirat:'DD', luzoncloudrat:'LC', bushytailedcloud:'VU', nilerat:'LC', stripedgrass:'LC', pygmymouse:'LC',
+  sticknestrat:'NT', pacificrat:'LC', longtailedgiant:'LC', penciltail:'LC', whitetailedrat:'LC' };
 const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
   EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
 const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
@@ -1221,6 +1251,34 @@ const EDGES = [
   {from:'greatgerbil', to:'housemouse', type:'ancestor', note:'Gerbillinae, within Muridae'},
   {from:'spinymouse', to:'housemouse', type:'ancestor', note:'spiny mice (Deomyinae)'},
   {from:'vleirat', to:'housemouse', type:'ancestor', note:'vlei rats (Otomyinae), within Muridae'},
+
+  // ---- deeper Murinae: food links ----
+  {from:'bosavirat', to:'seedsgrains', type:'eats', note:'leaves & roots — a giant folivore'},
+  {from:'luzoncloudrat', to:'seedsgrains', type:'eats', note:'young leaves, buds & bark in the canopy'},
+  {from:'bushytailedcloud', to:'seedsgrains', type:'eats', note:'pine buds, bark, fruit & flowers'},
+  {from:'nilerat', to:'seedsgrains', type:'eats', note:'grasses, seeds & crops'},
+  {from:'stripedgrass', to:'seedsgrains', type:'eats', note:'grasses, shoots & seeds'},
+  {from:'pygmymouse', to:'seedsgrains', type:'eats', note:'mainly grass seeds'},
+  {from:'sticknestrat', to:'seedsgrains', type:'eats', note:'saltbush & succulent leaves for water'},
+  {from:'pacificrat', to:'seedsgrains', type:'eats', note:'omnivore — seeds, fruit, eggs & hatchlings'},
+  {from:'longtailedgiant', to:'seedsgrains', type:'eats', note:'fruit, seeds, roots & insects'},
+  {from:'penciltail', to:'bamboo', type:'eats', note:'bamboo shoots & seeds — and it nests in the stem'},
+  {from:'whitetailedrat', to:'seedsgrains', type:'eats', note:'gnaws hard rainforest nuts — a seed disperser'},
+  {from:'bulldograt', to:'seedsgrains', type:'eats', note:'wild fruits, shoots & bark'},
+
+  // ---- deeper Murinae: subfamily / genus relationships ----
+  {from:'pacificrat', to:'blackrat', type:'ancestor', note:'Rattus — the 3rd most widespread rat'},
+  {from:'bulldograt', to:'blackrat', type:'ancestor', note:'a Christmas I. Rattus lost to the black rat\'s disease'},
+  {from:'bulldograt', to:'maclearsrat', type:'ecology', note:'both Christmas Island rats, gone together ~1903'},
+  {from:'longtailedgiant', to:'brownrat', type:'ancestor', note:'a giant Murinae rat (Leopoldamys)'},
+  {from:'nilerat', to:'brownrat', type:'ancestor', note:'African grass rats (Arvicanthini)'},
+  {from:'stripedgrass', to:'nilerat', type:'ancestor', note:'African grass rats (Arvicanthini)'},
+  {from:'pygmymouse', to:'housemouse', type:'ancestor', note:'a true Mus — the smallest'},
+  {from:'penciltail', to:'housemouse', type:'ancestor', note:'Murinae (tree mice)'},
+  {from:'sticknestrat', to:'hoppingmouse', type:'ancestor', note:'Australian Murinae (Conilurini)'},
+  {from:'whitetailedrat', to:'hoppingmouse', type:'ancestor', note:'Australo-Papuan Murinae (Hydromyini)'},
+  {from:'bosavirat', to:'whitetailedrat', type:'ancestor', note:'New Guinea giant Murinae'},
+  {from:'luzoncloudrat', to:'bushytailedcloud', type:'ecology', note:'Philippine cloud rats (Phloeomyini)'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
