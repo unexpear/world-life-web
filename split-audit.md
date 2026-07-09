@@ -29,11 +29,11 @@ Work through one section (or one 🔴) at a time. `[ ]` = to do.
 - [ ] 🔴 `seaurchins` "Sea Urchins" → Purple Sea Urchin, Red Sea Urchin
 - [ ] 🔴 `kelp` "Kelp Forest" (plant) → Giant Kelp, Bull Kelp
 
-## 5. N. American forest
+## 5. N. American forest — ✅ DONE
 - ✅ pigeon · ✅ bandtailed
-- [ ] 🔴 `forestbugs` "Worms & Caterpillars" → Earthworm, Caterpillars, Land Snail
-- [ ] 🔴 `hawks` "Hawks & Foxes" → Red-tailed Hawk, Cooper's Hawk, Red Fox
-- [ ] 🔴 `oak` "Oak & Beech" (plant) · [ ] 🔴 `berries` "Berries & Fruit" (plant) · [ ] 🔶 `chestnut` (Castanea)
+- [x] ✅ `forestbugs` → **Common Earthworm** (Lumbricus terrestris, invasive), **Eastern Tent Caterpillar** (Malacosoma americanum), **Eastern Whitelip Snail** (Neohelix albolabris)
+- [x] ✅ `hawks` → **Red-tailed Hawk** (Buteo jamaicensis), **Cooper's Hawk** (Accipiter cooperii), **Red Fox** (Vulpes vulpes)
+- [x] ✅ `oak` → **White Oak** (Quercus alba) + **American Beech** (Fagus grandifolia) · [x] ✅ `berries` → **American Pokeweed** (Phytolacca americana) + **Riverbank Grape** (Vitis riparia) · [x] ✅ `chestnut` → **American Chestnut** (Castanea dentata, CR — chestnut blight)
 
 ## 6. African plains
 - ✅ quagga · ✅ zebra · ✅ lion
