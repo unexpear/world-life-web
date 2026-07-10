@@ -816,7 +816,7 @@ const ECO_SOURCE = {
   'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.',
   'Sea & Fish Eagles':'The sea and fish eagles — genera Haliaeetus (8 species) and Icthyophaga (2). Fish-and-waterbird hunters of coasts, lakes and rivers worldwide; the Madagascar fish eagle is among the rarest raptors alive.',
   'Snake & Serpent Eagles':'The snake and serpent eagles (subfamily Circaetinae — Circaetus, Spilornis, plus the Bateleur and the Madagascar & Congo serpent eagles). Reptile specialists with thickly-scaled legs that swallow snakes whole.',
-  'Hawk & Forest Eagles':'The "booted" hawk and forest eagles — a broad assemblage (Spizaetus, Nisaetus, Hieraaetus, the harpy-group giants Harpia/Morphnus/Harpyopsis/Pithecophaga, and the Buteogallus solitary eagles). Mostly canopy hunters of birds and arboreal mammals.',
+  'Hawk & Forest Eagles':'The "booted" hawk and forest eagles — a broad assemblage (Spizaetus, Nisaetus, Hieraaetus, the harpy-group giants Harpia/Morphnus/Harpyopsis, and the Buteogallus solitary eagles). Mostly canopy hunters of birds and arboreal mammals. Note: the Philippine eagle (Pithecophaga) is kept here by tradition and size, but DNA places it with the snake eagles (Circaetinae) — its harpy-like build is convergent (Lerner & Mindell 2005, Mol. Phylogenet. Evol. 37:327–346; reconfirmed by later genomic work).',
   'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); statuses from the IUCN Red List.',
   'Rodents (Muridae)':'The largest mammal family (~700 species) — Old World rats & mice (Murinae), gerbils (Gerbillinae), spiny mice (Deomyinae) and vlei rats (Otomyinae). A deeper Murinae sample spans giant folivores (Bosavi woolly rat, Luzon cloud rats), African grass rats & mice, the nest-building stick-nest rat, Australo-Papuan giants, and two Christmas Island extinctions — Maclear\'s and the Bulldog rat — lost together to black-rat disease. Statuses: IUCN Red List.'
 };
@@ -954,6 +954,53 @@ const KIND_COLOR = {mammal:'#c9885a', bird:'#6cb6c9', reptile:'#8a7fc9',
 const EDGE_COLOR = {eats:'#d55e00', ancestor:'#0072b2', ecology:'#009e73'};
 const EDGE_STYLE = {eats:'solid', ancestor:'dashed', ecology:'dotted'};
 
+// ---- WHERE IT LIVED: biogeographic region drives each node's colour ----
+// Wallace's realms, plus Marine, Antarctic and a Worldwide/Holarctic catch-all.
+// Colours are the Okabe–Ito colourblind-safe palette.
+const REGION_COLOR = {
+  'Nearctic':'#56b4e9', 'Neotropical':'#009e73', 'Palearctic':'#e69f00',
+  'Afrotropical':'#f0e442', 'Indomalayan':'#cc79a7', 'Australasian':'#d55e00',
+  'Marine':'#0072b2', 'Antarctic':'#dfe6ec', 'Worldwide / Holarctic':'#9aa0a6'
+};
+const REGION_BLURB = {
+  'Nearctic':'North America', 'Neotropical':'Central & South America',
+  'Palearctic':'Europe, N. Africa & northern Asia',
+  'Afrotropical':'Sub-Saharan Africa, Madagascar & the Mascarenes',
+  'Indomalayan':'South & Southeast Asia, the Philippines & Sundaland',
+  'Australasian':'Australia, New Guinea, Tasmania & Wallacea',
+  'Marine':'Seas & oceans', 'Antarctic':'Antarctica & the Southern Ocean',
+  'Worldwide / Holarctic':'Cosmopolitan, or right across the northern hemisphere'
+};
+// species whose range the place-string alone would misfile, plus the shared prey/food pools
+const REGION_OVERRIDE = {
+  nicobar:'Indomalayan', sloth:'Neotropical', elephant:'Indomalayan',
+  panda:'Palearctic', bamboo:'Palearctic', arcticseal:'Marine', salmon:'Marine',
+  polarbear:'Worldwide / Holarctic', brownbear:'Worldwide / Holarctic',
+  goldeneagle:'Worldwide / Holarctic', crocodilians:'Nearctic',
+  hyaenodon:'Worldwide / Holarctic', grazers:'Worldwide / Holarctic',
+  chicken:'Worldwide / Holarctic', ostrich:'Afrotropical', earthworm:'Palearctic',
+  human:'Worldwide / Holarctic',
+  eaglerabbit:'Palearctic', treesquirrel:'Afrotropical', riverfish:'Worldwide / Holarctic',
+  snakes:'Worldwide / Holarctic', lizards:'Worldwide / Holarctic',
+  forestbirds:'Worldwide / Holarctic', arborealmammals:'Worldwide / Holarctic',
+  seedsgrains:'Worldwide / Holarctic'
+};
+function regionOf(n){
+  if(REGION_OVERRIDE[n.id]) return REGION_OVERRIDE[n.id];
+  const p=(n.place||'').toLowerCase();
+  if(/southern ocean|antarctic/.test(p)) return 'Antarctic';
+  if(/open ocean|sea floor|seas\b|oceans|paleogene waters|bering sea|north atlantic|north pacific|indo-pacific|rocky shore|mukkaw|pacific rivers|late eocene/.test(p)) return 'Marine';
+  if(/worldwide|warm paleogene world/.test(p)) return 'Worldwide / Holarctic';
+  if(/n\. africa|mideast/.test(p)) return 'Palearctic';
+  if(/tasmania|australia|new guinea|moluccas|sulawesi|solomon|lesser sundas/.test(p)) return 'Australasian';
+  if(/madagascar|mauritius|sub-saharan|africa|sahel|savanna/.test(p)) return 'Afrotropical';
+  if(/philippine|luzon|nicobar|andaman|christmas island|java|borneo|s\/se asia|se asia|s & se asia|tropical asia|ghats|sri lanka|india|s\. asia/.test(p)) return 'Indomalayan';
+  if(/neotropic|s\. american|south america|andes|chaco|colombia|argentina/.test(p)) return 'Neotropical';
+  if(/n\. america|americas|yellowstone|boreal|s\. usa|miocene plains|eocene–oligocene plains|late cretaceous/.test(p)) return 'Nearctic';
+  if(/eurasia|europe|palearctic|steppe|central asia|ne asia|france|sardinia|iberia|c\. asia|n\. hemisphere|china|asia/.test(p)) return 'Palearctic';
+  return 'Worldwide / Holarctic';
+}
+
 const elements = [];
 // era ring bands + ecosystem sector wedges are drawn as an SVG layer (see buildBackground below)
 // era labels along the downward radius (12°), stacked by ring
@@ -967,8 +1014,10 @@ NODES.forEach(n=>{
   const L=LAYOUT[n.id]||{a:n.a, dr:n.dr};
   const r=(ERA_MID[n.era]||300)+(L.dr||0);
   const p=polar(L.a, r);
+  const reg=regionOf(n);
   elements.push({data:{id:n.id, label:(n.status==='extinct'?'† ':'')+n.name,
-    color:KIND_COLOR[n.kind]||KIND_COLOR.other, status:n.status, _n:n}, position:p});
+    color:REGION_COLOR[reg]||REGION_COLOR['Worldwide / Holarctic'], region:reg,
+    kindColor:KIND_COLOR[n.kind]||KIND_COLOR.other, status:n.status, _n:n}, position:p});
 });
 // edges
 const EDGES = [
@@ -1363,6 +1412,19 @@ const EDGES = [
   {from:'whitetailedrat', to:'hoppingmouse', type:'ancestor', note:'Australo-Papuan Murinae (Hydromyini)'},
   {from:'bosavirat', to:'whitetailedrat', type:'ancestor', note:'New Guinea giant Murinae'},
   {from:'luzoncloudrat', to:'bushytailedcloud', type:'ecology', note:'Philippine cloud rats (Phloeomyini)'},
+
+  // ---- connectors: the published sub-webs were floating free; these verified links join them ----
+  {from:'otter', to:'mussels', type:'eats', note:'sea otters crop California mussels in the rocky intertidal'},
+  {from:'brownbear', to:'elk', type:'eats', note:'grizzlies take elk calves each spring in Yellowstone'},
+  {from:'redfox', to:'snowshoehare', type:'eats', note:'a boreal hare predator alongside the lynx'},
+  {from:'human', to:'chicken', type:'eats', note:'~70 billion a year — the most farmed bird on Earth'},
+  {from:'human', to:'minke', type:'eats', note:'commercial & "scientific" whaling'},
+  {from:'minke', to:'baleenwhales', type:'ancestor', note:'the smallest rorqual — a baleen whale'},
+  {from:'basilosaurus', to:'baleenwhales', type:'ancestor', note:'Eocene archaeocete — a stem relative, not a direct ancestor'},
+  {from:'titanoboa', to:'snakes', type:'ancestor', note:'a giant boid — kin to modern boas & anacondas'},
+  {from:'paraceratherium', to:'zebra', type:'ancestor', note:'both odd-toed ungulates (Perissodactyla)'},
+  {from:'philippineeagle', to:'crestedserpent', type:'ancestor', note:'sister to the snake eagles — its harpy likeness is convergent'},
+  {from:'cassinshawkeagle', to:'bonelliseagle', type:'ancestor', note:'genus Aquila — Bonelli\'s eagle is its closest kin'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
@@ -1451,6 +1513,19 @@ cy.maxZoom(4); cy.minZoom(0.01);
   // 3) keep the SVG locked to Cytoscape's pan/zoom
   const sync=()=>{const pn=cy.pan(),z=cy.zoom(); g.setAttribute('transform','translate('+pn.x+','+pn.y+') scale('+z+')');};
   cy.on('render', sync); sync();
+})();
+
+// ---- region colour key (node colour = where the species lived) ----
+(function regionLegend(){
+  const el=document.querySelector('.legend'); if(!el) return;
+  const box=document.createElement('div');
+  box.style.cssText='margin-top:8px;border-top:1px solid #2a3442;padding-top:6px;line-height:1.45';
+  box.innerHTML='<div style="opacity:.7;margin-bottom:3px">dot colour = where it lived</div>'+
+    Object.keys(REGION_COLOR).map(r=>
+      '<div title="'+REGION_BLURB[r]+'"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;'+
+      'background:'+REGION_COLOR[r]+';margin-right:6px;vertical-align:middle;border:1px solid #0b0e13"></span>'+r+'</div>'
+    ).join('');
+  el.appendChild(box);
 })();
 
 // ---- TOGGLES ----

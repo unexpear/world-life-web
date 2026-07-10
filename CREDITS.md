@@ -40,6 +40,29 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
   — Forest area, % of land (`AG.LND.FRST.ZS`) and Terrestrial protected areas, % of land
   (`ER.LND.PTLD.ZS`), world and by region. (World Bank re-publishes IUCN/UNEP-WCMC species data.)
 
+## Links that join the sub-webs (and one correction)
+- **Lerner, H. R. L. & Mindell, D. P. (2005).** *Phylogeny of eagles, Old World vultures, and other
+  Accipitridae based on nuclear and mitochondrial DNA.* Mol. Phylogenet. Evol. 37:327–346.
+  https://doi.org/10.1016/j.ympev.2005.04.010 — places the **Philippine eagle** (*Pithecophaga jefferyi*)
+  with the **snake eagles (Circaetinae)**, *not* the harpy eagles; the resemblance is convergent. Later
+  genomic work reconfirms it. (Also: Cassin's hawk-eagle is *Aquila africana* — genus *Aquila*.)
+- **Singh, G. G., et al. (2013).** *Sea otters homogenize mussel beds…* PLOS ONE — sea otters prey on
+  the California mussel (*Mytilus californianus*).
+- **Middleton, A. D., et al. (2013).** Proc. R. Soc. B 280:20130870; and French & French (1990) —
+  grizzlies kill Yellowstone elk calves.
+- **Head, J. J., et al. (2009).** *Giant boid snake from the Palaeocene neotropics…* Nature 457:715–717.
+  https://doi.org/10.1038/nature07671 — **Titanoboa** is a boid (Boinae), kin to boas & anacondas.
+- **Borths, M. R., et al. (2016).** Hyaenodonta phylogeny (PeerJ) — *Hyaenodon* is **not** ancestral to
+  hyenas or carnivorans and left no living descendants; "Creodonta" is polyphyletic.
+- *Basilosaurus* is a Late Eocene archaeocete — a **stem relative** of modern whales (Neoceti) on a
+  specialised side branch, not a direct ancestor. *Paraceratherium* and horses/zebras share the order
+  **Perissodactyla**. Red fox and great horned owl are both documented snowshoe-hare predators.
+- Chicken consumption (~70+ billion birds a year) — Our World in Data, from FAOSTAT.
+
+## Species colour = where it lived
+Node colour encodes the **biogeographic realm** the species lived in (Wallace's realms, plus Marine,
+Antarctic and a Worldwide/Holarctic catch-all), using the **Okabe–Ito** colourblind-safe palette.
+
 ## Key species facts & extinction science
 - **Dalén, L., et al. (2024).** *Temporal dynamics of woolly mammoth genome erosion prior to extinction.*
   Cell. https://doi.org/10.1016/j.cell.2024.05.033 — rejects the "inbreeding doomed them" hypothesis.
