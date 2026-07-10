@@ -762,7 +762,7 @@ const NODES = [
 // Paleogene & Neogene are the empty "Age of Mammals" periods that really sit between the
 // Cretaceous and the Quaternary — shown as empty rings so the timeline is honest about the gap.
 const ERAS_IN_TO_OUT = ['Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
-const VOID_R = 230, RING_T = 165;
+const VOID_R = 340, RING_T = 400;
 const ERA_MID = {}, ERA_OUTER = {};
 ERAS_IN_TO_OUT.forEach((e,i)=>{ ERA_MID[e]=VOID_R+i*RING_T+RING_T/2; ERA_OUTER[e]=VOID_R+(i+1)*RING_T; });
 
@@ -851,7 +851,15 @@ const LAYOUT = (function(){
     SECTIONS[name].forEach(id=>{const nn=nodeById[id]; if(!nn)return; (byEra[nn.era]=byEra[nn.era]||[]).push(id);});
     Object.keys(byEra).forEach(era=>{
       const arr=byEra[era], k=arr.length;
-      const H=RING_T-30, rows=Math.max(1, Math.min(k, Math.floor(H/38))), cols=Math.ceil(k/rows);
+      // aspect-aware grid: keep columns >= label-width apart and rows >= label-height apart.
+      const H=RING_T-40;                              // radial room within the ring band
+      const CELL_W=98, CELL_H=52;                     // min spacing for a wrapped label
+      const maxRows=Math.max(1, Math.floor(H/CELL_H));
+      const eraR=ERA_MID[era]||(VOID_R+RING_T);
+      const arc=(hi-lo)*Math.PI/180*eraR;             // arc length of this slice at this ring
+      const maxCols=Math.max(1, Math.floor(arc/CELL_W));
+      const rows=Math.max(1, Math.min(k, maxRows, Math.ceil(k/maxCols)));
+      const cols=Math.ceil(k/rows);
       arr.forEach((id,j)=>{
         const col=j%cols, row=Math.floor(j/cols);
         const a = cols===1 ? (lo+hi)/2 : lo+(hi-lo)*col/(cols-1);
@@ -1340,7 +1348,8 @@ const cy = cytoscape({
     {selector:'node[axis].erafocus', style:{'border-color':'#e0a458','color':'#e6edf3'}},
     {selector:'node[_n]', style:{
       'background-color':'data(color)','label':'data(label)','color':'#e6edf3',
-      'font-size':'11px','text-valign':'bottom','text-margin-y':'4px',
+      'font-size':'10px','text-valign':'bottom','text-margin-y':'4px',
+      'text-wrap':'wrap','text-max-width':'86px',
       'width':'26px','height':'26px','border-width':2,'border-color':'#0b0e13',
       'z-index':60,'text-outline-color':'#0b0e13','text-outline-width':2}},
     {selector:'node[status="extinct"]', style:{
@@ -1361,7 +1370,7 @@ const cy = cytoscape({
   ],
   layout:{name:'preset', fit:true, padding:24},
 });
-cy.maxZoom(4); cy.minZoom(0.02);
+cy.maxZoom(4); cy.minZoom(0.01);
 
 // ===== SVG background: era ring bands + tinted ecosystem sector-wedges + dividers =====
 (function buildBackground(){
