@@ -63,6 +63,44 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
   **Perissodactyla**. Red fox and great horned owl are both documented snowshoe-hare predators.
 - Chicken consumption (~70+ billion birds a year) — Our World in Data, from FAOSTAT.
 
+## Modern reassessments — where the textbook story has moved
+Claims here were audited against current literature and each proposed correction was then
+adversarially re-checked. Three proposed corrections were rejected as over-correction.
+
+- **Yellowstone is contested, not settled.** Kauffman et al. (2010, *Ecology*) found no
+  landscape-of-fear effect; **Brice et al. (2022, *Ecology Letters*)** showed non-random sampling
+  exaggerated willow/aspen recovery; **Hobbs et al. (2024, *Ecological Monographs*)** describe a
+  beaver-/water-table-dependent alternative stable state. Human harvest killed more elk than wolves.
+- **The T. rex "chicken collagen" match is disputed.** Asara (2007) / Organ et al. (2008) vs
+  **Buckley et al. (2017, *Proc. R. Soc. B*)** (ostrich cross-contamination) and Bern et al. (2009).
+  The firmer molecular evidence is reproduced hadrosaur collagen — Schroeter et al. (2017).
+- **The dodo was not clubbed to death, nor stupid.** Cheke & Hume, *Lost Land of the Dodo* (2008):
+  introduced rats, pigs and macaques eating its single ground egg drove the extinction; hunting was
+  minor. **Gold et al. (2016)**, endocast — its brain was pigeon-sized, as expected.
+- **The numbat is not uniquely the thylacine's closest relative.** Feigin et al. (2018) retroposons
+  and Kealy & Beck (2017) place the thylacine as the earliest branch of Dasyuromorphia; numbat,
+  quolls, dunnarts and devil are all about equally related. The "~95% shared DNA" figure is from a
+  press release, not a phylogeny.
+- **Smilodon did not ambush young mammoths** — that is *Homotherium*'s signature (Friesenhahn Cave).
+  La Brea isotopes and microwear point to forest/woodland prey: DeSantis et al. (2019).
+- **"Creodonta" is abandoned.** Borths et al. (2016, *PeerJ*): Hyaenodonta is its own order; the
+  old grouping is polyphyletic, and *Hyaenodon* left no living descendants.
+- **Superlatives unseated.** *Vasuki indicus* (Datta & Bajpai 2024, *Sci. Rep.*) rivals Titanoboa's
+  length; *Palaeoloxodon namadicus* may exceed Paraceratherium (Larramendi 2016); *Pelagornis
+  sandersi* (Ksepka 2014) out-spans Argentavis. Megalodon's length is unsettled — Cooper et al.
+  (2022) vs the contested slim-bodied reading of Sternes/Shimada et al. (2024–25).
+- **Keystones, present tense.** Sea star wasting disease (from 2013) hit *Pisaster*; the deeper,
+  unrecovered collapse of the sunflower star *Pycnopodia* is the bigger driver of today's urchin
+  barrens. Sea otters guard kelp only across their reduced range.
+- **New this year:** **Kamaru et al. (2024, *Science*)** — invasive big-headed ants destroy the
+  whistling-thorn's *Crematogaster* guards; elephants then break the trees, the lost cover cuts
+  lion predation on zebra, and lions switch to buffalo.
+- **American chestnut** persists as root sprouts, scattered survivors and active backcross/transgenic
+  breeding; the Darling 58 line lost the American Chestnut Foundation's support in 2023.
+- **Standing unchanged after audit:** passenger-pigeon superabundance (Murray et al. 2017, *Science*,
+  rebutting Hung et al. 2014), the mammoth's Wrangel Island end (Dalén et al. 2024), the lynx–hare
+  cycle, Antarctic krill as keystone, and *Basilosaurus* skull-crushing predation (Voss et al. 2019).
+
 ## Species colour = where it lived
 Node colour encodes the **biogeographic realm** the species lived in (Wallace's realms, plus Marine,
 Antarctic and a Worldwide/Holarctic catch-all), using the **Okabe–Ito** colourblind-safe palette.

@@ -118,7 +118,7 @@ const NODES = [
    fact:`Long called the thylacine's closest living relative, and now the largest marsupial carnivore. Recent genome work suggests the numbat may be even closer.`},
   {id:'numbat', name:'Numbat', sci:'Myrmecobius fasciatus', kind:'mammal', status:'living',
    place:'SW Australia', era:'Today', a:137, dr:38,
-   fact:`A 2022 genome study points to the numbat as the thylacine's closest living relative — up to ~95% of their DNA is shared. It is itself now endangered (<1,000 left).`},
+   fact:`Often called the thylacine's closest living relative, but that isn't right: molecular phylogenies place the thylacine as the earliest branch of Dasyuromorphia (~35–40 Ma), so the numbat, quolls, dunnarts and devil are all about equally related to it. The popular "~95% shared DNA" figure comes from a press release, not a published phylogeny. It is itself endangered (<1,000 left).`},
   {id:'wallaby', name:'Wallabies', sci:'Macropodidae', kind:'mammal', status:'living',
    place:'Tasmania', era:'Today', a:114, dr:-48,
    fact:`Small kangaroo relatives — the thylacine's main prey. Still common in Tasmania.`},
@@ -136,10 +136,10 @@ const NODES = [
    fact:`The last member of the sea cow's family (Dugongidae) — and its closest living relative.`},
   {id:'otter', name:'Sea Otter', sci:'Enhydra lutris', kind:'mammal', status:'living',
    place:'North Pacific', era:'Today', a:210, dr:38,
-   fact:`Keystone of the kelp forest: by eating urchins it keeps the kelp from being mown down.`},
+   fact:`Keystone of the kelp forest: by eating urchins it keeps the kelp from being mown down — but only across its much-reduced range. Where otters never returned, urchin barrens have exploded, and once urchins go dormant even otters struggle to reverse one.`},
   {id:'kelp', name:'Kelp Forest', sci:'Laminariales', kind:'plant', status:'living',
    place:'North Pacific', era:'Today', a:203, dr:-50,
-   fact:`Undersea forests that fed the sea cow and shelter countless species.`},
+   fact:`Undersea forests that fed the sea cow and shelter countless species. Where the urchin-eaters are gone, they collapse into "urchin barrens" — northern California has lost most of its bull kelp.`},
   {id:'bandtailed', name:'Band-tailed Pigeon', sci:'Patagioenas fasciata', kind:'bird', status:'living',
    place:'Western N. America', era:'Today', a:238, dr:-5,
    fact:`The passenger pigeon's closest living relative — DNA overturned the old idea that it was the mourning dove.`},
@@ -163,7 +163,7 @@ const NODES = [
    fact:`The "mammoth steppe" grassland that fed Ice-age giants.`},
   {id:'chicken', name:'Chicken', sci:'Gallus gallus', kind:'bird', status:'living',
    place:'Worldwide', era:'Today', a:34, dr:-5,
-   fact:`A living dinosaur. When T. rex proteins were recovered in 2008, they matched the chicken's collagen more closely than any other animal's. The Least Concern rating is for the wild species (Red Junglefowl); the domestic bird is not separately assessed.`},
+   fact:`A living dinosaur. In 2007 a handful of T. rex collagen peptides were reported to sit nearest the chicken — but that result is disputed, with critics blaming lab contamination (ostrich was processed in the same lab). The firmer molecular evidence now comes from reproduced hadrosaur collagen, not T. rex. The Least Concern rating is for the wild species (Red Junglefowl); the domestic bird is not separately assessed.`},
   {id:'ostrich', name:'Ostrich', sci:'Struthio camelus', kind:'bird', status:'living',
    place:'Africa', era:'Today', a:36, dr:-5,
    fact:`The largest living bird — and, with the chicken, one of the two birds T. rex's recovered collagen was matched to.`},
@@ -175,7 +175,7 @@ const NODES = [
   {id:'dodo', name:'Dodo', sci:'Raphus cucullatus', kind:'bird', status:'extinct',
    place:'Mauritius', era:'Recent (Holocene)', a:88, when:'last seen 1662 (likely to ~1690)',
    cause:`Hunted by sailors; pigs, monkeys & rats ate its eggs`,
-   fact:`A giant flightless pigeon found only on Mauritius. It evolved with no predators, so it never learned to fear the sailors who hunted it.`},
+   fact:`A giant flightless pigeon found only on Mauritius. It evolved with no land predators, so it never feared people — but sailors' hunting barely dented it. The real killers were the rats, pigs and macaques they landed, which ate its single ground-laid egg. And it was not stupid: its endocast shows a brain the size a pigeon's should be.`},
   {id:'thylacine', name:'Thylacine', sci:'Thylacinus cynocephalus', kind:'mammal', status:'extinct',
    place:'Tasmania', era:'Recent (Holocene)', a:128, when:'1936',
    cause:`Shot for a government bounty in Tasmania`,
@@ -183,7 +183,7 @@ const NODES = [
   {id:'auk', name:'Great Auk', sci:'Pinguinus impennis', kind:'bird', status:'extinct',
    place:'North Atlantic', era:'Recent (Holocene)', a:166, when:'1844',
    cause:`Hunted out for its feathers, meat & eggs`,
-   fact:`The original "penguin" — the name was later reused for the unrelated southern birds it resembled. The last breeding pair was killed on Eldey island, Iceland, on 3 June 1844.`},
+   fact:`The original "penguin" — the name was later reused for the unrelated southern birds it resembled. The last known breeding pair was killed on Eldey island, Iceland, in early June 1844 (traditionally 3 June, a date reconstructed from hunters interviewed 14 years later). A credible but unconfirmed 1852 sighting off Newfoundland may mark the true last bird.`},
   {id:'seacow', name:"Steller's Sea Cow", sci:'Hydrodamalis gigas', kind:'marine', status:'extinct',
    place:'North Pacific (Bering Sea)', era:'Recent (Holocene)', a:203, when:'1768',
    cause:`Hunted out within 27 years of being discovered`,
@@ -233,7 +233,7 @@ const NODES = [
   {id:'acacia', name:'Umbrella Thorn', sci:'Vachellia tortilis', kind:'plant', status:'living', place:'African plains',
    era:'Today', a:309, dr:-68, fact:`The iconic flat-topped savanna tree; elephants and giraffes swallow its spiral pods, and gut passage both spreads the seeds and kills the beetle larvae that would destroy them.`},
   {id:'whistlingthorn', name:'Whistling Thorn', sci:'Vachellia drepanolobium', kind:'plant', status:'living', place:'African plains',
-   era:'Today', a:313, dr:-62, fact:`Wind whistling over ant-bored holes in its swollen thorns names it — and its resident Crematogaster ants swarm out to bite elephants and giraffes that try to browse.`},
+   era:'Today', a:313, dr:-62, fact:`Wind whistling over ant-bored holes in its swollen thorns names it — and its resident Crematogaster ants swarm out to bite elephants and giraffes that try to browse. In 2024 invasive big-headed ants were shown to wipe out those defenders: elephants then smash the undefended trees, the opened landscape robs lions of stalking cover, and the lions kill fewer zebra and switch to buffalo.`},
   {id:'rhodesgrass', name:'Rhodes Grass', sci:'Chloris gayana', kind:'plant', status:'living', place:'African plains',
    era:'Today', a:305, dr:-58, fact:`A drought-proof forage grass whose ~4.5 m roots outlast six-month droughts and salty soils; named for Cecil Rhodes, who grew it near Cape Town around 1895.`},
   {id:'bluewildebeest', name:'Blue Wildebeest', sci:'Connochaetes taurinus', kind:'mammal', status:'living', place:'African plains',
@@ -266,7 +266,7 @@ const NODES = [
   {id:'beech', name:'American Beech', sci:'Fagus grandifolia', kind:'plant', status:'living', place:'N. American forest',
    era:'Today', a:243, dr:-58, fact:`A single passenger pigeon's crop could hold ~28 beechnuts; beech mast fuelled the billions-strong flocks, and clearing beech forest helped doom the bird.`},
   {id:'chestnut', name:'American Chestnut', sci:'Castanea dentata', kind:'plant', status:'living', place:'N. American forest',
-   era:'Today', a:244, dr:-70, fact:`Once ~1 in 4 Appalachian canopy trees; a blight first seen at the Bronx Zoo in 1904 killed an estimated 3–4 billion. It survives only as doomed root sprouts.`},
+   era:'Today', a:244, dr:-70, fact:`Locally up to ~1 in 4 Appalachian canopy trees; a blight first seen at the Bronx Zoo in 1904 killed an estimated 3–4 billion. It persists as blight-killed root sprouts, scattered survivors, and active backcross and transgenic breeding — though the flagship Darling 58 line lost its foundation's support in 2023.`},
   {id:'pokeweed', name:'American Pokeweed', sci:'Phytolacca americana', kind:'plant', status:'living', place:'N. American forest',
    era:'Today', a:236, dr:-60, fact:`Its purple-black autumn berries feed catbirds, thrashers & waxwings that scatter the seeds — yet the same toxins sicken any mammal that eats it.`},
   {id:'wildgrape', name:'Riverbank Grape', sci:'Vitis riparia', kind:'plant', status:'living', place:'N. American forest',
@@ -318,7 +318,7 @@ const NODES = [
   {id:'titanoboa', name:'Titanoboa', sci:'Titanoboa cerrejonensis', kind:'reptile', status:'extinct',
    place:'Paleocene Colombia', era:'Paleogene', a:198, dr:-6, when:'~58 Ma (Paleocene)',
    cause:`Cooling after the Paleocene hothouse`,
-   fact:`The largest snake ever — ~13 m and over a tonne. A semi-aquatic apex predator that ate giant fish and crocodilians.`},
+   fact:`~13 m and over a tonne — still the heaviest snake known, and a semi-aquatic apex predator of giant fish and crocodilians. "Largest ever" is now contested: Vasuki indicus, described from India in 2024, is estimated at 11–15 m, its upper range rivalling Titanoboa (though its mass is unknown).`},
   {id:'basilosaurus', name:'Basilosaurus', sci:'Basilosaurus isis', kind:'marine', status:'extinct',
    place:'Late Eocene seas', era:'Paleogene', a:236, dr:24, when:'~37 Ma (Eocene)',
    cause:`Eocene–Oligocene cooling & ocean change`,
@@ -326,11 +326,11 @@ const NODES = [
   {id:'paraceratherium', name:'Paraceratherium', sci:'Paraceratherium', kind:'mammal', status:'extinct',
    place:'Oligocene Eurasia', era:'Paleogene', a:212, dr:28, when:'~30 Ma (Oligocene)',
    cause:`Habitat loss as woodlands shrank`,
-   fact:`The largest land mammal ever — a hornless rhino up to ~17 tonnes that browsed treetops like a giraffe.`},
+   fact:`A hornless rhino ~4.8 m at the shoulder and up to ~17 tonnes, browsing treetops like a giraffe — among the largest land mammals ever. Whether it was *the* largest is unsettled: the same study put the elephant Palaeoloxodon namadicus at ~22 t, but only by extrapolating from a lost, fragmentary femur.`},
   {id:'hyaenodon', name:'Hyaenodon', sci:'Hyaenodon', kind:'mammal', status:'extinct',
    place:'Eocene–Oligocene plains', era:'Paleogene', a:222, dr:-6, when:'~30 Ma',
    cause:`Outcompeted by true carnivores`,
-   fact:`A powerful creodont predator — not a true cat or dog, but a separate, now-vanished branch of meat-eaters.`},
+   fact:`A powerful hyaenodont predator — not a true cat or dog, but a member of Hyaenodonta, an extinct order only distantly related to modern carnivores. It was long filed under "Creodonta," a grouping now abandoned because its members don't form a single natural branch. It left no living descendants.`},
   {id:'paleoforest', name:'Paleogene Forests', kind:'plant', status:'living', place:'Warm Paleogene world',
    era:'Paleogene', a:206, dr:-46, fact:`Tropical and temperate forests that spread after the dinosaurs — the base of the new mammal world.`},
   {id:'crocodilians', name:'Ancient Crocodilians', kind:'reptile', status:'living', place:'Paleogene swamps',
@@ -341,7 +341,7 @@ const NODES = [
   {id:'megalodon', name:'Megalodon', sci:'Otodus megalodon', kind:'marine', status:'extinct',
    place:'Miocene–Pliocene oceans', era:'Neogene', a:88, dr:30, when:'~3.6 Ma (end)',
    cause:`Cooling seas + collapse of its whale prey`,
-   fact:`The largest shark ever, up to ~18 m. It hunted whales until ~3.6 Ma, when cooling seas and vanishing prey did it in.`},
+   fact:`The largest predatory shark ever. Its length is genuinely unsettled: the best 3-D reconstruction gives ~16 m assuming a great-white-like build, while a contested 2024–25 reading argues it was slimmer and longer, pushing the maximum past 20 m. It hunted whales until ~3.6 Ma; cooling seas, vanishing prey and the new great white all likely played a part.`},
   {id:'terrorbird', name:'Terror Bird', sci:'Phorusrhacidae', kind:'bird', status:'extinct',
    place:'Miocene South America', era:'Neogene', a:74, dr:6, when:'Miocene–Pliocene',
    cause:`New predators arriving from North America`,
@@ -349,7 +349,7 @@ const NODES = [
   {id:'argentavis', name:'Argentavis', sci:'Argentavis magnificens', kind:'bird', status:'extinct',
    place:'Late Miocene Argentina', era:'Neogene', a:58, dr:6, when:'~6 Ma (Miocene)',
    cause:`End-Miocene environmental change`,
-   fact:`The heaviest flying bird ever — a ~7 m wingspan glider that scavenged and hunted.`},
+   fact:`The heaviest flying bird known (~70 kg) — a master soaring glider. Its ~6 m wingspan was actually shorter than that of the lighter Pelagornis sandersi. Long read as an active predator, it now looks mainly like a scavenging soarer that also took some live prey.`},
   {id:'australopithecus', name:'Australopithecus', sci:'Australopithecus', kind:'human', status:'extinct',
    place:'Pliocene Africa', era:'Neogene', a:64, dr:0, when:'~3.5 Ma (Pliocene)',
    cause:`Gave rise to later hominins — including us`,
@@ -364,7 +364,7 @@ const NODES = [
   // ============ A CLASSIC PUBLISHED FOOD WEB — Paine (1966) rocky intertidal ============
   {id:'pisaster', name:'Ochre Sea Star', sci:'Pisaster ochraceus', kind:'marine', status:'living',
    place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:24, dr:44,
-   fact:`Robert Paine's original "keystone species" (1966). Remove it and mussels crowd out the whole community — the experiment that founded the concept.`},
+   fact:`Robert Paine's original "keystone species" (1966). Remove it and mussels crowd out the whole community — the experiment that founded the concept. Sea star wasting disease hammered it from 2013, though many populations rebounded; today's barrens owe more to the deeper, still-unrecovered collapse of its relative the sunflower star.`},
   {id:'mussels', name:'California Mussel', sci:'Mytilus californianus', kind:'marine', status:'living',
    place:'Pacific rocky shore (Mukkaw Bay)', era:'Today', a:17, dr:-8,
    fact:`The dominant competitor for space. Pisaster eating it is what keeps the shore diverse.`},
@@ -389,17 +389,17 @@ const NODES = [
 
   // ============ Yellowstone wolf-reintroduction cascade — Ripple & Beschta (2012) ============
   {id:'wolf', name:'Gray Wolf', sci:'Canis lupus', kind:'mammal', status:'living', place:'Yellowstone N.P.',
-   era:'Today', a:225, dr:44, fact:`Its 1995 return to Yellowstone cut elk browsing and let willows, aspen — and beavers — recover. The famous trophic cascade.`},
+   era:'Today', a:225, dr:44, fact:`After their 1995 return, elk browsing eased and willow, aspen and beaver rebounded in places — the famous "trophic cascade." But recent work calls it patchy and overstated: elk also fell to hunting, bears and drought, and willow recovery depends on beaver-built water tables, not wolves alone (Kauffman 2010; Brice 2022; Hobbs 2024).`},
   {id:'elk', name:'Elk', sci:'Cervus canadensis', kind:'mammal', status:'living', place:'Yellowstone N.P.',
-   era:'Today', a:224, dr:-8, fact:`A heavy browser whose numbers wolves reduced, releasing the young trees along the streams.`},
+   era:'Today', a:224, dr:-8, fact:`A heavy browser. Wolves cut its numbers — but so did human hunting, grizzlies, cougars and drought, and harvest killed more elk than wolves did.`},
   {id:'ysbison', name:'Bison', sci:'Bison bison', kind:'mammal', status:'living', place:'Yellowstone N.P.',
    era:'Today', a:230, dr:6, fact:`Rebounded after wolves eased elk competition for forage.`},
   {id:'beaver', name:'Beaver', sci:'Castor canadensis', kind:'mammal', status:'living', place:'Yellowstone N.P.',
-   era:'Today', a:217, dr:8, fact:`Colonies rose from 1 to 12 on the northern range as willow recovered — ecosystem engineers.`},
+   era:'Today', a:217, dr:8, fact:`Colonies on the northern range rose from 1 to about a dozen — though partly thanks to reintroductions north of the park, not wolves alone. Their dams raise the water table the willows actually need, so the beaver may be the cascade's real engineer.`},
   {id:'yswillow', name:'Willow', sci:'Salix', kind:'plant', status:'living', place:'Yellowstone N.P.',
    era:'Today', a:216, dr:-38, fact:`Recovered strongly once wolves reduced elk browsing.`},
   {id:'ysaspen', name:'Aspen', sci:'Populus tremuloides', kind:'plant', status:'living', place:'Yellowstone N.P.',
-   era:'Today', a:234, dr:-40, fact:`New shoots finally survived to grow tall after the wolves returned.`},
+   era:'Today', a:234, dr:-40, fact:`Some new shoots escaped browsing and grew tall after the wolves returned — but recovery is patchy, and a 2022 study found the classic result was exaggerated by non-random sampling of the tallest stands.`},
   {id:'cottonwood', name:'Cottonwood', sci:'Populus', kind:'plant', status:'living', place:'Yellowstone N.P.',
    era:'Today', a:220, dr:-60, fact:`Riverside trees released from heavy elk browsing.`},
   {id:'ysgrass', name:'Northern-range Grass', kind:'plant', status:'living', place:'Yellowstone N.P.',
@@ -416,9 +416,9 @@ const NODES = [
    era:'Today', a:41, dr:42, fact:`Despite the name it eats mostly krill — likely the most numerous large carnivore on Earth.`},
   {id:'leopard', name:'Leopard Seal', sci:'Hydrurga leptonyx', kind:'mammal', status:'living', place:'Southern Ocean',
    era:'Today', a:51, dr:42, fact:`Apex predator that hunts penguins and other seals — but still eats plenty of krill.`},
-  {id:'minke', name:'Minke Whale', sci:'Balaenoptera', kind:'marine', status:'living', place:'Southern Ocean',
-   era:'Today', a:46, dr:44, fact:`A baleen whale that filters vast tonnages of krill each summer.`},
-  {id:'silverfish', name:'Antarctic Silverfish', sci:'Pleuragramma', kind:'marine', status:'living', place:'Southern Ocean',
+  {id:'minke', name:'Antarctic Minke Whale', sci:'Balaenoptera bonaerensis', kind:'marine', status:'living', place:'Southern Ocean',
+   era:'Today', a:46, dr:44, fact:`A baleen whale that filters vast tonnages of krill each summer. This is the Antarctic minke — a separate species from the common minke (B. acutorostrata, Least Concern) and, unlike it, Near Threatened.`},
+  {id:'silverfish', name:'Antarctic Silverfish', sci:'Pleuragramma antarcticum', kind:'marine', status:'living', place:'Southern Ocean',
    era:'Today', a:40, dr:8, fact:`A krill-eating fish, and in turn food for penguins and seals.`},
 
   // ============ Boreal lynx–hare cycle — Elton & Nicholson (1942) ============
@@ -450,10 +450,10 @@ const NODES = [
    era:'Today', a:324, dr:6, fact:`The smallest bear — insects, honey and fruit in Southeast Asian forests.`},
   {id:'cavebear', name:'Cave Bear', sci:'Ursus spelaeus', kind:'mammal', status:'extinct', place:'Ursidae · Ice-age Europe',
    era:'Ice Age', a:314, dr:28, when:'~24,000 yrs ago', cause:`Ice-age climate change + human pressure`,
-   fact:`A large, mostly-herbivorous Ice-age bear of Europe — close kin to the brown bear.`},
+   fact:`A large, mostly-herbivorous Ice-age bear of Europe — close kin to the brown bear, though some populations (notably in Romanian caves) turned omnivorous.`},
   {id:'shortfacedbear', name:'Short-faced Bear', sci:'Arctodus simus', kind:'mammal', status:'extinct', place:'Ursidae · Ice-age N. America',
    era:'Ice Age', a:320, dr:28, when:'~11,000 yrs ago', cause:`End-ice-age megafauna collapse`,
-   fact:`The largest land carnivoran in North America — a giant omnivore that hunted and scavenged megafauna. Closest living relative: the spectacled bear.`},
+   fact:`The largest land carnivoran in North America — not the hyper-carnivore or dedicated scavenger once imagined, but a flexible, brown-bear-like omnivore that ate plants and took megafauna meat by both hunting and scavenging. Closest living relative: the spectacled bear.`},
   // bear foods (showing the family's dietary range)
   {id:'bamboo', name:'Bamboo', kind:'plant', status:'living', place:'Ursidae · China',
    era:'Today', a:322, dr:-44, fact:`Nutrient-poor grass the giant panda eats almost exclusively.`},
@@ -810,8 +810,8 @@ const ECOSYSTEMS = {
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
-  'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate.',
-  'Yellowstone (wolf cascade)':'From Ripple, W.J. & Beschta, R.L. (2012) "Trophic cascades in Yellowstone," Biol. Conserv. 145:205–213. Wolves cut elk browsing → willow, aspen & cottonwood recover → beavers return. A top-down cascade.',
+  'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate. Modern footnote: sea star wasting disease devastated Pisaster from 2013, though many populations rebounded on a large recruitment pulse; the deeper, still-unrecovered loss is its relative the sunflower star (Pycnopodia), now the bigger driver of urchin barrens.',
+  'Yellowstone (wolf cascade)':'The classic account — Ripple, W.J. & Beschta, R.L. (2012), Biol. Conserv. 145:205–213: wolves cut elk browsing → willow, aspen & cottonwood recover → beavers return. But this textbook cascade is now heavily qualified. Kauffman et al. (2010, Ecology) found no landscape-of-fear effect; Brice et al. (2022, Ecol. Lett.) showed non-random sampling exaggerated the willow/aspen recovery; Hobbs et al. (2024, Ecol. Monogr.) argue the northern range sits in a beaver- and water-table-dependent alternative state that wolves alone have not reversed. Elk also declined to human harvest (which killed more elk than wolves did), grizzlies, cougars and drought. The cascade is real but partial — treat the arrows here as contested, not settled.',
   'Southern Ocean (krill web)':'Antarctic krill (Euphausia superba) is the keystone linking phytoplankton to whales, seals and penguins across the Southern Ocean (synthesis after the Australian Antarctic Program; Trathan & Hill 2016).',
   'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.',
   'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.',
@@ -909,10 +909,25 @@ const LAYOUT = (function(){
   return out;
 })();
 
-// ---- Present-day conservation data (verified: IUCN Red List + World Bank, 2021–24) ----
-const IUCN = { // living relatives in this web, with their real IUCN status
+// ---- Present-day conservation data ----
+// Every status is the CURRENT **global** IUCN category. Watch the regional trap: the razorbill and
+// the European rabbit both carry a Near Threatened *European regional* rating while remaining
+// LC and EN globally. Bird statuses via BirdLife (the Red List Authority for birds); mammal
+// taxonomy cross-checked against the ASM Mammal Diversity Database, marine names against WoRMS,
+// plants against Kew's Plants of the World Online. Taxa IUCN has not evaluated (most of the
+// invertebrates, the grasses, and genus-only nodes) are deliberately left blank rather than guessed.
+const IUCN = { // living species in this web, with their real global IUCN status
   nicobar:'NT', devil:'EN', numbat:'EN', razorbill:'LC', puffin:'VU', dugong:'VU',
   greathornedowl:'LC', chicken:'LC', ostrich:'LC', adelie:'LC', guineafowl:'LC',
+  // Yellowstone & boreal
+  wolf:'LC', elk:'LC', ysbison:'NT', beaver:'LC', ysaspen:'LC', canadalynx:'LC', snowshoehare:'LC',
+  // bears (Ursidae) — six of the eight living species are Vulnerable
+  brownbear:'LC', polarbear:'VU', panda:'VU', blackbear:'LC', asianblackbear:'VU',
+  spectacledbear:'VU', slothbear:'VU', sunbear:'VU',
+  // Southern Ocean & marine
+  crabeater:'LC', leopard:'LC', antkrill:'LC', minke:'NT', silverfish:'LC', sockeye:'LC',
+  // eagle prey
+  eaglerabbit:'EN', treesloth:'LC', colugo:'LC', hyrax:'LC', armadillo:'LC',
   otter:'EN', bandtailed:'LC', zebra:'NT', lion:'VU', elephant:'EN',
   whiteoak:'LC', beech:'LC', chestnut:'CR', redtailedhawk:'LC', coopershawk:'LC', redfox:'LC',
   bluewildebeest:'LC', impala:'LC', thomsonsgazelle:'LC', acacia:'LC', whistlingthorn:'LC',
@@ -1027,12 +1042,11 @@ NODES.forEach(n=>{
 // edges
 const EDGES = [
   // ---- FOOD WEB ----
-  {from:'human', to:'dodo', type:'eats', note:'clubbed for meat by sailors'},
+  {from:'human', to:'dodo', type:'eats', note:'hunted by sailors — but a minor cause; the introduced mammals did the killing'},
   {from:'blackrat', to:'dodo', type:'eats', note:'ship-borne black rats raided its ground nests for eggs'},
   {from:'dodo', to:'tambalacoque', type:'eats', note:'ate its fallen fruit'},
   {from:'human', to:'mammoth', type:'eats', note:'ice-age big-game hunting'},
   {from:'mammoth', to:'steppegrass', type:'eats', note:'grazed the steppe'},
-  {from:'smilodon', to:'mammoth', type:'eats', note:'ambushed young mammoths'},
   {from:'smilodon', to:'sloth', type:'eats', note:'ambushed giant sloths'},
   {from:'human', to:'sloth', type:'eats', note:'hunted for meat'},
   {from:'human', to:'thylacine', type:'eats', note:'shot for a bounty'},
@@ -1050,11 +1064,11 @@ const EDGES = [
   {from:'trex', to:'triceratops', type:'eats', note:'apex predator and its prey'},
   // ---- EVOLUTION (relatives; radial spokes) ----
   {from:'nicobar', to:'dodo', type:'ancestor', note:'closest living relative'},
-  {from:'chicken', to:'trex', type:'ancestor', note:'birds are living dinosaurs — T. rex proteins matched a chicken most closely (2008)'},
-  {from:'ostrich', to:'trex', type:'ancestor', note:'the other bird T. rex collagen was matched to'},
+  {from:'chicken', to:'trex', type:'ancestor', note:'birds are living dinosaurs; the 2007 T. rex "chicken collagen" match is disputed as contamination'},
+  {from:'ostrich', to:'trex', type:'ancestor', note:'the other bird the T. rex peptides matched — and the one processed in the same lab'},
   {from:'elephant', to:'mammoth', type:'ancestor', note:'closest living relative'},
-  {from:'numbat', to:'thylacine', type:'ancestor', note:'closest living relative (2022 genome); ~95% shared DNA'},
-  {from:'devil', to:'thylacine', type:'ancestor', note:'also among its closest kin (which is closest is debated)'},
+  {from:'numbat', to:'thylacine', type:'ancestor', note:'a close living kin — but no closer than the quolls, dunnarts or devil'},
+  {from:'devil', to:'thylacine', type:'ancestor', note:'equally close: the thylacine branched off before the numbat/dasyurid split'},
   {from:'razorbill', to:'auk', type:'ancestor', note:'closest living relative'},
   {from:'dugong', to:'seacow', type:'ancestor', note:'closest living relative'},
   {from:'bandtailed', to:'pigeon', type:'ancestor', note:'closest living relative'},
@@ -1098,8 +1112,8 @@ const EDGES = [
   {from:'camelops', to:'iceagegrass', type:'eats', note:'browses & grazes'},
   {from:'horses', to:'iceagegrass', type:'eats', note:'grazes'},
   {from:'sloth', to:'iceagegrass', type:'eats', note:'browses low plants'},
-  {from:'smilodon', to:'bison', type:'eats', note:'most common La Brea prey'},
-  {from:'smilodon', to:'camelops', type:'eats', note:'favoured prey (isotope evidence)'},
+  {from:'smilodon', to:'bison', type:'eats', note:'woodland-browsing Bison antiquus — a common La Brea prey (isotopes & microwear)'},
+  {from:'smilodon', to:'camelops', type:'eats', note:'possible prey, though isotopes point to forest browsers rather than camel'},
   {from:'smilodon', to:'horses', type:'eats', note:'preyed on wild horses'},
   // ---- Mammoth steppe (mammoth multi-prey) ----
   {from:'mammoth', to:'forbs', type:'eats', note:'~63% of its diet'},
