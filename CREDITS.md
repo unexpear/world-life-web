@@ -35,6 +35,28 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
   longer phyla** — molecular data nested both inside Annelida.
 - **ASM Mammal Diversity Database** — https://mammaldiversity.org (mammal taxonomy).
 
+## The Cambrian core — the worms' deep-time root
+The innermost ring is the **Burgess Shale (~508 Ma)** and **Chengjiang (~518 Ma)** seas, where the
+major animal body plans first appear. Its "ancestor" spokes run outward to the living kin, giving the
+worms (and everything else) a deep-time root. Affinities here are genuinely contested and have been
+revised repeatedly, so the facts reflect the **current** reading, not settled truth:
+- **Anomalocaris** probably could **not** crush trilobites — its frontal appendages suit soft prey
+  (Bicknell et al. 2023, *Proc. R. Soc. B*, FEA + CFD modelling).
+- **Hallucigenia** was reconstructed upside-down *and* back-to-front for decades; the real head has
+  eyes and a ring of throat teeth (Smith & Caron 2015, *Nature*). A stem-onychophoran (velvet-worm
+  relative).
+- **Pikaia**'s notochord is now **unconfirmed** — a 2024 restudy flipped its orientation but keeps it
+  a stem chordate on the strength of its dorsal nerve cord (Mussini et al. 2024, *Current Biology*).
+- **Wiwaxia** & **Odontogriphus** link to the **chitons**, not mussels: their molluscan radula makes
+  them *aculiferans* (Smith 2012–14), and mussels are bivalves on the other molluscan branch.
+- **Aysheaia** is about equally likely a stem-tardigrade as a stem-onychophoran (2023–24 phylogenies).
+- **Marrella**'s dark halo is a real decay stain; only the copper mineral once read as its "blood
+  pigment" proved to be a late metamorphic overprint (Gaines et al. 2019).
+- **Canadaspis** was the Burgess Shale's textbook "true crustacean" (Briggs 1978); it is now read as
+  an early member of the mandibulate line (Aria & Caron 2017).
+- Ages from the **Paleobiology Database**; marine names via WoRMS. The rings are ordinal, not to
+  scale — the jump from here to the Cretaceous skips ~440 Myr of the Paleozoic and early Mesozoic.
+
 ## "Worm" is a body plan, not a branch
 The worms in this web sit on at least **eight separate phyla**, and the relative-links between them
 only ever join worms of the *same* phylum — the gaps are the point.

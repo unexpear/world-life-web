@@ -841,6 +841,47 @@ const NODES = [
   {id:'glowworm', name:'Common Glow-worm', sci:'Lampyris noctiluca', kind:'insect', status:'living',
    place:'Worms · Europe', era:'Today', a:122, dr:-40,
    fact:`Not a worm but a beetle. It's the wingless female who glows, climbing a grass stem and shining green to draw flying males. Her larvae inject snails with digestive enzymes.`},
+
+  // ================= CAMBRIAN: the core ring, the worms' deep-time root =================
+  // The Burgess Shale (~508 Ma) & Chengjiang (~518 Ma) seas, where the major animal body plans
+  // first appear. Affinities here are genuinely contested and often revised — the facts reflect
+  // the CURRENT reading. All are marine and long extinct. (See the section note for the sources.)
+  {id:'ottoia', name:'Ottoia', sci:'Ottoia prolifica', kind:'priapulid', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`A burrowing ambush predator whose fossilised gut — sometimes crammed with shelled hyoliths, sometimes empty — is direct proof of Cambrian predation. Whether it's a crown or stem member of the living priapulid worms is still argued.`},
+  {id:'anomalocaris', name:'Anomalocaris', sci:'Anomalocaris canadensis', kind:'radiodont', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`Half a metre long and one of the first big predators. Long cast as a trilobite-cruncher, but 2023 modelling of its spiny arms showed they were built to seize soft prey at speed — and would have been wrecked on armour.`},
+  {id:'opabinia', name:'Opabinia', sci:'Opabinia regalis', kind:'opabiniid', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`Five stalked eyes and a single grasping nozzle for a "trunk." Its 1972 reconstruction reportedly drew laughter when first unveiled; in 2022 Utaurora became the first new opabiniid named in over a century.`},
+  {id:'hallucigenia', name:'Hallucigenia', sci:'Hallucigenia sparsa', kind:'lobopodian', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`Reconstructed upside-down AND back-to-front for decades — walked on its own defensive spines, with a decay stain mistaken for its head. The real head (Smith & Caron, 2015) has simple eyes and a ring of throat teeth.`},
+  {id:'aysheaia', name:'Aysheaia', sci:'Aysheaia pedunculata', kind:'lobopodian', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`A soft, stubby-legged lobopodian that clung among sponges. Textbooks made it a velvet-worm ancestor, but recent analyses place it about equally close to the water bears (tardigrades).`},
+  {id:'wiwaxia', name:'Wiwaxia', sci:'Wiwaxia corrugata', kind:'stem-mollusc', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`A scaly seafloor grazer once argued to be an annelid worm. Reinterpreting its rows of teeth as a molluscan radula (Smith, 2012–14) now points to a stem-mollusc — an early relative of the chitons.`},
+  {id:'marrella', name:'Marrella', sci:'Marrella splendens', kind:'arthropod', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`The "lace crab" — the single most abundant Burgess Shale fossil. The copper in the dark stain around many specimens, once read as its blood pigment, proved to be a mineral that crystallised long after burial.`},
+  {id:'pikaia', name:'Pikaia', sci:'Pikaia gracilens', kind:'chordate', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`A ribbon-like swimmer once held up as our earliest relative. A 2024 restudy flipped it over — its notochord is now unconfirmed — but a dorsal nerve cord and zig-zag muscle blocks still mark it a stem chordate.`},
+  {id:'trilobite', name:'Trilobite (Olenoides)', sci:'Olenoides serratus', kind:'trilobite', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`A trilobite preserved with its legs, antennae and gut. A 2025 study of those legs showed they moved unlike a horseshoe crab's; exactly where trilobites sit among living arthropods is still unresolved.`},
+  {id:'odontogriphus', name:'Odontogriphus', sci:'Odontogriphus omalus', kind:'stem-mollusc', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`The "toothed riddle." From 189 fossils it was recast in 2006 as a soft stem-mollusc that rasped microbial mats with an early radula — though an annelid reading still lingers.`},
+  {id:'haikouichthys', name:'Haikouichthys', sci:'Haikouichthys ercaicunensis', kind:'vertebrate', status:'extinct',
+   place:'Cambrian sea · Chengjiang', era:'Cambrian', a:0, dr:0, when:'~518 Ma',
+   fact:`~518 Ma, one of the oldest known vertebrates, with a notochord and the first hints of a backbone. A 2026 study even reinterpreted structures once read as nostrils as a second, median pair of camera eyes.`},
+  {id:'canadaspis', name:'Canadaspis', sci:'Canadaspis perfecta', kind:'arthropod', status:'extinct',
+   place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
+   fact:`The Burgess Shale's textbook "true crustacean" (1978) — until mandibles turned up in its relatives and recast it as an early member of the mandibulate line, the branch leading to crabs and insects.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -848,16 +889,19 @@ const NODES = [
 // Geologic Time Scale rings, from the core (oldest) outward to the present rim.
 // Paleogene & Neogene are the empty "Age of Mammals" periods that really sit between the
 // Cretaceous and the Quaternary — shown as empty rings so the timeline is honest about the gap.
-const ERAS_IN_TO_OUT = ['Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
+// NB: the rings are ORDINAL, not to scale. The jump from the Cambrian core to the Cretaceous skips
+// the whole Paleozoic and most of the Mesozoic (~440 Myr) — that boundary is the single biggest gap.
+const ERAS_IN_TO_OUT = ['Cambrian','Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
 const VOID_R = 340;
 // Each ring is one time period, but rings can have DIFFERENT widths — a busy age grows thicker.
 // These are filled by the LAYOUT pass below (thickness is computed from how much each ring holds).
 const ERA_INNER = {}, ERA_MID = {}, ERA_OUTER = {}, ERA_H = {};
 
 const RING_COLOR = {'Today':'#14202e','Recent (Holocene)':'#241d16','Ice Age':'#1b232b',
-  'Neogene':'#20211a','Paleogene':'#1e2417','Cretaceous':'#241913'};
+  'Neogene':'#20211a','Paleogene':'#1e2417','Cretaceous':'#241913','Cambrian':'#121a24'};
 const ERA_LABEL = {'Today':'PRESENT','Recent (Holocene)':'HOLOCENE · ~500 yrs','Ice Age':'PLEISTOCENE',
-  'Neogene':'NEOGENE · 23–2.6 Ma','Paleogene':'PALEOGENE · 66–23 Ma','Cretaceous':'CRETACEOUS · 66 Ma'};
+  'Neogene':'NEOGENE · 23–2.6 Ma','Paleogene':'PALEOGENE · 66–23 Ma','Cretaceous':'CRETACEOUS · 66 Ma',
+  'Cambrian':'CAMBRIAN · ~508 Ma'};
 // full GTS description shown on each species card
 const ERA_GTS = {
   'Today':'Holocene — present day · Quaternary',
@@ -866,6 +910,7 @@ const ERA_GTS = {
   'Neogene':'Neogene Period (23–2.6 Ma) · apes, grasslands, Megalodon',
   'Paleogene':'Paleogene Period (66–23 Ma) · the dawn of mammals',
   'Cretaceous':'Late Cretaceous (~68–66 Ma)',
+  'Cambrian':'Cambrian Period (~508 Ma) · the Burgess Shale · the animal phyla appear',
 };
 
 // Ecosystem membership — for measuring connectance at the scale ecologists use (one community),
@@ -880,6 +925,7 @@ const ECOSYSTEMS = {
   'African plains':          ['quagga','zebra','lion','grass','rhodesgrass','acacia','whistlingthorn','bluewildebeest','impala','thomsonsgazelle'],
   'Mammoth steppe':          ['mammoth','elephant','steppegrass','forbs','sedges','willow'],
   'Ice-age Americas':        ['smilodon','sloth','bison','camelops','horses','iceagegrass'],
+  'Cambrian Explosion':      ['ottoia','anomalocaris','opabinia','hallucigenia','aysheaia','wiwaxia','marrella','pikaia','trilobite','odontogriphus','haikouichthys','canadaspis'],
   'Late Cretaceous':         ['trex','triceratops','chicken','ostrich','cretplants','edmontosaurus'],
   'Paleogene (Age of Mammals)':['titanoboa','basilosaurus','paraceratherium','hyaenodon','paleoforest','crocodilians','paleofish'],
   'Neogene (Age of Mammals)': ['megalodon','terrorbird','argentavis','australopithecus','miocenegrass','grazers','baleenwhales'],
@@ -900,6 +946,7 @@ const ECO_SOURCE = {
   'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate. Modern footnote: sea star wasting disease devastated Pisaster from 2013, though many populations rebounded on a large recruitment pulse; the deeper, still-unrecovered loss is its relative the sunflower star (Pycnopodia), now the bigger driver of urchin barrens.',
   'Yellowstone (wolf cascade)':'The classic account — Ripple, W.J. & Beschta, R.L. (2012), Biol. Conserv. 145:205–213: wolves cut elk browsing → willow, aspen & cottonwood recover → beavers return. But this textbook cascade is now heavily qualified. Kauffman et al. (2010, Ecology) found no landscape-of-fear effect; Brice et al. (2022, Ecol. Lett.) showed non-random sampling exaggerated the willow/aspen recovery; Hobbs et al. (2024, Ecol. Monogr.) argue the northern range sits in a beaver- and water-table-dependent alternative state that wolves alone have not reversed. Elk also declined to human harvest (which killed more elk than wolves did), grizzlies, cougars and drought. The cascade is real but partial — treat the arrows here as contested, not settled.',
   'Southern Ocean (krill web)':'Antarctic krill (Euphausia superba) is the keystone linking phytoplankton to whales, seals and penguins across the Southern Ocean (synthesis after the Australian Antarctic Program; Trathan & Hill 2016).',
+  'Cambrian Explosion':'The core ring — the Burgess Shale (~508 Ma, British Columbia) and Chengjiang (~518 Ma, China) seas, where the major animal body plans first appear in the fossil record. It is also the worms\' deep-time root: the "ancestor" spokes run from here out to their living kin — Ottoia to the priapulid, Hallucigenia & Aysheaia to the velvet worm, Wiwaxia & Odontogriphus to the chitons, Pikaia to us, Haikouichthys to the fishes. These affinities are genuinely contested and have been revised repeatedly (Hallucigenia was reconstructed upside-down and back-to-front; Anomalocaris probably could NOT crush trilobites — Bicknell et al. 2023; Pikaia\'s notochord is now unconfirmed — Mussini et al. 2024), so treat the placements as the current best reading, not settled fact. Ages from the Paleobiology Database; marine names via WoRMS. Note the rings are ordinal: the jump from here to the Cretaceous skips ~440 Myr of the Paleozoic and early Mesozoic, not shown.',
   'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.',
   'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.',
   'Sea & Fish Eagles':'The sea and fish eagles — genera Haliaeetus (8 species) and Icthyophaga (2). Fish-and-waterbird hunters of coasts, lakes and rivers worldwide; the Madagascar fish eagle is among the rarest raptors alive.',
@@ -932,7 +979,7 @@ const LAYOUT = (function(){
   names.sort((x,y)=>meanA[x]-meanA[y]); // keep the rough clockwise order they already had
 
   const eras=ERAS_IN_TO_OUT, eraIdx={}; eras.forEach((e,i)=>eraIdx[e]=i);
-  const CELL_W=104, CELL_H=66, MARGIN=68;             // label footprint (row pitch) + band margin
+  const CELL_W=104, CELL_H=78, MARGIN=68;             // label footprint (row pitch) + band margin
   const MIN_THICK=150, MAX_THICK=900, GAP=2.0, MINANG=5, TARGET_ROWS=2;
 
   // Each section split by era so a group that spans time is split into per-ring zones.
@@ -953,7 +1000,7 @@ const LAYOUT = (function(){
   // OTHER zones present in that ring). A ring that holds only one ecosystem lets it spread wide
   // and stay thin; the busy Today ring shares its circle. Radius, width and thickness are coupled,
   // so iterate to a fixed point (a busy ring grows thicker, pushing outer rings out).
-  let thick={}; eras.forEach(e=>thick[e]=260);
+  let thick={}; eras.forEach(e=>thick[e]=MIN_THICK);
   function setRadii(){ let r=VOID_R; eras.forEach(e=>{ ERA_INNER[e]=r; ERA_H[e]=Math.max(40,thick[e]-MARGIN); ERA_MID[e]=r+thick[e]/2; r+=thick[e]; ERA_OUTER[e]=r; }); }
   const tiles={};
   function computeTiles(){
@@ -992,15 +1039,29 @@ const LAYOUT = (function(){
       }
     });
   }
-  for(let it=0; it<10; it++){
+  // Iterate to a FIXED POINT: recompute tiles, then re-size each ring to the rows its tiles now
+  // need, and repeat until nothing changes. Stopping at a fixed iteration count can leave a ring
+  // thinner than its final tiles require (→ rows collide), so converge properly and only then place.
+  function rowsNeeded(e){ let mr=1;
+    eraSecs[e].forEach(sec=>{ const t=tiles[e][sec.name], k=sec.byEra[e].length;
+      const arc=(t.hi-t.lo)*Math.PI/180*ERA_MID[e], mc=Math.max(1,Math.floor(arc/CELL_W));
+      mr=Math.max(mr, Math.ceil(k/mc)); });
+    return mr; }
+  const fit=e=>Math.max(MIN_THICK, Math.min(MAX_THICK, rowsNeeded(e)*CELL_H+MARGIN));
+  // Phase 1 — rough: let thickness follow the row-need directly to get the radii into the right
+  // ballpark. This can OSCILLATE (a ring that thickens gains radius, gains arc, then wants to thin),
+  // so it is not the final answer, just a good starting point.
+  for(let it=0; it<24; it++){ setRadii(); computeTiles(); eras.forEach(e=>{ thick[e]=fit(e); }); }
+  // Phase 2 — monotonic: from that ballpark, only ever GROW a ring to fit. Monotone + bounded ⇒ it
+  // converges, and the final tiles are guaranteed to fit the final thickness (no row collisions,
+  // which otherwise bite worst near the horizontal axis where a row-step runs sideways on screen).
+  for(let it=0; it<30; it++){
     setRadii(); computeTiles();
-    eras.forEach(e=>{ let maxRows=1;
-      eraSecs[e].forEach(sec=>{ const t=tiles[e][sec.name], k=sec.byEra[e].length;
-        const arc=(t.hi-t.lo)*Math.PI/180*ERA_MID[e], mc=Math.max(1,Math.floor(arc/CELL_W));
-        maxRows=Math.max(maxRows, Math.ceil(k/mc)); });
-      thick[e]=Math.max(MIN_THICK, Math.min(MAX_THICK, maxRows*CELL_H+MARGIN)); });
+    let grew=false;
+    eras.forEach(e=>{ const nt=fit(e); if(nt > thick[e]+0.5){ thick[e]=nt; grew=true; } });
+    if(!grew) break;
+    setRadii();
   }
-  setRadii(); computeTiles();
 
   // place every node in its section's per-ring tile AND its era band (never crossing rings)
   const out={};
@@ -1115,6 +1176,10 @@ const PHYLUM_OF = {
   'arrow worm':'Chaetognatha', priapulid:'Priapulida', 'acorn worm':'Hemichordata',
   'velvet worm':'Onychophora', mollusc:'Mollusca', echinoderm:'Echinodermata',
   crustacean:'Arthropoda', insect:'Arthropoda', squamate:'Chordata',
+  // Cambrian stem groups
+  priapulid:'Priapulida', radiodont:'stem-Arthropoda', opabiniid:'stem-Arthropoda',
+  lobopodian:'stem-Panarthropoda', 'stem-mollusc':'Mollusca', arthropod:'Arthropoda',
+  trilobite:'Arthropoda', chordate:'Chordata', vertebrate:'Chordata',
 };
 function typeOf(n){ return TYPE_FIX[n.id] || n.kind; }
 const EDGE_COLOR = {eats:'#d55e00', ancestor:'#0072b2', ecology:'#009e73'};
@@ -1157,7 +1222,11 @@ const REGION_OVERRIDE = {
   planarian:'Palearctic', tapeworm:'Worldwide / Holarctic', schistosome:'Afrotropical',
   ngflatworm:'Australasian', bootlaceworm:'Marine', priapulid:'Marine', arrowworm:'Marine',
   acornworm:'Marine', velvetworm:'Australasian', shipworm:'Marine', slowworm:'Palearctic',
-  glowworm:'Palearctic'
+  glowworm:'Palearctic',
+  // Cambrian — all marine
+  ottoia:'Marine', anomalocaris:'Marine', opabinia:'Marine', hallucigenia:'Marine', aysheaia:'Marine',
+  wiwaxia:'Marine', marrella:'Marine', pikaia:'Marine', trilobite:'Marine', odontogriphus:'Marine',
+  haikouichthys:'Marine', canadaspis:'Marine'
 };
 function regionOf(n){
   if(REGION_OVERRIDE[n.id]) return REGION_OVERRIDE[n.id];
@@ -1645,6 +1714,27 @@ const EDGES = [
   {from:'velvetworm', to:'termites', type:'eats', note:'nets them with jets of glue'},
   {from:'shipworm', to:'marinedetritus', type:'eats', note:'digests the sunken wood it burrows through'},
   {from:'slowworm', to:'earthworm', type:'eats', note:'eats slugs, snails and earthworms'},
+
+  // ---- CAMBRIAN: deep-time roots (spokes from the core out to the living kin) ----
+  {from:'ottoia', to:'priapulid', type:'ancestor', note:'a Cambrian priapulid — the living penis worm\'s ancient cousin'},
+  {from:'hallucigenia', to:'velvetworm', type:'ancestor', note:'a lobopodian — stem velvet-worm; the claw microstructure matches'},
+  {from:'aysheaia', to:'velvetworm', type:'ancestor', note:'a lobopodian — velvet worms and water bears both claim it'},
+  {from:'wiwaxia', to:'chitons', type:'ancestor', note:'bore an early molluscan radula — an aculiferan, like the chiton'},
+  {from:'odontogriphus', to:'chitons', type:'ancestor', note:'a soft stem-mollusc that rasped mats with a radula'},
+  {from:'pikaia', to:'human', type:'ancestor', note:'a stem chordate — on the lineage that leads to us'},
+  {from:'haikouichthys', to:'fish', type:'ancestor', note:'one of the first vertebrates — the stem of all fishes'},
+  {from:'anomalocaris', to:'antkrill', type:'ancestor', note:'a radiodont — on the stem of the arthropods'},
+  {from:'marrella', to:'antkrill', type:'ancestor', note:'a Cambrian euarthropod'},
+  {from:'canadaspis', to:'antkrill', type:'ancestor', note:'an early mandibulate — the crustacean/insect line'},
+  {from:'trilobite', to:'antkrill', type:'ancestor', note:'a euarthropod; its exact place among living arthropods is unresolved'},
+  {from:'opabinia', to:'anomalocaris', type:'ancestor', note:'both stem-arthropods of the "proboscis grade"'},
+
+  // ---- CAMBRIAN: the Burgess Shale food web ----
+  {from:'anomalocaris', to:'marrella', type:'eats', note:'seized soft-bodied swimmers'},
+  {from:'opabinia', to:'ottoia', type:'eats', note:'plucked worms from the mud with its proboscis'},
+  {from:'ottoia', to:'odontogriphus', type:'eats', note:'a burrowing predator of soft seafloor animals'},
+  {from:'trilobite', to:'odontogriphus', type:'eats', note:'spiny leg-bases processed small prey'},
+  {from:'wiwaxia', to:'marinedetritus', type:'eats', note:'rasped microbial mats on the seafloor'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
