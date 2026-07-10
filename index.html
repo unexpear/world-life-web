@@ -96,7 +96,8 @@
         Click any species to read its story.<br><br>
         <span style="font-size:11px">Data: GBIF · IUCN Red List · <a href="https://www.birdlife.org/" target="_blank"
         rel="noopener" style="color:#6cb6c9">BirdLife International</a> (Red List Authority for birds) ·
-        Paleobiology Database · World Bank · Paine (1966). Full citations in <b>CREDITS.md</b>.</span></div>
+        <a href="https://www.marinespecies.org/" target="_blank" rel="noopener" style="color:#6cb6c9">WoRMS</a>
+        (marine species) · Paleobiology Database · World Bank · Paine (1966). Full citations in <b>CREDITS.md</b>.</span></div>
     </div>
   </div>
 </div>
@@ -755,6 +756,91 @@ const NODES = [
    place:'Murinae · Christmas Island', era:'Recent (Holocene)', a:243, dr:0, when:'~1903',
    cause:`The same black-rat trypanosome disease that killed Maclear's rat`,
    fact:`A fat, thick-set burrowing rat that never climbed — gone within a decade, alongside Maclear's rat, to disease from ship-borne black rats.`},
+
+  // ================= WORMS: a body plan, not a branch =================
+  // "Worm" is a shape that evolved over and over. These belong to at least eight separate phyla,
+  // and three of them aren't worms at all. Marine names verified against WoRMS.
+
+  // ---- Annelida (segmented worms): earthworms, leeches, polychaetes ----
+  {id:'gippslandworm', name:'Giant Gippsland Earthworm', sci:'Megascolides australis', kind:'annelid', status:'living',
+   place:'Worms · Australia', era:'Today', a:100, dr:-60,
+   fact:`Often said to reach 3 m, but no verified specimen exceeds about 2 m; most are 80–100 cm. They stretch so much that they're measured by weight (~200 g) instead.`},
+  {id:'leech', name:'European Medicinal Leech', sci:'Hirudo medicinalis', kind:'annelid', status:'living',
+   place:'Worms · Europe', era:'Today', a:101, dr:-40,
+   fact:`Its saliva carries hirudin, which blocks thrombin so blood can't clot. Surgeons still use live leeches to drain congested blood from reattached fingers and skin grafts.`},
+  {id:'riftia', name:'Giant Tube Worm', sci:'Riftia pachyptila', kind:'annelid', status:'living',
+   place:'Worms · hydrothermal vents', era:'Today', a:102, dr:-20,
+   fact:`It has no mouth and no gut. Its blood-red plume carries oxygen and toxic hydrogen sulfide at once, feeding both to the chemosynthetic bacteria packed inside it that make its food.`},
+  {id:'bobbitworm', name:'Bobbit Worm', sci:'Eunice aphroditois', kind:'annelid', status:'living',
+   place:'Worms · tropical seabed', era:'Today', a:103, dr:0,
+   fact:`It ambushes from a sand burrow with only its antennae showing; brush them and it lunges with scissor-like jaws. Most stay under 1 m, though one reached nearly 3 m.`},
+  {id:'xmastreeworm', name:'Christmas Tree Worm', sci:'Spirobranchus giganteus', kind:'annelid', status:'living',
+   place:'Worms · coral reef', era:'Today', a:104, dr:20,
+   fact:`Only its two spiral crowns show — the body sits in a limestone tube bored into living coral, and the whole animal snaps out of sight if a shadow passes.`},
+  {id:'osedax', name:'Bone-eating Zombie Worm', sci:'Osedax', kind:'annelid', status:'living',
+   place:'Worms · whale falls', era:'Today', a:105, dr:40,
+   fact:`Mouthless and gutless, the female bores root-like tissue into sunken whale bone and lets bacteria digest it. Dozens of microscopic dwarf males live inside her tube.`},
+  {id:'innkeeperworm', name:'Fat Innkeeper Worm', sci:'Urechis caupo', kind:'annelid', status:'living',
+   place:'Worms · Pacific mudflats', era:'Today', a:106, dr:60,
+   fact:`It spins a mucus net to strain seawater, then eats the net and its catch. Its U-shaped burrow lodges pea crabs, a scaleworm, a clam and the arrow goby — hence "innkeeper."`},
+  {id:'peanutworm', name:'Peanut Worm', sci:'Sipunculus nudus', kind:'annelid', status:'living',
+   place:'Worms · seabed sand', era:'Today', a:107, dr:-60,
+   fact:`Disturbed, it yanks its tentacled head inside its trunk and contracts into a peanut. Molecular data collapsed its old phylum, Sipuncula, into the segmented annelids.`},
+
+  // ---- Nematoda (roundworms) ----
+  {id:'celegans', name:'C. elegans', sci:'Caenorhabditis elegans', kind:'nematode', status:'living',
+   place:'Worms · soil, worldwide', era:'Today', a:108, dr:-40,
+   fact:`This 1 mm roundworm has exactly 959 body cells and 302 neurons, every division traced from egg to adult — the first animal whose entire nervous system was mapped.`},
+  {id:'guineaworm', name:'Guinea Worm', sci:'Dracunculus medinensis', kind:'nematode', status:'living',
+   place:'Worms · Sahel', era:'Today', a:109, dr:-20,
+   fact:`The metre-long female emerges slowly through a burning skin blister. Once ~3.5 million cases a year; in 2025 there were 10 human cases on Earth. Nearly eradicated without a drug or vaccine.`},
+  {id:'hookworm', name:'Human Hookworm', sci:'Necator americanus', kind:'nematode', status:'living',
+   place:'Worms · tropics, worldwide', era:'Today', a:110, dr:0,
+   fact:`Larvae bore through bare skin, ride the blood to the lungs, get coughed up and swallowed, then latch onto the gut wall and drink blood. Some 380 million people carry it.`},
+
+  // ---- Platyhelminthes (flatworms) ----
+  {id:'planarian', name:'Planarian', sci:'Schmidtea mediterranea', kind:'flatworm', status:'living',
+   place:'Worms · fresh water', era:'Today', a:111, dr:20,
+   fact:`Its adult stem cells, neoblasts, regrow a whole worm from a fragment. A single transplanted neoblast can rebuild an animal whose own cells have been killed by radiation.`},
+  {id:'tapeworm', name:'Pork Tapeworm', sci:'Taenia solium', kind:'flatworm', status:'living',
+   place:'Worms · worldwide', era:'Today', a:112, dr:40,
+   fact:`No mouth, no gut — it soaks up food through its skin and grows 2–7 m long. When its larvae lodge in the human brain they cause neurocysticercosis, a leading cause of adult epilepsy.`},
+  {id:'schistosome', name:'Blood Fluke', sci:'Schistosoma mansoni', kind:'flatworm', status:'living',
+   place:'Worms · Africa', era:'Today', a:113, dr:60,
+   fact:`Paired adults clasp for years inside the veins draining the gut, the male sheltering the female in a groove down his body. WHO counted ~254 million people needing treatment in 2024.`},
+  {id:'ngflatworm', name:'New Guinea Flatworm', sci:'Platydemus manokwari', kind:'flatworm', status:'living',
+   place:'Worms · New Guinea (invasive)', era:'Today', a:114, dr:-60,
+   fact:`The only flatworm among the world's 100 worst invasive species. It tracks snails by following their mucus trails, even up trees, and has helped push Pacific island snails to extinction.`},
+
+  // ---- one-phylum wonders: each of these IS a worm, and is related to none of the above ----
+  {id:'bootlaceworm', name:'Bootlace Worm', sci:'Lineus longissimus', kind:'ribbon worm', status:'living',
+   place:'Worms · North Sea', era:'Today', a:115, dr:-40,
+   fact:`Called Earth's longest animal from an ~55 m specimen stranded in an 1864 storm — but ribbon worms stretch like elastic, so that figure is unreliable; ~30 m is defensible. Its mucus is neurotoxic.`},
+  {id:'priapulid', name:'Priapulid Worm', sci:'Priapulus caudatus', kind:'priapulid', status:'living',
+   place:'Worms · cold seabed', era:'Today', a:116, dr:-20,
+   fact:`The "penis worm" grabs prey with a throat it turns inside out, lined with teeth. Its body plan has barely changed since Cambrian hunters like Ottoia stalked the seafloor 500 million years ago.`},
+
+  // ---- worm-shaped, but on other branches of the tree entirely ----
+  {id:'arrowworm', name:'Arrow Worm', sci:'Parasagitta elegans', kind:'arrow worm', status:'living',
+   place:'Worms · open ocean', era:'Today', a:117, dr:0,
+   fact:`A transparent plankton hunter that seizes copepods with fanned grasping spines and stuns them with tetrodotoxin — the pufferfish poison — made by bacteria on its head.`},
+  {id:'acornworm', name:'Acorn Worm', sci:'Saccoglossus kowalevskii', kind:'acorn worm', status:'living',
+   place:'Worms · coastal mud', era:'Today', a:118, dr:20,
+   fact:`Worm-shaped, but a deuterostome: it shares an ancestor with you and with starfish more recently than with any earthworm. Its resemblance to a worm is pure convergence.`},
+  {id:'velvetworm', name:'Velvet Worm', sci:'Euperipatoides rowelli', kind:'velvet worm', status:'living',
+   place:'Worms · Australian logs', era:'Today', a:119, dr:40,
+   fact:`It fires paired jets of glue from its head, the streams whipping side to side to net prey. Not a worm but a panarthropod — closer to insects and tardigrades. It hunts in social groups.`},
+
+  // ---- called "worm", isn't one ----
+  {id:'shipworm', name:'Shipworm', sci:'Teredo navalis', kind:'mollusc', status:'living',
+   place:'Worms · sunken wood', era:'Today', a:120, dr:60,
+   fact:`Not a worm but a clam. Its shell is reduced to two rasping valves at the head, which drill through submerged timber; gill bacteria digest the cellulose, so it eats its own burrow.`},
+  {id:'slowworm', name:'Slow Worm', sci:'Anguis fragilis', kind:'squamate', status:'living',
+   place:'Worms · Europe', era:'Today', a:121, dr:-60,
+   fact:`Not a worm and not a snake — a legless lizard, with eyelids and a tail it can shed. One captive individual lived about 54 years.`},
+  {id:'glowworm', name:'Common Glow-worm', sci:'Lampyris noctiluca', kind:'insect', status:'living',
+   place:'Worms · Europe', era:'Today', a:122, dr:-40,
+   fact:`Not a worm but a beetle. It's the wingless female who glows, climbing a grass stem and shining green to draw flying males. Her larvae inject snails with digestive enzymes.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -807,6 +893,7 @@ const ECOSYSTEMS = {
   'True Eagles (Aquila)':['goldeneagle','steppeeagle','tawnyeagle','spanishimperial','easternimperial','wedgetailed','tasmanianwte','verreauxseagle','bonelliseagle','africanhawkeagle','gurneyseagle','cassinshawkeagle','bullockensis','delphinensis','pennatoides','bivia','aquilafossilis','eaglerabbit','suslik','hyrax','guineafowl','cuscus','treesquirrel'],
   'Hawk & Forest Eagles':['harpyeagle','philippineeagle','treesloth','colugo','martial','crownedhawke','blackhawke','ornatehawke','blackchestnute','blackwhitehawke','blackeagle','ayreshawke','littleeagle','pygmyeagle','bootedeagle','wahlbergeagle','greaterspotted','lesserspotted','indianspotted','rufousbellied','changeablehawke','floreshawke','javanhawke','sulawesihawke','philippinehawke','pinskerse','mountainhawke','blythshawke','wallacehawke','leggeshawke','longcrested','crestedeagle','papuaneagle','blacksolitary','chacoeagle','buzzardeagle','forestbirds','arborealmammals','armadillo'],
   'Rodents (Muridae)':['housemouse','brownrat','blackrat','woodmouse','harvestmouse','multimammate','bandicootrat','hoppingmouse','rakali','mongoliangerbil','greatgerbil','spinymouse','vleirat','maclearsrat','bosavirat','luzoncloudrat','bushytailedcloud','nilerat','stripedgrass','pygmymouse','sticknestrat','pacificrat','longtailedgiant','penciltail','whitetailedrat','bulldograt','seedsgrains'],
+  'Worms (many phyla)':['gippslandworm','leech','riftia','bobbitworm','xmastreeworm','osedax','innkeeperworm','peanutworm','celegans','guineaworm','hookworm','planarian','tapeworm','schistosome','ngflatworm','bootlaceworm','priapulid','arrowworm','acornworm','velvetworm','shipworm','slowworm','glowworm'],
 };
 // citations for ecosystems drawn from a published study
 const ECO_SOURCE = {
@@ -819,10 +906,11 @@ const ECO_SOURCE = {
   'Snake & Serpent Eagles':'The snake and serpent eagles (subfamily Circaetinae — Circaetus, Spilornis, plus the Bateleur and the Madagascar & Congo serpent eagles). Reptile specialists with thickly-scaled legs that swallow snakes whole.',
   'Hawk & Forest Eagles':'The "booted" hawk and forest eagles — a broad assemblage (Spizaetus, Nisaetus, Hieraaetus, the harpy-group giants Harpia/Morphnus/Harpyopsis, and the Buteogallus solitary eagles). Mostly canopy hunters of birds and arboreal mammals. Note: the Philippine eagle (Pithecophaga) is kept here by tradition and size, but DNA places it with the snake eagles (Circaetinae) — its harpy-like build is convergent (Lerner & Mindell 2005, Mol. Phylogenet. Evol. 37:327–346; reconfirmed by later genomic work).',
   'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); every status verified against BirdLife International, the IUCN Red List Authority for birds. The Tasmanian wedge-tailed eagle is a subspecies and carries no global assessment.',
+  'Worms (many phyla)':'Not a group at all. "Worm" is a body plan — long, soft, no legs — that evolution has invented again and again, and the animals here sit on at least eight separate branches of the tree. The segmented worms (Annelida) hold the earthworms, the leech, and the polychaetes, and have swallowed two former phyla whole: the peanut worms (Sipuncula) and the innkeeper worms (Echiura) are annelids now. The roundworms (Nematoda) and flatworms (Platyhelminthes) are entirely separate lineages. So are the ribbon worm (Nemertea) and the priapulid, whose Cambrian relatives look much the same. Three more are only worm-shaped: the arrow worm (Chaetognatha), the velvet worm (Onychophora — a panarthropod, kin to insects), and the acorn worm (Hemichordata), a deuterostome more closely related to you than to any earthworm. And three are not worms in any sense: the shipworm is a clam, the slow worm a lizard, the glow-worm a beetle. Note that relative-links here only ever join worms of the SAME phylum — the gaps between the clusters are the whole point. Marine names verified against WoRMS (the World Register of Marine Species); statuses from the IUCN Red List, which has evaluated only three of these (the Giant Gippsland earthworm, EN; the medicinal leech, NT; the glow-worm, NT).',
   'Rodents (Muridae)':'The largest mammal family (~700 species) — Old World rats & mice (Murinae), gerbils (Gerbillinae), spiny mice (Deomyinae) and vlei rats (Otomyinae). A deeper Murinae sample spans giant folivores (Bosavi woolly rat, Luzon cloud rats), African grass rats & mice, the nest-building stick-nest rat, Australo-Papuan giants, and two Christmas Island extinctions — Maclear\'s and the Bulldog rat — lost together to black-rat disease. Statuses: IUCN Red List.'
 };
 // clusters that are taxonomic groups (a family), not co-occurring ecological communities
-const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Sea & Fish Eagles', 'Snake & Serpent Eagles', 'True Eagles (Aquila)', 'Hawk & Forest Eagles', 'Rodents (Muridae)']);
+const TAXON_GROUPS = new Set(['Bears (Ursidae)', 'Sea & Fish Eagles', 'Snake & Serpent Eagles', 'True Eagles (Aquila)', 'Hawk & Forest Eagles', 'Rodents (Muridae)', 'Worms (many phyla)']);
 const ECO_OF = {}; Object.keys(ECOSYSTEMS).forEach(name=>ECOSYSTEMS[name].forEach(id=>{ ECO_OF[id]=name; }));
 
 // SECTIONS = the visual slices. Same as ECOSYSTEMS plus the cross-cutting groups, so EVERY
@@ -871,16 +959,37 @@ const LAYOUT = (function(){
   function computeTiles(){
     eras.forEach(e=>{ tiles[e]={}; const secs=eraSecs[e], m=secs.length; if(!m) return; const R=ERA_MID[e];
       secs.forEach((sec,i)=>{
-        let slot;
-        if(m===1){ slot=200; }
+        // Clamp EACH SIDE to its own Voronoi half-gap. Using the combined slot width would let a
+        // zone whose far neighbour is distant grow past the midpoint into its near neighbour.
+        let halfL, halfR;
+        if(m===1){ halfL=halfR=100; }
         else { const prev=secs[(i-1+m)%m], next=secs[(i+1)%m];
-          let dP=((sec.home-prev.home)%360+360)%360, dN=((next.home-sec.home)%360+360)%360;
-          slot=dP/2+dN/2; }
+          const dP=((sec.home-prev.home)%360+360)%360, dN=((next.home-sec.home)%360+360)%360;
+          halfL=dP/2; halfR=dN/2; }
         const k=sec.byEra[e].length, colsWanted=Math.max(1,Math.ceil(k/TARGET_ROWS));
         const need=Math.max(MINANG, colsWanted*CELL_W/R*180/Math.PI);
-        const w=Math.max(MINANG, Math.min(slot-GAP, need));
-        tiles[e][sec.name]={lo:sec.home-w/2, hi:sec.home+w/2, mid:sec.home};
+        const half=Math.max(MINANG, need)/2;
+        const lo=sec.home - Math.min(half, Math.max(0, halfL-GAP/2));
+        const hi=sec.home + Math.min(half, Math.max(0, halfR-GAP/2));
+        tiles[e][sec.name]={lo:lo, hi:hi, mid:sec.home, need:need};
       });
+      // Expansion pass: a zone squeezed between two others (its slot too narrow for even two
+      // columns) may claim the slack its compact neighbours left unused. Without this, a small
+      // section wedged between small neighbours collapses to a single deep column.
+      if(m>1) for(let pass=0; pass<2; pass++){
+        secs.forEach((sec,i)=>{
+          const t=tiles[e][sec.name], w=t.hi-t.lo;
+          if(w >= t.need-0.01) return;                       // already has the width it wants
+          const prev=tiles[e][secs[(i-1+m)%m].name], next=tiles[e][secs[(i+1)%m].name];
+          const prevHi = (i===0) ? prev.hi-360 : prev.hi;    // wrap across 0°
+          const nextLo = (i===m-1) ? next.lo+360 : next.lo;
+          const freeL=Math.max(0, t.lo-prevHi-GAP), freeR=Math.max(0, nextLo-t.hi-GAP);
+          const want=t.need-w;
+          const takeL=Math.min(freeL, want/2);
+          const takeR=Math.min(freeR, want-takeL);
+          t.lo-=takeL; t.hi+=takeR; t.mid=(t.lo+t.hi)/2;
+        });
+      }
     });
   }
   for(let it=0; it<10; it++){
@@ -928,6 +1037,8 @@ const IUCN = { // living species in this web, with their real global IUCN status
   crabeater:'LC', leopard:'LC', antkrill:'LC', minke:'NT', silverfish:'LC', sockeye:'LC',
   // eagle prey
   eaglerabbit:'EN', treesloth:'LC', colugo:'LC', hyrax:'LC', armadillo:'LC',
+  // worms — the IUCN has evaluated only three of the 23; the rest are honestly left blank
+  gippslandworm:'EN', leech:'NT', glowworm:'NT', slowworm:'LC',
   otter:'EN', bandtailed:'LC', zebra:'NT', lion:'VU', elephant:'EN',
   whiteoak:'LC', beech:'LC', chestnut:'CR', redtailedhawk:'LC', coopershawk:'LC', redfox:'LC',
   bluewildebeest:'LC', impala:'LC', thomsonsgazelle:'LC', acacia:'LC', whistlingthorn:'LC',
@@ -971,6 +1082,41 @@ function polar(a, r){ const t=a*Math.PI/180; return {x:r*Math.cos(t), y:-r*Math.
 
 const KIND_COLOR = {mammal:'#c9885a', bird:'#6cb6c9', reptile:'#8a7fc9',
   marine:'#5aa9c9', plant:'#6aa86a', human:'#d06a95', other:'#888'};
+
+// ---- WHAT IT IS: the node's real higher taxon. ----
+// The legacy `kind` field was a mix of taxa and habitats: "marine" is a habitat, not a group (it
+// lumped whales, a shark, barnacles and sea stars); kelp was filed as a "plant" though brown algae
+// are not plants; humans were split from mammals. This corrects each node to a real group. The
+// phylum is spelled out where the group name alone is unhelpful (worms span at least eight phyla).
+const TYPE_FIX = {
+  // habitat-as-taxon -> real groups
+  dugong:'mammal', seacow:'mammal', minke:'mammal', basilosaurus:'mammal', baleenwhales:'mammal',
+  crabeater:'mammal', leopard:'mammal', arcticseal:'mammal',
+  megalodon:'shark', fish:'fish', paleofish:'fish', riverfish:'fish', silverfish:'fish',
+  sockeye:'fish', salmon:'fish',
+  pisaster:'echinoderm', seaurchins:'echinoderm',
+  mussels:'mollusc', chitons:'mollusc', limpets:'mollusc', whelk:'mollusc',
+  acornbarnacle:'crustacean', goosebarnacle:'crustacean', antkrill:'crustacean', zooplankton:'crustacean',
+  // "reptile" -> what they actually are
+  trex:'dinosaur', triceratops:'dinosaur', edmontosaurus:'dinosaur',
+  titanoboa:'squamate', snakes:'squamate', lizards:'squamate', crocodilians:'crocodilian',
+  // not plants
+  kelp:'alga', intertidalalgae:'alga', phytoplankton:'plankton', antphyto:'plankton',
+  // the "other" bucket
+  earthworm:'annelid', tentcaterpillar:'insect', termites:'insect', dungbeetles:'insect',
+  whitelipsnail:'mollusc', fungi:'fungus', marinedecomp:'invertebrate',
+  detritus_land:'detritus', marinedetritus:'detritus',
+  // humans are mammals
+  human:'mammal', australopithecus:'mammal',
+};
+// the phylum, where the group name alone doesn't tell you (the whole point of the worms)
+const PHYLUM_OF = {
+  annelid:'Annelida', nematode:'Nematoda', flatworm:'Platyhelminthes', 'ribbon worm':'Nemertea',
+  'arrow worm':'Chaetognatha', priapulid:'Priapulida', 'acorn worm':'Hemichordata',
+  'velvet worm':'Onychophora', mollusc:'Mollusca', echinoderm:'Echinodermata',
+  crustacean:'Arthropoda', insect:'Arthropoda', squamate:'Chordata',
+};
+function typeOf(n){ return TYPE_FIX[n.id] || n.kind; }
 const EDGE_COLOR = {eats:'#d55e00', ancestor:'#0072b2', ecology:'#009e73'};
 const EDGE_STYLE = {eats:'solid', ancestor:'dashed', ecology:'dotted'};
 
@@ -1003,7 +1149,15 @@ const REGION_OVERRIDE = {
   eaglerabbit:'Palearctic', treesquirrel:'Afrotropical', riverfish:'Worldwide / Holarctic',
   snakes:'Worldwide / Holarctic', lizards:'Worldwide / Holarctic',
   forestbirds:'Worldwide / Holarctic', arborealmammals:'Worldwide / Holarctic',
-  seedsgrains:'Worldwide / Holarctic'
+  seedsgrains:'Worldwide / Holarctic',
+  // worms
+  gippslandworm:'Australasian', leech:'Palearctic', riftia:'Marine', bobbitworm:'Marine',
+  xmastreeworm:'Marine', osedax:'Marine', innkeeperworm:'Marine', peanutworm:'Marine',
+  celegans:'Worldwide / Holarctic', guineaworm:'Afrotropical', hookworm:'Worldwide / Holarctic',
+  planarian:'Palearctic', tapeworm:'Worldwide / Holarctic', schistosome:'Afrotropical',
+  ngflatworm:'Australasian', bootlaceworm:'Marine', priapulid:'Marine', arrowworm:'Marine',
+  acornworm:'Marine', velvetworm:'Australasian', shipworm:'Marine', slowworm:'Palearctic',
+  glowworm:'Palearctic'
 };
 function regionOf(n){
   if(REGION_OVERRIDE[n.id]) return REGION_OVERRIDE[n.id];
@@ -1444,6 +1598,53 @@ const EDGES = [
   {from:'paraceratherium', to:'zebra', type:'ancestor', note:'both odd-toed ungulates (Perissodactyla)'},
   {from:'philippineeagle', to:'crestedserpent', type:'ancestor', note:'sister to the snake eagles — its harpy likeness is convergent'},
   {from:'cassinshawkeagle', to:'bonelliseagle', type:'ancestor', note:'genus Aquila — Bonelli\'s eagle is its closest kin'},
+
+  // ---- WORMS: relatives only WITHIN a phylum. The gaps between the clusters are the point. ----
+  // Annelida
+  {from:'gippslandworm', to:'earthworm', type:'ancestor', note:'both earthworms (Clitellata)'},
+  {from:'leech', to:'gippslandworm', type:'ancestor', note:'leeches are clitellate annelids — earthworm kin'},
+  {from:'riftia', to:'bobbitworm', type:'ancestor', note:'both polychaete annelids'},
+  {from:'xmastreeworm', to:'bobbitworm', type:'ancestor', note:'both polychaete annelids'},
+  {from:'osedax', to:'riftia', type:'ancestor', note:'both Siboglinidae — gutless, bacteria-fed'},
+  {from:'innkeeperworm', to:'bobbitworm', type:'ancestor', note:'Echiura, now nested inside the annelids'},
+  {from:'peanutworm', to:'bobbitworm', type:'ancestor', note:'Sipuncula, now nested inside the annelids'},
+  // Nematoda
+  {from:'guineaworm', to:'celegans', type:'ancestor', note:'both roundworms (Nematoda)'},
+  {from:'hookworm', to:'celegans', type:'ancestor', note:'both roundworms (Nematoda)'},
+  // Platyhelminthes
+  {from:'tapeworm', to:'planarian', type:'ancestor', note:'both flatworms (Platyhelminthes)'},
+  {from:'schistosome', to:'planarian', type:'ancestor', note:'both flatworms (Platyhelminthes)'},
+  {from:'ngflatworm', to:'planarian', type:'ancestor', note:'both flatworms (Platyhelminthes)'},
+  // the impostors, pulled back to their real kin
+  {from:'shipworm', to:'mussels', type:'ancestor', note:'a bivalve mollusc — a clam, not a worm'},
+  {from:'slowworm', to:'lizards', type:'ancestor', note:'a legless lizard, not a worm'},
+  {from:'glowworm', to:'tentcaterpillar', type:'ancestor', note:'a beetle — both insects, neither a worm'},
+  {from:'velvetworm', to:'tentcaterpillar', type:'ancestor', note:'onychophorans are close kin of the arthropods'},
+  {from:'acornworm', to:'human', type:'ancestor', note:'a deuterostome — closer kin to you than to any earthworm'},
+
+  // what the worms eat, and what eats them
+  {from:'gippslandworm', to:'detritus_land', type:'eats', note:'swallows soil and the roots in it'},
+  {from:'leech', to:'human', type:'eats', note:'drinks blood, dosing the wound with anticoagulant'},
+  {from:'riftia', to:'fungi', type:'ecology', note:'has no gut — chemosynthetic bacteria inside it make its food'},
+  {from:'bobbitworm', to:'fish', type:'eats', note:'ambushes fish from its burrow'},
+  {from:'xmastreeworm', to:'phytoplankton', type:'eats', note:'filters plankton from the water'},
+  {from:'osedax', to:'baleenwhales', type:'eats', note:'bores into the bones of sunken whales'},
+  {from:'innkeeperworm', to:'marinedetritus', type:'eats', note:'strains detritus with a mucus net'},
+  {from:'peanutworm', to:'marinedetritus', type:'eats', note:'eats sand to strip the organic matter off it'},
+  {from:'celegans', to:'fungi', type:'eats', note:'grazes bacteria in rotting plant matter'},
+  {from:'guineaworm', to:'human', type:'eats', note:'a parasite caught by drinking water fleas'},
+  {from:'hookworm', to:'human', type:'eats', note:'drinks blood from the gut wall'},
+  {from:'planarian', to:'detritus_land', type:'eats', note:'small invertebrates & carrion, via a throat it pushes out'},
+  {from:'tapeworm', to:'human', type:'eats', note:'absorbs the meal through its skin'},
+  {from:'schistosome', to:'human', type:'eats', note:'lives in the veins and eats red blood cells'},
+  {from:'ngflatworm', to:'whitelipsnail', type:'eats', note:'follows the snail\'s own mucus trail to find it'},
+  {from:'bootlaceworm', to:'marinedecomp', type:'eats', note:'hunts seabed invertebrates with a venomous proboscis'},
+  {from:'priapulid', to:'peanutworm', type:'eats', note:'hunts other worms in the mud'},
+  {from:'arrowworm', to:'zooplankton', type:'eats', note:'ambushes copepods, stunning them with tetrodotoxin'},
+  {from:'acornworm', to:'marinedetritus', type:'eats', note:'eats its way through the sediment'},
+  {from:'velvetworm', to:'termites', type:'eats', note:'nets them with jets of glue'},
+  {from:'shipworm', to:'marinedetritus', type:'eats', note:'digests the sunken wood it burrows through'},
+  {from:'slowworm', to:'earthworm', type:'eats', note:'eats slugs, snails and earthworms'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
@@ -1576,8 +1777,12 @@ function showNode(node){
     : `<span class="badge living">Living today</span>`;
   const iu=IUCN[node.id()];
   const iucnBadge = iu ? ` <span class="badge" style="background:${IUCN_COLOR[iu]}22;color:${IUCN_COLOR[iu]};border:1px solid ${IUCN_COLOR[iu]}66">IUCN: ${IUCN_LABEL[iu]}</span>` : '';
+  const ty=typeOf(n), ph=PHYLUM_OF[ty];
+  const reg=node.data('region');
   let html=`<div class="card"><h2>${n.name}</h2><div class="sci">${n.sci}</div>${badge}${iucnBadge}
-    <div class="place">📍 ${n.place} &nbsp;·&nbsp; ${ERA_GTS[n.era]||n.era}</div>`;
+    <div class="place">📍 ${n.place} &nbsp;·&nbsp; ${ERA_GTS[n.era]||n.era}</div>
+    <div class="place">🧬 ${ty}${ph?` <span style="opacity:.65">(${ph})</span>`:''}
+      &nbsp;·&nbsp; <span style="color:${REGION_COLOR[reg]}">●</span> ${reg}</div>`;
   if(ECO_OF[node.id()]) html+=`<div style="margin:-4px 0 10px"><span class="focuseco" data-eco="${ECO_OF[node.id()]}" style="cursor:pointer;color:var(--evo);font-size:12px">🔍 Focus the ${ECO_OF[node.id()]} ecosystem →</span></div>`;
   if(n.cause) html+=`<div class="row"><b>Why it vanished</b>${n.cause}</div>`;
   if(n.fact) html+=`<div class="fact">${n.fact}</div>`;

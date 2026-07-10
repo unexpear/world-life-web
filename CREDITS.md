@@ -28,6 +28,29 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
 ## Taxonomy
 - **GBIF** — GBIF Secretariat: GBIF Backbone Taxonomy. https://www.gbif.org
   (scientific-name, rank, and classification verification; every name confirmed as an exact match).
+- **WoRMS — World Register of Marine Species.** https://www.marinespecies.org
+  The authority for every marine name here: the polychaetes, the tube and zombie worms, the ribbon
+  worm, priapulid, arrow worm and acorn worm, the shipworm, barnacles, chitons, krill and sea star.
+  WoRMS is also what confirms that **Sipuncula (peanut worms) and Echiura (innkeeper worms) are no
+  longer phyla** — molecular data nested both inside Annelida.
+- **ASM Mammal Diversity Database** — https://mammaldiversity.org (mammal taxonomy).
+
+## "Worm" is a body plan, not a branch
+The worms in this web sit on at least **eight separate phyla**, and the relative-links between them
+only ever join worms of the *same* phylum — the gaps are the point.
+- **Annelida** — earthworms, the medicinal leech, and polychaetes (*Riftia*, *Osedax*, bobbit,
+  Christmas-tree), plus the former phyla Sipuncula and Echiura now folded in.
+- **Nematoda** — *C. elegans*, guinea worm, hookworm. **Platyhelminthes** — planarian, tapeworm,
+  blood fluke, the invasive New Guinea flatworm. **Nemertea** — bootlace worm. **Priapulida**.
+- Worm-*shaped* only: the **arrow worm** (Chaetognatha), the **velvet worm** (Onychophora — a
+  panarthropod), and the **acorn worm** (Hemichordata), a deuterostome more closely related to
+  *us* than to any earthworm.
+- Not worms at all: the **shipworm** is a bivalve mollusc, the **slow worm** a legless lizard, the
+  **glow-worm** a beetle.
+- Of the 23, the IUCN has evaluated only three: Giant Gippsland earthworm (EN), medicinal leech
+  (NT), glow-worm (NT). The rest are left blank rather than guessed.
+- The bootlace worm's famous "~55 m, longest animal" figure comes from a single storm-stranded
+  1864 specimen; nemerteans stretch elastically, so it is not reliable.
 
 ## Fossil ages & occurrences
 - **The Paleobiology Database (PBDB).** https://paleobiodb.org
