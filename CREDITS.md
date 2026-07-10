@@ -36,6 +36,10 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
 ## Conservation status & present-day data
 - **IUCN Red List of Threatened Species (2024).** https://www.iucnredlist.org
   (conservation status of each living species; global total of 47,187 threatened of 169,420 assessed).
+- **BirdLife International.** https://www.birdlife.org · DataZone: https://datazone.birdlife.org
+  BirdLife is the **IUCN Red List Authority for birds**, so every bird status and accepted scientific
+  name in this web (95 of the 244 nodes, including the whole eagle catalogue) is taken from, and
+  cross-checked against, BirdLife's species factsheets.
 - **World Bank Open Data (2021).** https://data.worldbank.org
   — Forest area, % of land (`AG.LND.FRST.ZS`) and Terrestrial protected areas, % of land
   (`ER.LND.PTLD.ZS`), world and by region. (World Bank re-publishes IUCN/UNEP-WCMC species data.)

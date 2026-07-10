@@ -94,8 +94,9 @@
         Each <b>slice</b> is a place &amp; ecosystem, so <b style="color:var(--evo)">🧬 Evolution</b> draws
         <b>spokes</b> from an extinct animal out to its living relative on the rim.<br><br>
         Click any species to read its story.<br><br>
-        <span style="font-size:11px">Data: GBIF · IUCN Red List · Paleobiology Database · World Bank ·
-        Paine (1966). Full citations in <b>CREDITS.md</b>.</span></div>
+        <span style="font-size:11px">Data: GBIF · IUCN Red List · <a href="https://www.birdlife.org/" target="_blank"
+        rel="noopener" style="color:#6cb6c9">BirdLife International</a> (Red List Authority for birds) ·
+        Paleobiology Database · World Bank · Paine (1966). Full citations in <b>CREDITS.md</b>.</span></div>
     </div>
   </div>
 </div>
@@ -162,7 +163,7 @@ const NODES = [
    fact:`The "mammoth steppe" grassland that fed Ice-age giants.`},
   {id:'chicken', name:'Chicken', sci:'Gallus gallus', kind:'bird', status:'living',
    place:'Worldwide', era:'Today', a:34, dr:-5,
-   fact:`A living dinosaur. When T. rex proteins were recovered in 2008, they matched the chicken's collagen more closely than any other animal's.`},
+   fact:`A living dinosaur. When T. rex proteins were recovered in 2008, they matched the chicken's collagen more closely than any other animal's. The Least Concern rating is for the wild species (Red Junglefowl); the domestic bird is not separately assessed.`},
   {id:'ostrich', name:'Ostrich', sci:'Struthio camelus', kind:'bird', status:'living',
    place:'Africa', era:'Today', a:36, dr:-5,
    fact:`The largest living bird — and, with the chicken, one of the two birds T. rex's recovered collagen was matched to.`},
@@ -578,8 +579,8 @@ const NODES = [
    place:'Serpent eagle · S/SE Asia', era:'Today', a:166, dr:0, fact:`The widespread Asian serpent eagle, a perch-hunter partial to tree snakes.`},
   {id:'nicobarserpent', name:'Great Nicobar Serpent Eagle', sci:'Spilornis klossi', kind:'bird', status:'living',
    place:'Serpent eagle · Great Nicobar', era:'Today', a:167, dr:0, fact:`The smallest serpent eagle and one of the smallest eagles alive — uplisted to Endangered in 2023.`},
-  {id:'mountainserpent', name:'Mountain Serpent Eagle', sci:'Spilornis kinabaluensis', kind:'bird', status:'living',
-   place:'Serpent eagle · Borneo mts', era:'Today', a:168, dr:0, fact:`Restricted to high stunted montane forest on Borneo (the Kinabalu serpent eagle).`},
+  {id:'mountainserpent', name:'Kinabalu Serpent Eagle', sci:'Spilornis kinabaluensis', kind:'bird', status:'living',
+   place:'Serpent eagle · Borneo mts', era:'Today', a:168, dr:0, fact:`Restricted to high stunted montane forest on Borneo. BirdLife downlisted it from Vulnerable to Near Threatened in 2022.`},
   {id:'sulawesiserpent', name:'Sulawesi Serpent Eagle', sci:'Spilornis rufipectus', kind:'bird', status:'living',
    place:'Serpent eagle · Sulawesi', era:'Today', a:169, dr:0, fact:`A small forest serpent eagle endemic to Sulawesi and the Sula Islands.`},
   {id:'philippineserpent', name:'Philippine Serpent Eagle', sci:'Spilornis holospilus', kind:'bird', status:'living',
@@ -634,8 +635,8 @@ const NODES = [
    place:'Forest eagle · SE Asia', era:'Today', a:201, dr:0, fact:`A compact crested forest raptor of the Malay Peninsula, Sumatra and Borneo.`},
   {id:'wallacehawke', name:"Wallace's Hawk-Eagle", sci:'Nisaetus nanus', kind:'bird', status:'living',
    place:'Forest eagle · SE Asia', era:'Today', a:202, dr:0, fact:`One of the smallest eagles — about the size of a peregrine falcon.`},
-  {id:'leggeshawke', name:"Legge's Hawk-Eagle", sci:'Nisaetus kelaarti', kind:'bird', status:'living',
-   place:'Forest eagle · W. Ghats/Sri Lanka', era:'Today', a:203, dr:0, fact:`A hill-forest raptor that can kill peafowl up to ~4 kg — heavier than itself.`},
+  {id:'leggeshawke', name:"Legge's Hawk-Eagle", sci:'Nisaetus (nipalensis) kelaarti', kind:'bird', status:'living',
+   place:'Forest eagle · W. Ghats/Sri Lanka', era:'Today', a:203, dr:0, fact:`A hill-forest raptor that can kill peafowl up to ~4 kg — heavier than itself. IOC treats it as a full species, but BirdLife lumps it into the Mountain Hawk-Eagle, so it has no separate global Red List assessment.`},
   {id:'longcrested', name:'Long-crested Eagle', sci:'Lophaetus occipitalis', kind:'bird', status:'living',
    place:'Forest eagle · Africa', era:'Today', a:204, dr:0, fact:`A rodent specialist (vlei rats up to ~98% of diet) with a shaggy raised crest.`},
   {id:'crestedeagle', name:'Crested Eagle', sci:'Morphnus guianensis', kind:'bird', status:'living',
@@ -672,7 +673,7 @@ const NODES = [
   {id:'rufousbellied', name:'Rufous-bellied Eagle', sci:'Lophotriorchis kienerii', kind:'bird', status:'living',
    place:'Forest eagle · Tropical Asia', era:'Today', a:215, dr:0, fact:`A dashing bird-hunter of Asian forests, given its own genus after DNA showed it wasn't a true Hieraaetus.`},
   {id:'tasmanianwte', name:'Tasmanian Wedge-tailed Eagle', sci:'Aquila audax fleayi', kind:'bird', status:'living',
-   place:'True eagle · Tasmania', era:'Today', a:130, dr:0, fact:`The endangered Tasmanian subspecies of the wedge-tailed eagle — fewer than ~1,000 birds (~350–450 breeding).`},
+   place:'True eagle · Tasmania', era:'Today', a:130, dr:0, fact:`The Tasmanian subspecies of the wedge-tailed eagle — fewer than ~1,000 birds (~350–450 breeding). Listed Endangered under Australian (EPBC) law, but IUCN assesses only the full species, Aquila audax, which is Least Concern — so it carries no global Red List status here.`},
   {id:'bullockensis', name:'Aquila bullockensis', sci:'Aquila bullockensis', kind:'bird', status:'extinct',
    place:'Fossil true eagle · Australia', era:'Neogene', a:131, dr:0, when:'~12 Ma (Mid Miocene)', cause:`Known only from fossils`,
    fact:`The oldest confirmed Aquila (from one Miocene wing bone), possibly ancestral to the living wedge-tailed eagle.`},
@@ -690,8 +691,8 @@ const NODES = [
    fact:`A dubious, poorly-known Pleistocene eagle from Monte Reale, Sardinia.`},
 
   // ---- reconciliation: the two eagles missing from the list of 68 ----
-  {id:'centralnicobarse', name:'Central Nicobar Serpent Eagle', sci:'Spilornis (cheela) minimus', kind:'bird', status:'living',
-   place:'Serpent eagle · Central Nicobar', era:'Today', a:168, dr:0, fact:`A serpent eagle of the central Nicobar Islands — often treated as a subspecies of the crested serpent eagle.`},
+  {id:'centralnicobarse', name:'Central Nicobar Serpent Eagle', sci:'Spilornis cheela minimus', kind:'bird', status:'living',
+   place:'Serpent eagle · Central Nicobar', era:'Today', a:168, dr:0, fact:`A serpent eagle of the central Nicobar Islands. BirdLife treats it as a subspecies of the crested serpent eagle (Least Concern), not a full species, so it has no assessment of its own.`},
   {id:'pinskerse', name:"Pinsker's Eagle", sci:'Nisaetus pinskeri', kind:'bird', status:'living',
    place:'Forest eagle · S. Philippines', era:'Today', a:200, dr:0, fact:`The South Philippine hawk-eagle, split from the Philippine hawk-eagle; Endangered, with ~1,300–3,600 left.`},
 
@@ -817,7 +818,7 @@ const ECO_SOURCE = {
   'Sea & Fish Eagles':'The sea and fish eagles — genera Haliaeetus (8 species) and Icthyophaga (2). Fish-and-waterbird hunters of coasts, lakes and rivers worldwide; the Madagascar fish eagle is among the rarest raptors alive.',
   'Snake & Serpent Eagles':'The snake and serpent eagles (subfamily Circaetinae — Circaetus, Spilornis, plus the Bateleur and the Madagascar & Congo serpent eagles). Reptile specialists with thickly-scaled legs that swallow snakes whole.',
   'Hawk & Forest Eagles':'The "booted" hawk and forest eagles — a broad assemblage (Spizaetus, Nisaetus, Hieraaetus, the harpy-group giants Harpia/Morphnus/Harpyopsis, and the Buteogallus solitary eagles). Mostly canopy hunters of birds and arboreal mammals. Note: the Philippine eagle (Pithecophaga) is kept here by tradition and size, but DNA places it with the snake eagles (Circaetinae) — its harpy-like build is convergent (Lerner & Mindell 2005, Mol. Phylogenet. Evol. 37:327–346; reconfirmed by later genomic work).',
-  'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); statuses from the IUCN Red List.',
+  'True Eagles (Aquila)':'The true eagles — the complete living genus Aquila (11 species), the large booted eagles with feathered legs. Diets range from the rabbit-specialist Spanish imperial to Verreaux\'s (>90% rock hyrax). Genus limits per IOC/recent revisions (2005–2014); every status verified against BirdLife International, the IUCN Red List Authority for birds. The Tasmanian wedge-tailed eagle is a subspecies and carries no global assessment.',
   'Rodents (Muridae)':'The largest mammal family (~700 species) — Old World rats & mice (Murinae), gerbils (Gerbillinae), spiny mice (Deomyinae) and vlei rats (Otomyinae). A deeper Murinae sample spans giant folivores (Bosavi woolly rat, Luzon cloud rats), African grass rats & mice, the nest-building stick-nest rat, Australo-Papuan giants, and two Christmas Island extinctions — Maclear\'s and the Bulldog rat — lost together to black-rat disease. Statuses: IUCN Red List.'
 };
 // clusters that are taxonomic groups (a family), not co-occurring ecological communities
@@ -910,7 +911,8 @@ const LAYOUT = (function(){
 
 // ---- Present-day conservation data (verified: IUCN Red List + World Bank, 2021–24) ----
 const IUCN = { // living relatives in this web, with their real IUCN status
-  nicobar:'NT', devil:'EN', numbat:'EN', razorbill:'NT', puffin:'VU', dugong:'VU',
+  nicobar:'NT', devil:'EN', numbat:'EN', razorbill:'LC', puffin:'VU', dugong:'VU',
+  greathornedowl:'LC', chicken:'LC', ostrich:'LC', adelie:'LC', guineafowl:'LC',
   otter:'EN', bandtailed:'LC', zebra:'NT', lion:'VU', elephant:'EN',
   whiteoak:'LC', beech:'LC', chestnut:'CR', redtailedhawk:'LC', coopershawk:'LC', redfox:'LC',
   bluewildebeest:'LC', impala:'LC', thomsonsgazelle:'LC', acacia:'LC', whistlingthorn:'LC',
@@ -922,24 +924,27 @@ const IUCN = { // living relatives in this web, with their real IUCN status
   whitetailedse:'LC', lesserfish:'NT', greyheadedfish:'NT',
   // snake & serpent eagles
   brownsnakee:'LC', blackchestedse:'LC', shorttoedse:'LC', beaudouinse:'VU', southernbandedse:'NT',
-  westernbandedse:'LC', crestedserpent:'LC', nicobarserpent:'EN', mountainserpent:'VU', sulawesiserpent:'LC',
+  westernbandedse:'LC', crestedserpent:'LC', nicobarserpent:'EN', mountainserpent:'NT', sulawesiserpent:'LC',
   philippineserpent:'LC', andamanserpent:'VU', congoserpent:'LC', madagascarserpent:'EN', bateleur:'EN',
   // hawk & forest eagles
   martial:'EN', crownedhawke:'NT', blackhawke:'LC', ornatehawke:'NT', blackchestnute:'EN', blackwhitehawke:'LC',
   blackeagle:'LC', ayreshawke:'LC', littleeagle:'LC', pygmyeagle:'LC', changeablehawke:'LC', floreshawke:'CR',
   javanhawke:'EN', sulawesihawke:'LC', philippinehawke:'EN', mountainhawke:'NT', blythshawke:'LC',
-  wallacehawke:'VU', leggeshawke:'LC', longcrested:'LC', crestedeagle:'NT', papuaneagle:'VU', blacksolitary:'NT',
+  wallacehawke:'VU', longcrested:'LC', crestedeagle:'NT', papuaneagle:'VU', blacksolitary:'NT',
+  // leggeshawke & tasmanianwte deliberately absent: BirdLife/IUCN give them no separate global
+  // assessment (see their node notes) — no status is honest, a borrowed one is not.
   chacoeagle:'EN', buzzardeagle:'LC',
   bootedeagle:'LC', wahlbergeagle:'LC', greaterspotted:'VU', lesserspotted:'LC', indianspotted:'VU',
-  rufousbellied:'NT', tasmanianwte:'EN', pinskerse:'EN',
+  rufousbellied:'NT', pinskerse:'EN',
   // rodents (Muridae) — all Least Concern
   housemouse:'LC', brownrat:'LC', blackrat:'LC', woodmouse:'LC', harvestmouse:'LC', multimammate:'LC',
   bandicootrat:'LC', hoppingmouse:'LC', rakali:'LC', mongoliangerbil:'LC', greatgerbil:'LC', spinymouse:'LC',
   bosavirat:'DD', luzoncloudrat:'LC', bushytailedcloud:'VU', nilerat:'LC', stripedgrass:'LC', pygmymouse:'LC',
   sticknestrat:'NT', pacificrat:'LC', longtailedgiant:'LC', penciltail:'LC', whitetailedrat:'LC' };
 const IUCN_LABEL = {LC:'Least Concern', NT:'Near Threatened', VU:'Vulnerable',
-  EN:'Endangered', CR:'Critically Endangered', EX:'Extinct'};
-const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b', EX:'#8b95a3'};
+  EN:'Endangered', CR:'Critically Endangered', EX:'Extinct', DD:'Data Deficient'};
+const IUCN_COLOR = {LC:'#57ab5a', NT:'#b5c342', VU:'#e0a458', EN:'#e5844b', CR:'#e5534b',
+  EX:'#8b95a3', DD:'#6e7681'};
 const IUCN_THREATENED = new Set(['VU','EN','CR']);
 const IUCN_GLOBAL = {assessed:169420, threatened:47187, year:2024};
 const WB_WORLD = {protected:15.8, forest:31.2, year:2021};
