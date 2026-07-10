@@ -762,9 +762,10 @@ const NODES = [
 // Paleogene & Neogene are the empty "Age of Mammals" periods that really sit between the
 // Cretaceous and the Quaternary — shown as empty rings so the timeline is honest about the gap.
 const ERAS_IN_TO_OUT = ['Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
-const VOID_R = 340, RING_T = 400;
-const ERA_MID = {}, ERA_OUTER = {};
-ERAS_IN_TO_OUT.forEach((e,i)=>{ ERA_MID[e]=VOID_R+i*RING_T+RING_T/2; ERA_OUTER[e]=VOID_R+(i+1)*RING_T; });
+const VOID_R = 340;
+// Each ring is one time period, but rings can have DIFFERENT widths — a busy age grows thicker.
+// These are filled by the LAYOUT pass below (thickness is computed from how much each ring holds).
+const ERA_INNER = {}, ERA_MID = {}, ERA_OUTER = {}, ERA_H = {};
 
 const RING_COLOR = {'Today':'#14202e','Recent (Holocene)':'#241d16','Ice Age':'#1b232b',
   'Neogene':'#20211a','Paleogene':'#1e2417','Cretaceous':'#241913'};
@@ -840,35 +841,70 @@ const LAYOUT = (function(){
     SECTIONS[name].forEach(id=>{const nn=nodeById[id]; if(!nn)return; const a=nn.a*Math.PI/180; sx+=Math.cos(a); sy+=Math.sin(a);});
     meanA[name]=Math.atan2(sy,sx); });
   names.sort((x,y)=>meanA[x]-meanA[y]); // keep the rough clockwise order they already had
-  const weights=names.map(n=>SECTIONS[n].length+2);
-  const totW=weights.reduce((a,b)=>a+b,0);
-  const GAP=2.2, avail=360-GAP*names.length;
-  const out={}; let cur=0;
-  names.forEach((name,i)=>{
-    const w=weights[i]/totW*avail, s=cur, e=cur+w;
-    const pad=Math.min(3,(e-s)*0.1), lo=s+pad, hi=e-pad;
+
+  const eras=ERAS_IN_TO_OUT, eraIdx={}; eras.forEach((e,i)=>eraIdx[e]=i);
+  const CELL_W=104, CELL_H=66, MARGIN=68;             // label footprint (row pitch) + band margin
+  const MIN_THICK=150, MAX_THICK=900, GAP=2.0, MINANG=5, TARGET_ROWS=2;
+
+  // Each section split by era so a group that spans time is split into per-ring zones.
+  const info=names.map(name=>{
     const byEra={};
     SECTIONS[name].forEach(id=>{const nn=nodeById[id]; if(!nn)return; (byEra[nn.era]=byEra[nn.era]||[]).push(id);});
-    Object.keys(byEra).forEach(era=>{
-      const arr=byEra[era], k=arr.length;
-      // aspect-aware grid: keep columns >= label-width apart and rows >= label-height apart.
-      const H=RING_T-40;                              // radial room within the ring band
-      const CELL_W=98, CELL_H=52;                     // min spacing for a wrapped label
-      const maxRows=Math.max(1, Math.floor(H/CELL_H));
-      const eraR=ERA_MID[era]||(VOID_R+RING_T);
-      const arc=(hi-lo)*Math.PI/180*eraR;             // arc length of this slice at this ring
-      const maxCols=Math.max(1, Math.floor(arc/CELL_W));
-      const rows=Math.max(1, Math.min(k, maxRows, Math.ceil(k/maxCols)));
-      const cols=Math.ceil(k/rows);
-      arr.forEach((id,j)=>{
-        const col=j%cols, row=Math.floor(j/cols);
-        const a = cols===1 ? (lo+hi)/2 : lo+(hi-lo)*col/(cols-1);
-        const dr = rows===1 ? 0 : -H/2 + row*(H/(rows-1));
-        out[id]={a, dr};
+    let memTot=0; Object.keys(byEra).forEach(era=>memTot+=byEra[era].length);
+    return {name, byEra, memTot, weight:memTot+2};
+  });
+  // A fixed HOME ANGLE per section (spaced by member count) so the same ecosystem sits at the
+  // same angle in every ring it touches — an extinct animal lines up under its modern kin.
+  const totW=info.reduce((a,x)=>a+x.weight,0);
+  let acc=0; info.forEach(sec=>{ const w=sec.weight/totW*360; sec.home=acc+w/2; acc+=w; });
+  // sections present in each ring, in home-angle order
+  const eraSecs={}; eras.forEach(e=>{ eraSecs[e]=info.filter(s=>s.byEra[e]).sort((a,b)=>a.home-b.home); });
+
+  // A zone's width in a ring is bounded by its VORONOI SLOT there (midpoints to the nearest
+  // OTHER zones present in that ring). A ring that holds only one ecosystem lets it spread wide
+  // and stay thin; the busy Today ring shares its circle. Radius, width and thickness are coupled,
+  // so iterate to a fixed point (a busy ring grows thicker, pushing outer rings out).
+  let thick={}; eras.forEach(e=>thick[e]=260);
+  function setRadii(){ let r=VOID_R; eras.forEach(e=>{ ERA_INNER[e]=r; ERA_H[e]=Math.max(40,thick[e]-MARGIN); ERA_MID[e]=r+thick[e]/2; r+=thick[e]; ERA_OUTER[e]=r; }); }
+  const tiles={};
+  function computeTiles(){
+    eras.forEach(e=>{ tiles[e]={}; const secs=eraSecs[e], m=secs.length; if(!m) return; const R=ERA_MID[e];
+      secs.forEach((sec,i)=>{
+        let slot;
+        if(m===1){ slot=200; }
+        else { const prev=secs[(i-1+m)%m], next=secs[(i+1)%m];
+          let dP=((sec.home-prev.home)%360+360)%360, dN=((next.home-sec.home)%360+360)%360;
+          slot=dP/2+dN/2; }
+        const k=sec.byEra[e].length, colsWanted=Math.max(1,Math.ceil(k/TARGET_ROWS));
+        const need=Math.max(MINANG, colsWanted*CELL_W/R*180/Math.PI);
+        const w=Math.max(MINANG, Math.min(slot-GAP, need));
+        tiles[e][sec.name]={lo:sec.home-w/2, hi:sec.home+w/2, mid:sec.home};
       });
     });
-    cur=e+GAP;
-  });
+  }
+  for(let it=0; it<10; it++){
+    setRadii(); computeTiles();
+    eras.forEach(e=>{ let maxRows=1;
+      eraSecs[e].forEach(sec=>{ const t=tiles[e][sec.name], k=sec.byEra[e].length;
+        const arc=(t.hi-t.lo)*Math.PI/180*ERA_MID[e], mc=Math.max(1,Math.floor(arc/CELL_W));
+        maxRows=Math.max(maxRows, Math.ceil(k/mc)); });
+      thick[e]=Math.max(MIN_THICK, Math.min(MAX_THICK, maxRows*CELL_H+MARGIN)); });
+  }
+  setRadii(); computeTiles();
+
+  // place every node in its section's per-ring tile AND its era band (never crossing rings)
+  const out={};
+  eras.forEach(e=>{ eraSecs[e].forEach(sec=>{
+    const t=tiles[e][sec.name], arr=sec.byEra[e], k=arr.length, R=ERA_MID[e], H=ERA_H[e];
+    const arc=(t.hi-t.lo)*Math.PI/180*R, maxCols=Math.max(1,Math.floor(arc/CELL_W));
+    const rows=Math.max(1, Math.ceil(k/maxCols)), cols=Math.ceil(k/rows);
+    arr.forEach((id,j)=>{
+      const col=j%cols, row=Math.floor(j/cols);
+      const a = cols===1 ? t.mid : t.lo+(t.hi-t.lo)*col/(cols-1);
+      const dr = rows===1 ? 0 : -H/2 + row*(H/(rows-1));
+      out[id]={a, dr};
+    });
+  }); });
   return out;
 })();
 
@@ -1388,27 +1424,20 @@ cy.maxZoom(4); cy.minZoom(0.01);
   [...ERAS_IN_TO_OUT].reverse().forEach(e=>mk('circle',{cx:0,cy:0,r:ERA_OUTER[e],fill:RING_COLOR[e],'fill-opacity':0.9}));
   mk('circle',{cx:0,cy:0,r:VOID_R,fill:'#0a0d12'});
 
-  // 2) ecosystem sections — annular-sector wedges snapped to the RING BANDS each ecosystem
-  //    actually occupies (so you can see which ages it spans; a gap = it skips that age),
-  //    drawn above the rings, in solid vivid colors, each wedge outlined so the edges read clearly.
-  const idxOf={}; ERAS_IN_TO_OUT.forEach((e,i)=>{idxOf[e]=i;});
+  // 2) ecosystem zones — ONE annular-sector tile per (section, era), each bounded strictly to
+  //    its single ring band. A group that spans time (e.g. modern bears + the Ice-Age cave bear)
+  //    gets a separate tile in each ring, so a zone never crosses a ring boundary.
   const names=Object.keys(SECTIONS), N=names.length;
   names.forEach((name,ei)=>{
-    const angs=[], eraSet={};
+    const byEra={};
     SECTIONS[name].forEach(id=>{const n=cy.getElementById(id); if(n.empty())return;
-      const p=n.position(); let a=Math.atan2(-p.y,p.x)*180/Math.PI; if(a<0)a+=360; angs.push(a);
-      eraSet[n.data('_n').era]=true;});
-    if(!angs.length) return;
-    let A=angs.slice(); if(Math.max.apply(null,A)-Math.min.apply(null,A)>180) A=A.map(a=>a<180?a+360:a);
-    const aMin=Math.min.apply(null,A)-2, aMax=Math.max.apply(null,A)+2, span=aMax-aMin;
+      const p=n.position(); let a=Math.atan2(-p.y,p.x)*180/Math.PI; if(a<0)a+=360;
+      (byEra[n.data('_n').era]=byEra[n.data('_n').era]||[]).push(a);});
     const hue=Math.round(ei/N*360);
-    // occupied ring indices → contiguous runs, so an age the ecosystem skips shows as a gap
-    const idxs=Object.keys(eraSet).map(e=>idxOf[e]).sort((x,y)=>x-y);
-    const runs=[]; let s=idxs[0], pv=idxs[0];
-    for(let k=1;k<idxs.length;k++){ if(idxs[k]===pv+1) pv=idxs[k]; else {runs.push([s,pv]); s=pv=idxs[k];} }
-    runs.push([s,pv]);
-    runs.forEach(run=>{
-      const rIn=VOID_R+run[0]*RING_T+1, rOut=VOID_R+(run[1]+1)*RING_T-1, q=[];
+    Object.keys(byEra).forEach(era=>{
+      let A=byEra[era].slice(); if(Math.max.apply(null,A)-Math.min.apply(null,A)>180) A=A.map(a=>a<180?a+360:a);
+      const aMin=Math.min.apply(null,A)-2, aMax=Math.max.apply(null,A)+2, span=aMax-aMin;
+      const rIn=ERA_INNER[era]+2, rOut=ERA_OUTER[era]-2, q=[];
       for(let t=0;t<=span;t+=1.5) q.push(pt(aMin+t, rIn));
       q.push(pt(aMax, rIn));
       for(let t=span;t>=0;t-=1.5) q.push(pt(aMin+t, rOut));
