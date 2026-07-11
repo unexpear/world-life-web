@@ -35,6 +35,26 @@ open sources below; please retain these credits if you reuse it. Per-claim sourc
   longer phyla** — molecular data nested both inside Annelida.
 - **ASM Mammal Diversity Database** — https://mammaldiversity.org (mammal taxonomy).
 
+## The Ediacaran core — life before the animals
+The innermost ring is the **Ediacaran** (~635–538 Ma), the first large soft-bodied life. It is almost
+an island by design: **most of these organisms cannot be placed in any living phylum**, so only one
+edge leaves the ring (*Kimberella*, the best early-bilaterian candidate, toward the Cambrian *Wiwaxia*).
+Affinities here are the most contested and fastest-changing in palaeontology:
+- **Dickinsonia** was shown to be a true animal only in 2018, from cholesterol biomarkers in its
+  fossils (Bobrovskiy et al. 2018, *Science*) — but its phylum is still unresolved.
+- **Charnia** & **Rangea** are **rangeomorphs**, an extinct clade of fractal fronds with no living
+  counterpart; a stem-eumetazoan reading (Dunn et al. 2021) exists but is non-consensus, and how they
+  fed (osmotrophy vs suspension vs chemosymbiosis) is unsettled.
+- **Kimberella** left *Kimberichnus* scratch traces grazing microbial mats — the oldest clear directed
+  feeding — but no radula fossilised, so the mollusc link is unproven.
+- Classic readings now **rejected/doubted**: *Spriggina* as a trilobite ancestor, *Arkarua* as an
+  echinoderm, *Pteridinium* standing upright (Meyer 2014; Darroch 2022 reconstruct it recumbent).
+- **Tribrachidium** suspension-fed (CFD: Rahman et al. 2015; Olaru et al. 2024). **Cloudina** was an
+  early biomineraliser whose bored tubes (~2.7% in Shaanxi) are the oldest holes drilled in a skeleton.
+  **Fractofusus** reproduced by waterborne propagules + clonal runners (Mitchell et al. 2015, *Nature*).
+- Ages from the Paleobiology Database. The Ediacaran→Cambrian step (~30 Myr) is a real transition; the
+  Cambrian→Cretaceous step is where the timeline skips ~440 Myr (the rings are ordinal, not to scale).
+
 ## The Cambrian core — the worms' deep-time root
 The innermost ring is the **Burgess Shale (~508 Ma)** and **Chengjiang (~518 Ma)** seas, where the
 major animal body plans first appear. Its "ancestor" spokes run outward to the living kin, giving the

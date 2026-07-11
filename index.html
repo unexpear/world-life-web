@@ -89,8 +89,10 @@
       <div class="hint">A <b>cross-section of geologic time</b>, ringed like tree rings and labelled on the
         real <b>Geologic Time Scale</b>. The <b>rim is the present</b>; travel <b>inward</b> through the
         <b>Holocene → Pleistocene</b> (both the Quaternary Period), through the <b>Neogene &amp; Paleogene</b>
-        — the Age of Mammals (Titanoboa, Megalodon, terror birds) — to the <b>Cretaceous</b> dinosaurs near
-        the core. The reserved <b>void</b> lets us grow older still.<br><br>
+        — the Age of Mammals (Titanoboa, Megalodon, terror birds) — past the <b>Cretaceous</b> dinosaurs and
+        down to the two deepest rings: the <b>Cambrian</b> explosion (the Burgess Shale) and, at the very
+        core, the <b>Ediacaran</b> — the strange soft life before the animals. The rings are ordinal, not to
+        scale, so the jump from the Cambrian out to the Cretaceous skips most of the Paleozoic.<br><br>
         Each <b>slice</b> is a place &amp; ecosystem, so <b style="color:var(--evo)">🧬 Evolution</b> draws
         <b>spokes</b> from an extinct animal out to its living relative on the rim.<br><br>
         Click any species to read its story.<br><br>
@@ -882,6 +884,44 @@ const NODES = [
   {id:'canadaspis', name:'Canadaspis', sci:'Canadaspis perfecta', kind:'arthropod', status:'extinct',
    place:'Cambrian sea · Burgess Shale', era:'Cambrian', a:0, dr:0, when:'~508 Ma',
    fact:`The Burgess Shale's textbook "true crustacean" (1978) — until mandibles turned up in its relatives and recast it as an early member of the mandibulate line, the branch leading to crabs and insects.`},
+
+  // ================= EDIACARAN: the innermost ring, life before the explosion =================
+  // ~635–538 Ma. The first large, soft-bodied organisms. MOST cannot be placed in any living phylum
+  // — that unplaceability is the scientific point, so almost none link outward. Affinities here are
+  // the most contested in palaeontology; facts reflect the current reading. All marine, all extinct.
+  {id:'dickinsonia', name:'Dickinsonia', sci:'Dickinsonia costata', kind:'proarticulatan', status:'extinct',
+   place:'Ediacaran seafloor · White Sea', era:'Ediacaran', a:0, dr:0, when:'~558 Ma',
+   fact:`The iconic ribbed oval. Cholesterol biomarkers in its fossil films (85–93% C27 sterols) identified it as an animal in 2018 — a landmark result — yet which phylum it belongs to is still unresolved.`},
+  {id:'charnia', name:'Charnia', sci:'Charnia masoni', kind:'rangeomorph', status:'extinct',
+   place:'Ediacaran seafloor · Avalon (England)', era:'Ediacaran', a:0, dr:0, when:'~565 Ma',
+   fact:`Spotted by Tina Negus (1956) and, famously, 15-year-old Roger Mason (1957) near Leicester — the first widely accepted macroscopic Precambrian fossil, proof that complex life long predated the Cambrian.`},
+  {id:'kimberella', name:'Kimberella', sci:'Kimberella quadrata', kind:'early bilaterian', status:'extinct',
+   place:'Ediacaran seafloor · White Sea', era:'Ediacaran', a:0, dr:0, when:'~555 Ma',
+   fact:`The best candidate for an Ediacaran bilaterian. It left fan-shaped scratch traces while rasping microbial mats — the oldest clear sign of directed animal feeding — but no radula fossilised, so the mollusc link stays unproven.`},
+  {id:'spriggina', name:'Spriggina', sci:'Spriggina floundersi', kind:'proarticulatan', status:'extinct',
+   place:'Ediacaran seafloor · Australia', era:'Ediacaran', a:0, dr:0, when:'~550 Ma',
+   fact:`Segmented and once cast as a trilobite ancestor — a reading now rejected, mainly for its lack of real arthropod features. Whether its two body-halves are truly offset or just preserved that way is itself still argued.`},
+  {id:'tribrachidium', name:'Tribrachidium', sci:'Tribrachidium heraldicum', kind:'triradial', status:'extinct',
+   place:'Ediacaran seafloor · White Sea / Australia', era:'Ediacaran', a:0, dr:0, when:'~555 Ma',
+   fact:`A dome with three-fold symmetry unlike anything alive. CFD flow-modelling (Rahman et al. 2015) showed its three spiral arms steered water into apical pits where food settled out — among the oldest evidence of suspension feeding.`},
+  {id:'rangea', name:'Rangea', sci:'Rangea schneiderhoehni', kind:'rangeomorph', status:'extinct',
+   place:'Ediacaran seafloor · Nama (Namibia)', era:'Ediacaran', a:0, dr:0, when:'~548 Ma',
+   fact:`The type rangeomorph — a mouthless, gutless 3-D frond of self-similar branches. How it fed is genuinely unsettled: osmotrophy, suspension feeding and chemosymbiosis have all been argued. A body plan with no living counterpart.`},
+  {id:'cloudina', name:'Cloudina', sci:'Cloudina', kind:'biomineralizer', status:'extinct',
+   place:'Ediacaran reef · Nama (Namibia)', era:'Ediacaran', a:0, dr:0, when:'~545 Ma',
+   fact:`One of the first animals to build a mineral skeleton — nested calcite cones. About 2.7% of Chinese tubes bear size-matched borings: the oldest holes drilled in a skeleton, hinting at an early predator–prey (or parasite) arms race.`},
+  {id:'yorgia', name:'Yorgia', sci:'Yorgia waggoneri', kind:'proarticulatan', status:'extinct',
+   place:'Ediacaran seafloor · White Sea', era:'Ediacaran', a:0, dr:0, when:'~555 Ma',
+   fact:`It fed in place, then crept on, leaving chains of body-shaped trace fossils (Epibaion) — evidence that it grazed the microbial mat and moved between meals, some of the earliest animal movement known.`},
+  {id:'arkarua', name:'Arkarua', sci:'Arkarua adami', kind:'ediacaran disc', status:'extinct',
+   place:'Ediacaran seafloor · Australia', era:'Ediacaran', a:0, dr:0, when:'~555 Ma',
+   fact:`Its five-fold symmetry once made it the oldest "echinoderm," but only external moulds survive — no stereom skeleton — so any kinship to sea stars is now widely doubted.`},
+  {id:'fractofusus', name:'Fractofusus', sci:'Fractofusus misrai', kind:'rangeomorph', status:'extinct',
+   place:'Ediacaran deep sea · Mistaken Point', era:'Ediacaran', a:0, dr:0, when:'~565 Ma',
+   fact:`A reclining deep-sea rangeomorph. Mitchell et al. (2015) decoded its seafloor clusters statistically: scattered "grandparents" from waterborne propagules, each ringed by clones budded along runners — strawberry-style reproduction, 565 Ma.`},
+  {id:'pteridinium', name:'Pteridinium', sci:'Pteridinium simplex', kind:'erniettomorph', status:'extinct',
+   place:'Ediacaran seafloor · Nama (Namibia)', era:'Ediacaran', a:0, dr:0, when:'~545 Ma',
+   fact:`Three vanes of hollow tube-modules, lying half-buried in the sand (older reconstructions stood it upright). An erniettomorph — once seen as a failed "vendobiont," now more often read as an early animal.`},
 ];
 
 // eras from CORE (oldest) outward to RIM (today). Add an older era by unshifting here
@@ -891,17 +931,17 @@ const NODES = [
 // Cretaceous and the Quaternary — shown as empty rings so the timeline is honest about the gap.
 // NB: the rings are ORDINAL, not to scale. The jump from the Cambrian core to the Cretaceous skips
 // the whole Paleozoic and most of the Mesozoic (~440 Myr) — that boundary is the single biggest gap.
-const ERAS_IN_TO_OUT = ['Cambrian','Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
+const ERAS_IN_TO_OUT = ['Ediacaran','Cambrian','Cretaceous','Paleogene','Neogene','Ice Age','Recent (Holocene)','Today'];
 const VOID_R = 340;
 // Each ring is one time period, but rings can have DIFFERENT widths — a busy age grows thicker.
 // These are filled by the LAYOUT pass below (thickness is computed from how much each ring holds).
 const ERA_INNER = {}, ERA_MID = {}, ERA_OUTER = {}, ERA_H = {};
 
 const RING_COLOR = {'Today':'#14202e','Recent (Holocene)':'#241d16','Ice Age':'#1b232b',
-  'Neogene':'#20211a','Paleogene':'#1e2417','Cretaceous':'#241913','Cambrian':'#121a24'};
+  'Neogene':'#20211a','Paleogene':'#1e2417','Cretaceous':'#241913','Cambrian':'#121a24','Ediacaran':'#0f1620'};
 const ERA_LABEL = {'Today':'PRESENT','Recent (Holocene)':'HOLOCENE · ~500 yrs','Ice Age':'PLEISTOCENE',
   'Neogene':'NEOGENE · 23–2.6 Ma','Paleogene':'PALEOGENE · 66–23 Ma','Cretaceous':'CRETACEOUS · 66 Ma',
-  'Cambrian':'CAMBRIAN · ~508 Ma'};
+  'Cambrian':'CAMBRIAN · ~508 Ma','Ediacaran':'EDIACARAN · ~560 Ma'};
 // full GTS description shown on each species card
 const ERA_GTS = {
   'Today':'Holocene — present day · Quaternary',
@@ -911,6 +951,7 @@ const ERA_GTS = {
   'Paleogene':'Paleogene Period (66–23 Ma) · the dawn of mammals',
   'Cretaceous':'Late Cretaceous (~68–66 Ma)',
   'Cambrian':'Cambrian Period (~508 Ma) · the Burgess Shale · the animal phyla appear',
+  'Ediacaran':'Ediacaran Period (~635–538 Ma) · the first large, soft-bodied life — before the explosion',
 };
 
 // Ecosystem membership — for measuring connectance at the scale ecologists use (one community),
@@ -925,6 +966,7 @@ const ECOSYSTEMS = {
   'African plains':          ['quagga','zebra','lion','grass','rhodesgrass','acacia','whistlingthorn','bluewildebeest','impala','thomsonsgazelle'],
   'Mammoth steppe':          ['mammoth','elephant','steppegrass','forbs','sedges','willow'],
   'Ice-age Americas':        ['smilodon','sloth','bison','camelops','horses','iceagegrass'],
+  'Ediacaran Biota':         ['dickinsonia','charnia','kimberella','spriggina','tribrachidium','rangea','cloudina','yorgia','arkarua','fractofusus','pteridinium'],
   'Cambrian Explosion':      ['ottoia','anomalocaris','opabinia','hallucigenia','aysheaia','wiwaxia','marrella','pikaia','trilobite','odontogriphus','haikouichthys','canadaspis'],
   'Late Cretaceous':         ['trex','triceratops','chicken','ostrich','cretplants','edmontosaurus'],
   'Paleogene (Age of Mammals)':['titanoboa','basilosaurus','paraceratherium','hyaenodon','paleoforest','crocodilians','paleofish'],
@@ -946,6 +988,7 @@ const ECO_SOURCE = {
   'Pacific rocky shore (Paine 1966)':'From Paine, R.T. (1966) "Food Web Complexity and Species Diversity," Am. Nat. 100:65–75 — the study that coined "keystone species." Removing Pisaster is a top-down collapse (mussels crowd out the rest) that this bottom-up tool notes but doesn\'t animate. Modern footnote: sea star wasting disease devastated Pisaster from 2013, though many populations rebounded on a large recruitment pulse; the deeper, still-unrecovered loss is its relative the sunflower star (Pycnopodia), now the bigger driver of urchin barrens.',
   'Yellowstone (wolf cascade)':'The classic account — Ripple, W.J. & Beschta, R.L. (2012), Biol. Conserv. 145:205–213: wolves cut elk browsing → willow, aspen & cottonwood recover → beavers return. But this textbook cascade is now heavily qualified. Kauffman et al. (2010, Ecology) found no landscape-of-fear effect; Brice et al. (2022, Ecol. Lett.) showed non-random sampling exaggerated the willow/aspen recovery; Hobbs et al. (2024, Ecol. Monogr.) argue the northern range sits in a beaver- and water-table-dependent alternative state that wolves alone have not reversed. Elk also declined to human harvest (which killed more elk than wolves did), grizzlies, cougars and drought. The cascade is real but partial — treat the arrows here as contested, not settled.',
   'Southern Ocean (krill web)':'Antarctic krill (Euphausia superba) is the keystone linking phytoplankton to whales, seals and penguins across the Southern Ocean (synthesis after the Australian Antarctic Program; Trathan & Hill 2016).',
+  'Ediacaran Biota':'The innermost ring — the "Garden of Ediacara" (~635–538 Ma), the first large, soft-bodied life, hundreds of millions of years before the dinosaurs. It is deliberately almost an island: MOST of these organisms cannot be placed in any living phylum, and that unplaceability is the scientific point, so only one thread (Kimberella, the best early-bilaterian/mollusc candidate) reaches out toward the Cambrian. Dickinsonia was shown to be a true animal only in 2018, by the cholesterol left in its fossils. The rangeomorph fronds (Charnia, Rangea, Fractofusus) built fractal, mouthless bodies with no counterpart alive. Affinities here are the most contested in palaeontology and are revised constantly — Spriggina is no longer a trilobite ancestor, Arkarua no longer an echinoderm, Pteridinium no longer stood upright — so treat every placement as a current best guess, not fact. Ages from the Paleobiology Database. The step out to the Cambrian is only ~30 Myr, a real transition, not the huge gap that follows.',
   'Cambrian Explosion':'The core ring — the Burgess Shale (~508 Ma, British Columbia) and Chengjiang (~518 Ma, China) seas, where the major animal body plans first appear in the fossil record. It is also the worms\' deep-time root: the "ancestor" spokes run from here out to their living kin — Ottoia to the priapulid, Hallucigenia & Aysheaia to the velvet worm, Wiwaxia & Odontogriphus to the chitons, Pikaia to us, Haikouichthys to the fishes. These affinities are genuinely contested and have been revised repeatedly (Hallucigenia was reconstructed upside-down and back-to-front; Anomalocaris probably could NOT crush trilobites — Bicknell et al. 2023; Pikaia\'s notochord is now unconfirmed — Mussini et al. 2024), so treat the placements as the current best reading, not settled fact. Ages from the Paleobiology Database; marine names via WoRMS. Note the rings are ordinal: the jump from here to the Cretaceous skips ~440 Myr of the Paleozoic and early Mesozoic, not shown.',
   'Boreal forest (lynx–hare)':'The textbook ~10-year predator–prey cycle, reconstructed from Hudson\'s Bay Company fur records — Elton, C.S. & Nicholson, M. (1942), J. Anim. Ecol. 11:215–244.',
   'Bears (Ursidae)':'The bear family — 8 living species in 3 subfamilies: the giant panda (most basal), the spectacled bear (Tremarctinae, with the extinct short-faced bear), and the six Ursinae. One family spanning bamboo-specialist to seal-hunter. Phylogeny: Krause et al. (2008), BMC Evol. Biol. 8:220.',
@@ -1180,6 +1223,11 @@ const PHYLUM_OF = {
   priapulid:'Priapulida', radiodont:'stem-Arthropoda', opabiniid:'stem-Arthropoda',
   lobopodian:'stem-Panarthropoda', 'stem-mollusc':'Mollusca', arthropod:'Arthropoda',
   trilobite:'Arthropoda', chordate:'Chordata', vertebrate:'Chordata',
+  // Ediacaran — mostly outside the living tree
+  rangeomorph:'Petalonamae · stem-animal', erniettomorph:'Petalonamae · stem-animal',
+  proarticulatan:'Proarticulata · stem-animal', triradial:'Trilobozoa · stem-animal',
+  'early bilaterian':'Metazoa · stem-mollusc?', biomineralizer:'Metazoa · cnidarian-grade?',
+  'ediacaran disc':'Metazoa · unplaced',
 };
 function typeOf(n){ return TYPE_FIX[n.id] || n.kind; }
 const EDGE_COLOR = {eats:'#d55e00', ancestor:'#0072b2', ecology:'#009e73'};
@@ -1226,7 +1274,10 @@ const REGION_OVERRIDE = {
   // Cambrian — all marine
   ottoia:'Marine', anomalocaris:'Marine', opabinia:'Marine', hallucigenia:'Marine', aysheaia:'Marine',
   wiwaxia:'Marine', marrella:'Marine', pikaia:'Marine', trilobite:'Marine', odontogriphus:'Marine',
-  haikouichthys:'Marine', canadaspis:'Marine'
+  haikouichthys:'Marine', canadaspis:'Marine',
+  // Ediacaran — all marine
+  dickinsonia:'Marine', charnia:'Marine', kimberella:'Marine', spriggina:'Marine', tribrachidium:'Marine',
+  rangea:'Marine', cloudina:'Marine', yorgia:'Marine', arkarua:'Marine', fractofusus:'Marine', pteridinium:'Marine'
 };
 function regionOf(n){
   if(REGION_OVERRIDE[n.id]) return REGION_OVERRIDE[n.id];
@@ -1735,6 +1786,24 @@ const EDGES = [
   {from:'ottoia', to:'odontogriphus', type:'eats', note:'a burrowing predator of soft seafloor animals'},
   {from:'trilobite', to:'odontogriphus', type:'eats', note:'spiny leg-bases processed small prey'},
   {from:'wiwaxia', to:'marinedetritus', type:'eats', note:'rasped microbial mats on the seafloor'},
+
+  // ---- EDIACARAN: mostly an island of its own — these organisms fit no living phylum ----
+  // the rangeomorph fronds
+  {from:'charnia', to:'rangea', type:'ancestor', note:'both rangeomorphs — the fractal fronds'},
+  {from:'fractofusus', to:'rangea', type:'ancestor', note:'both rangeomorphs'},
+  {from:'pteridinium', to:'rangea', type:'ecology', note:'Nama-assemblage frond-world'},
+  {from:'cloudina', to:'rangea', type:'ecology', note:'terminal-Ediacaran Nama seafloor'},
+  // the proarticulatans / mat-grazers
+  {from:'spriggina', to:'dickinsonia', type:'ancestor', note:'both proarticulatans'},
+  {from:'yorgia', to:'dickinsonia', type:'ecology', note:'mobile mat-grazers that crept and fed'},
+  // the radial enigmas
+  {from:'tribrachidium', to:'arkarua', type:'ecology', note:'radial Ediacaran discs, no living kin'},
+  {from:'tribrachidium', to:'dickinsonia', type:'ecology', note:'the Ediacara Hills seafloor'},
+  // bridge between the two great guilds
+  {from:'rangea', to:'dickinsonia', type:'ecology', note:'fronds and mat-grazers — the Ediacaran "garden"'},
+  {from:'kimberella', to:'dickinsonia', type:'ecology', note:'White Sea mat-grazers'},
+  // the ONE evolutionary thread out: the mat-grazer that leads toward the molluscs
+  {from:'kimberella', to:'wiwaxia', type:'ancestor', note:'an Ediacaran mat-grazer; the Cambrian Wiwaxia is its analog on the road to molluscs'},
 ];
 EDGES.forEach((e,i)=>elements.push({data:{id:'e'+i, source:e.from, target:e.to,
   etype:e.type, color:EDGE_COLOR[e.type], lstyle:EDGE_STYLE[e.type], _e:e,
